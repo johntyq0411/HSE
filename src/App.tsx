@@ -223,10 +223,16 @@ export default function App() {
               <span className="text-gray-400">Welcome, </span>
               <strong className="text-slate-800">{userRole === 'Superuser' ? 'Global Admin' : `Coord (${userCountry})`}</strong>
             </div>
-            <div className="flex items-center select-none">
-              <svg viewBox="0 0 165 54" className="h-[36px] w-auto rounded shadow-xs" fill="none" xmlns="http://www.w3.org/2000/svg">
-                {/* Solid red background */}
-                <rect width="165" height="54" fill="#9D2235" />
+            <div className="flex items-center justify-center select-none p-1 bg-white border border-slate-100 rounded shadow-xs" style={{ minHeight: '40px' }}>
+              <svg 
+                viewBox="0 0 165 54" 
+                className="rounded object-contain shrink-0" 
+                style={{ height: '32px', width: 'auto', objectFit: 'contain' }}
+                fill="none" 
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                {/* Solid official DKSH red background (#BE0028) */}
+                <rect width="165" height="54" fill="#BE0028" />
                 
                 {/* Left side white semi-circle perfectly centered vertically */}
                 <path d="M 35,6 A 21,21 0 0 0 35,48 Z" fill="white" />
@@ -234,9 +240,9 @@ export default function App() {
                 {/* Palm tree branches scaled down slightly (0.75x) to fit fully inside the circle bounds */}
                 <g transform="translate(35, 27) scale(0.75)">
                   {/* Left branches (red, overlaying the white semi-circle background) */}
-                  <path d="M0,0 C-2,-12 -12,-20 -21,-20 C-11,-15 -3,-5 0,0" fill="#9D2235" />
-                  <path d="M0,0 C2,-12 -5,-23 -13,-25 C-6,-18 -1,-7 0,0" fill="#9D2235" />
-                  <path d="M0,0 C6,-10 3,-23 -5,-27 C0,-19 -1,-8 0,0" fill="#9D2235" />
+                  <path d="M0,0 C-2,-12 -12,-20 -21,-20 C-11,-15 -3,-5 0,0" fill="#BE0028" />
+                  <path d="M0,0 C2,-12 -5,-23 -13,-25 C-6,-18 -1,-7 0,0" fill="#BE0028" />
+                  <path d="M0,0 C6,-10 3,-23 -5,-27 C0,-19 -1,-8 0,0" fill="#BE0028" />
                   
                   {/* Right branches (white, overlaying the red background) */}
                   <path d="M0,0 C10,-8 11,-19 4,-26 C5,-18 2,-8 0,0" fill="white" />

@@ -393,69 +393,83 @@ export default function InspectionForm({
 
       {/* STEPPERS NAVIGATION RETAINING WORDING */}
       <div className="border-b border-gray-100 bg-gray-50/50 p-4">
-        <div className="max-w-3xl mx-auto flex justify-between items-center relative">
+        <div className="max-w-3xl mx-auto flex justify-between items-start relative">
           
-          {/* Background Connecting Line */}
-          <div className="absolute left-0 right-0 h-0.5 bg-gray-200 top-1/2 -translate-y-1/2 -z-0" />
+          {/* Background Connecting Line perfectly bisecting the 36px (w-9) circles at exactly 18px top offset */}
+          <div className="absolute left-0 right-0 h-0.5 bg-gray-200 top-[18px] -z-0" />
           
           <button
             onClick={() => setCurrentStep(1)}
-            className={`relative z-10 flex flex-col items-center gap-1 group`}
+            className="relative z-10 flex flex-col items-center gap-1 group w-1/4"
             id="form-step-1-btn"
           >
-            <div className={`w-9 h-9 rounded-full flex items-center justify-center font-bold text-sm border-2 transition ${
+            <div className={`w-9 h-9 rounded-full flex items-center justify-center font-bold text-sm border-2 transition shrink-0 ${
               currentStep === 1
                 ? 'bg-indigo-600 border-indigo-600 text-white shadow-md'
                 : 'bg-white border-gray-300 text-gray-500 hover:border-gray-400'
             }`}>
               1
             </div>
-            <span className="text-[11px] font-semibold text-gray-700">Reporting Step-1</span>
+            <span className={`text-[11px] font-semibold text-center leading-tight max-w-[85px] md:max-w-none transition-all duration-200 ${
+              currentStep === 1 ? 'block text-indigo-700 font-bold' : 'hidden md:block text-gray-500'
+            }`}>
+              Reporting Step-1
+            </span>
           </button>
 
           <button
             onClick={() => setCurrentStep(2)}
-            className={`relative z-10 flex flex-col items-center gap-1`}
+            className="relative z-10 flex flex-col items-center gap-1 w-1/4"
             id="form-step-2-btn"
           >
-            <div className={`w-9 h-9 rounded-full flex items-center justify-center font-bold text-sm border-2 transition ${
+            <div className={`w-9 h-9 rounded-full flex items-center justify-center font-bold text-sm border-2 transition shrink-0 ${
               currentStep === 2
                 ? 'bg-indigo-600 border-indigo-600 text-white shadow-md'
                 : 'bg-white border-gray-300 text-gray-500 hover:border-gray-400'
             }`}>
               2
             </div>
-            <span className="text-[11px] font-semibold text-gray-700">Step-2 (Roster)</span>
+            <span className={`text-[11px] font-semibold text-center leading-tight max-w-[85px] md:max-w-none transition-all duration-200 ${
+              currentStep === 2 ? 'block text-indigo-700 font-bold' : 'hidden md:block text-gray-500'
+            }`}>
+              Step-2 (Roster)
+            </span>
           </button>
 
           <button
             onClick={() => setCurrentStep(3)}
-            className={`relative z-10 flex flex-col items-center gap-1`}
+            className="relative z-10 flex flex-col items-center gap-1 w-1/4"
             id="form-step-3-btn"
           >
-            <div className={`w-9 h-9 rounded-full flex items-center justify-center font-bold text-sm border-2 transition ${
+            <div className={`w-9 h-9 rounded-full flex items-center justify-center font-bold text-sm border-2 transition shrink-0 ${
               currentStep === 3
                 ? 'bg-indigo-600 border-indigo-600 text-white shadow-md'
                 : 'bg-white border-gray-300 text-gray-500 hover:border-gray-400'
             }`}>
               3
             </div>
-            <span className="text-[11px] font-semibold text-gray-700">Step-3 (Safety Checks)</span>
+            <span className={`text-[11px] font-semibold text-center leading-tight max-w-[85px] md:max-w-none transition-all duration-200 ${
+              currentStep === 3 ? 'block text-indigo-700 font-bold' : 'hidden md:block text-gray-500'
+            }`}>
+              Step-3 (Safety Checks)
+            </span>
           </button>
 
           <button
             onClick={() => setCurrentStep(4)}
-            className="relative z-10 flex flex-col items-center gap-1"
+            className="relative z-10 flex flex-col items-center gap-1 w-1/4"
             id="form-step-4-btn"
           >
-            <div className={`w-9 h-9 rounded-full flex items-center justify-center font-bold text-sm border-2 transition relative ${
+            <div className={`w-9 h-9 rounded-full flex items-center justify-center font-bold text-sm border-2 transition relative shrink-0 ${
               currentStep === 4
                 ? 'bg-indigo-600 border-indigo-600 text-white shadow-md'
                 : 'bg-white border-gray-300 text-gray-500 hover:border-gray-400'
             }`}>
               4
             </div>
-            <span className="text-[11px] font-semibold text-gray-700 flex items-center gap-0.5">
+            <span className={`text-[11px] font-semibold text-center leading-tight max-w-[85px] md:max-w-none transition-all duration-200 ${
+              currentStep === 4 ? 'block text-indigo-700 font-bold' : 'hidden md:block text-gray-500'
+            }`}>
               {userRole === 'Reporter' ? 'Step-4 (Consent)' : 'Step-4 (CAPA & Close)'}
             </span>
           </button>

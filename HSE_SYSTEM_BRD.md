@@ -339,7 +339,7 @@ To illustrate the real-world operational flows within the DKSH HSE CAPA System, 
   1. **Local Performance Audit**: Navigates to the "Country Dashboard" to audit local statistics. The multi-market system automatically pre-filters the view specifically to Thailand.
   2. **Operational Logging**: Clicks the restricted "Insert Labor Hours" action block, enters the active operational month, and logs the latest work hours to keep safety rate computations (LTIFR / TRIFR) mathematically precise.
   3. **Root Cause Analysis (5-Whys)**: Selects a newly submitted ticket from the "My HSE Tickets Log" and transitions to Step 4. They perform a structured 5-Whys diagnostic chain to map the systemic root failure.
-  4. **CAPA Assignment**: Defines immediate containment actions and assigns long-term preventive actions with explicit owners and realistic target completion dates.
+  4. **CAPA Assignment & Compliance Sign-off**: Defines immediate containment actions, assigns long-term preventive actions with explicit owners/target dates, and performs the final verifier sign-off to officially close out and archive the resolved ticket for their country.
 
 ### Journey 3: The Regional HSE Manager / Superuser (Level 3 Role)
 * **Context**: A regional director oversees safety standards across all of Asia-Pacific and needs global configuration rights.

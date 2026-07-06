@@ -155,3 +155,43 @@
     padding-bottom: 16px !important;
   }
 }
+
+/* ========================================================= */
+/* DESKTOP RESPONSIVE LAYOUT UPGRADES (MOBILE-FIRST ALIGNMENT) */
+/* ========================================================= */
+@media (min-width: 1024px) {
+  /* 1. EXPAND MAIN CONTAINER & DESKTOP GRID CONVERSION */
+  #main-content-stage-container {
+    max-width: 1440px !important;
+    margin: 0 auto !important;
+  }
+
+  #desktop-layout-wrapper {
+    display: flex !important;
+    align-items: flex-start !important;
+    gap: 32px !important;
+  }
+
+  /* 2. FLUID FORM CARD */
+  #main-display-core-container {
+    flex: 1 !important;
+  }
+
+  .global-form-container {
+    max-width: 100% !important; /* Overrides the tablet-centered 600px max-width to expand fluidly */
+  }
+
+  /* 3. MULTI-COLUMN FORM FIELDS inside Details of Person Injured */
+  #person-injured-inputs-grid {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)) !important;
+    gap: 16px !important;
+  }
+
+  /* 4. SIDE PANEL ANCHORING */
+  #active-drafts-catalog-container {
+    width: 320px !important;
+    flex-shrink: 0 !important;
+  }
+}
+

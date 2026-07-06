@@ -324,12 +324,12 @@ export default function App() {
       </div>
 
       {/* 3. CORE ROUTER STAGE */}
-      <div className="max-w-7xl mx-auto px-4 md:px-6 py-4 main-content-stage">
+      <div className="max-w-7xl mx-auto px-4 md:px-6 py-4 main-content-stage" id="main-content-stage-container">
         
-        <div className="grid grid-cols-1 xl:grid-cols-12 gap-8 items-start">
+        <div className="grid grid-cols-1 xl:grid-cols-12 gap-8 items-start" id="desktop-layout-wrapper">
           
           {/* Main Display Core Container */}
-          <div className={`${activeTab === 'ReportForm' ? 'xl:col-span-9' : 'xl:col-span-12'}`}>
+          <div className={`${activeTab === 'ReportForm' ? 'xl:col-span-9' : 'xl:col-span-12'}`} id="main-display-core-container">
             
             {activeTab === 'Dashboard' && (
               <Dashboard
@@ -383,7 +383,7 @@ export default function App() {
 
           {/* SIDE DRAFT CATALOG: Visible only when form active */}
           {activeTab === 'ReportForm' && (
-            <div className="xl:col-span-3 bg-white border border-gray-100 rounded-2xl p-5 shadow-xl space-y-4">
+            <div className="xl:col-span-3 bg-white border border-gray-100 rounded-2xl p-5 shadow-xl space-y-4" id="active-drafts-catalog-container">
               
               <div className="border-b pb-3.5">
                 <h4 className="font-bold text-xs text-gray-900 uppercase tracking-widest flex items-center gap-1">

@@ -630,7 +630,7 @@ export default function InspectionForm({
               </div>
 
               {/* Grid to Add Person */}
-              <div className="bg-white p-4 rounded-lg border border-slate-200 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
+              <div id="person-injured-inputs-grid" className="bg-white p-4 rounded-lg border border-slate-200 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
                 <div>
                   <label className="block text-[10px] font-bold text-gray-500 uppercase">A. Name * (To add)</label>
                   <input

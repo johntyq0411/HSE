@@ -48,8 +48,8 @@ export default function DCConfig({
     setTimeout(() => setFeedback(null), 3000);
   };
 
-  // If user is a lower level Reporter, display restricted UI
-  const isAuthorized = userRole === 'Superuser' || userRole === 'Level2';
+  // Only Regional HSE Manager (Superuser) is authorized to configure master DC list
+  const isAuthorized = userRole === 'Superuser';
 
   return (
     <div className="space-y-8">
@@ -59,7 +59,7 @@ export default function DCConfig({
         <div className="space-y-1">
           <div className="flex items-center gap-2">
             <KeySquare className="w-5 h-5 text-red-200" />
-            <h3 className="font-bold text-sm tracking-tight uppercase">Config Auths: Level 2 & Super User</h3>
+            <h3 className="font-bold text-sm tracking-tight uppercase">Config Auths: Regional HSE Manager (Super User) Only</h3>
           </div>
           <p className="text-xs text-slate-100">
             Current logged in role has authorization: <strong className={isAuthorized ? 'text-emerald-300 font-bold' : 'text-rose-300'}>{userRole.toUpperCase()}</strong>
@@ -81,9 +81,9 @@ export default function DCConfig({
 
           {!isAuthorized ? (
             <div className="bg-rose-50 text-rose-800 text-xs p-4 rounded-xl border border-rose-100 space-y-2">
-              <p className="font-semibold">⚠️ Access Restricted (Level 2 Required)</p>
+              <p className="font-semibold">⚠️ Access Restricted (Regional HSE Manager Required)</p>
               <p>As per the spreadsheet requirements: <em>"*Super users have the accessibility to add on DC list and user / any relevant information."</em></p>
-              <p className="text-[10px] text-gray-500 font-mono mt-1">Please use the Role Switcher dropdown in the top header to elevate your role to "Level2" or "Superuser" to test this creation workflow!</p>
+              <p className="text-[10px] text-gray-500 font-mono mt-1">Please use the Role Switcher dropdown in the top header to elevate your role to "Superuser" to test this configuration workflow!</p>
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-4">

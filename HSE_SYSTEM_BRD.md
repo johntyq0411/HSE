@@ -78,7 +78,7 @@ To secure corporate data, four distinct system roles are supported. Each role di
 | **Conduct Investigation (Step 4)** | **No** (disabled in wizard) | **Yes** (full write & verification) | **Yes** (full write & verification) | **Yes** (full write & verification) |
 | **Edit Incident Drafts** | Yes (only their own drafts) | Yes (all drafts within their market) | **Yes** (all drafts in their region) | **Yes** (unrestricted editing) |
 | **Modify Labor Hours Grid** | **No** (view-only) | **Yes** (authorized market only) | **Yes** (authorized region markets) | **Yes** (unrestricted saving) |
-| **Configure Masters (DCs)** | **No** (view-only UI) | **Yes** (can add/toggle local DCs) | **No** (view-only configuration lists) | **Yes** (full administrative master access) |
+| **Configure Masters (DCs)** | **No** (view-only UI) | **No** (view-only configuration lists / restricted) | **Yes** (full regional master DC configuration access) | **Yes** (full administrative master access) |
 | **Extract Safety Data** | Redacted CSV format (no PII) | Full CSV/XLSX for local market | **Yes** (Full Regional CSV & PDF Summaries) | **Yes** (Full Regional CSV/XLSX & executive PDF) |
 
 ---
@@ -251,8 +251,9 @@ Designed as a structured multi-step wizard to guide users from initial notificat
 ### 4.4 Module 4: Masters Configuration (DC Config)
 - **Objective**: Manage organizational units (Distribution Centers) dynamically.
 - **Controls**:
-  - **Site Registration**: Add Distribution Centers by specifying Name, Operating Country, and Assigned Manager.
-  - **Activation Toggle**: Easily enable or disable sites. Inactive DCs are automatically hidden from the incident reporting wizard to prevent data entries for closed facilities.
+  - **Site Registration**: Add Distribution Centers by specifying Name, Operating Country, and Assigned Manager. (Restricted to Regional HSE Manager / Superuser only).
+  - **Activation Toggle**: Easily enable or disable sites. Inactive DCs are automatically hidden from the incident reporting wizard. (Restricted to Regional HSE Manager / Superuser only).
+  - **Role Restrictions**: Country HSE Managers (Level 2) and standard Reporters (Level 1) are strictly restricted to read-only views of the Distribution Center lists and are blocked from registering new facilities or toggling statuses.
 
 #### Fields involved in Module 4:
 | No. | Field Name | Field Type | Mandatory | Description / Validation |

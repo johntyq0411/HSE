@@ -47,12 +47,22 @@ export default function HumanFigure({
   hideLabels = false
 }: HumanFigureProps) {
   const [hoveredPart, setHoveredPart] = React.useState<BodyPartKey | null>(null);
+  const [mobileTappedPart, setMobileTappedPart] = React.useState<BodyPartKey | null>(null);
 
   const handlePartClick = (key: BodyPartKey) => {
     if (onChange) {
       onChange(key, !selectedParts[key]);
     }
   };
+
+  React.useEffect(() => {
+    if (mobileTappedPart) {
+      const timer = setTimeout(() => {
+        setMobileTappedPart(null);
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [mobileTappedPart]);
 
   // Helper to get color intensity based on incident counts featuring DKSH Red gradients
   const getHeatmapColor = (count: number) => {
@@ -65,7 +75,7 @@ export default function HumanFigure({
   const keys = Object.keys(PART_COORDINATES) as BodyPartKey[];
 
   return (
-    <div className={`relative w-full mx-auto flex flex-col md:flex-row items-center justify-center transition-all ${
+    <div id="human-figure-outer-container" className={`relative w-full mx-auto flex flex-col md:flex-row items-center justify-center transition-all ${
       hideLabels 
         ? 'p-0 bg-transparent border-none shadow-none gap-0' 
         : 'max-w-4xl bg-white rounded-2xl border border-gray-200 p-6 gap-8 shadow-sm'
@@ -83,7 +93,7 @@ export default function HumanFigure({
 
       {/* LEFT COLUMN: Labels (pointing to left side coordinates) */}
       {!hideLabels && (
-        <div className="w-full md:w-[290px] flex flex-col gap-2 select-none text-right">
+        <div id="left-side-indicators-container" className="hidden md:flex w-full md:w-[290px] flex-col gap-2 select-none text-right">
           <h4 className="text-[10px] font-bold text-[#5A5D60] uppercase tracking-wider border-b pb-1 mb-1">Left Side Indicators</h4>
           {keys
             .filter(k => PART_COORDINATES[k].labelSide === 'left')
@@ -119,7 +129,7 @@ export default function HumanFigure({
       )}
 
       {/* CENTER COLUMN: Symmetrical Anatomical Blueprint Vector */}
-      <div className="relative w-[300px] h-[520px] flex items-center justify-center bg-[#F4F4F4] rounded-xl border border-gray-200/80 p-2 overflow-hidden shadow-2xs">
+      <div id="human-figure-center-graphic-wrapper" className="relative w-[300px] h-[520px] flex items-center justify-center bg-[#F4F4F4] rounded-xl border border-gray-200/80 p-2 overflow-visible shadow-2xs">
         <svg
           viewBox="0 0 200 500"
           className="w-full h-full"
@@ -591,10 +601,22 @@ export default function HumanFigure({
               <g
                 key={`hotspot-${k}`}
                 className="cursor-pointer transition-all duration-200"
-                onClick={() => handlePartClick(k)}
+                onClick={() => {
+                  handlePartClick(k);
+                  setMobileTappedPart(k);
+                }}
                 onMouseEnter={() => setHoveredPart(k)}
                 onMouseLeave={() => setHoveredPart(null)}
               >
+                {/* Invisible larger touch target circle (at least 44px by 44px) to prevent frustrating mis-taps on mobile */}
+                <circle
+                  cx={coord.x}
+                  cy={coord.y}
+                  r={22}
+                  fill="transparent"
+                  className="cursor-pointer"
+                />
+
                 {/* Multi-layered Pulsing Radar Ring on selection or high-count items */}
                 {(isSelected || (mode === 'dashboard-view' && count > 0)) && (
                   <>
@@ -652,8 +674,67 @@ export default function HumanFigure({
           })}
         </svg>
 
+        {/* Mobile touch-first popover/tooltip near the dot */}
+        {mobileTappedPart && (() => {
+          const coord = PART_COORDINATES[mobileTappedPart];
+          const isTop = coord.y < 80; // Head, Eye, Face, Ear, Tooth
+          const isFarLeft = coord.x < 65;
+          const isFarRight = coord.x > 135;
+
+          const topPercent = (coord.y / 500) * 100;
+          const topStyle = isTop 
+            ? `calc(${topPercent}% + 22px)` 
+            : `calc(${topPercent}% - 44px)`;
+
+          const leftPercent = (coord.x / 200) * 100;
+          let leftStyle = `${leftPercent}%`;
+          let transformStyle = 'translateX(-50%)';
+
+          if (isFarLeft) {
+            transformStyle = 'translateX(5px)';
+          } else if (isFarRight) {
+            transformStyle = 'translateX(-95%)';
+          }
+
+          return (
+            <div
+              className="absolute bg-slate-900 text-white text-[11px] font-bold px-2.5 py-1.5 rounded-lg shadow-xl border border-slate-700 z-50 flex items-center gap-1.5 animate-fade-in pointer-events-auto md:hidden"
+              style={{
+                top: topStyle,
+                left: leftStyle,
+                transform: transformStyle,
+              }}
+            >
+              <span>{BODY_PARTS[mobileTappedPart]}</span>
+              <span className={selectedParts[mobileTappedPart] ? 'text-rose-400 font-extrabold' : 'text-gray-400'}>
+                ({selectedParts[mobileTappedPart] ? 'Selected' : 'Removed'})
+              </span>
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setMobileTappedPart(null);
+                }}
+                className="ml-1 text-gray-400 hover:text-white p-0.5 rounded cursor-pointer"
+              >
+                ✕
+              </button>
+              {/* Tooltip caret arrow: point up if top (rendered below), point down if normal (rendered above) */}
+              {isTop ? (
+                <div className={`absolute bottom-full border-4 border-transparent border-b-slate-900 ${
+                  isFarLeft ? 'left-[15%]' : isFarRight ? 'left-[85%]' : 'left-1/2 -translate-x-1/2'
+                }`} />
+              ) : (
+                <div className={`absolute top-full border-4 border-transparent border-t-slate-900 ${
+                  isFarLeft ? 'left-[15%]' : isFarRight ? 'left-[85%]' : 'left-1/2 -translate-x-1/2'
+                }`} />
+              )}
+            </div>
+          );
+        })()}
+
         {/* Floating context banner inside component viewport when hovering body segments */}
-        {hoveredPart && (
+        {hoveredPart && !mobileTappedPart && (
           <div className="absolute bottom-3 left-3 right-3 bg-slate-900/95 text-white p-2.5 rounded-lg border border-slate-700/80 shadow-lg z-25 backdrop-blur-xs transition-opacity duration-150">
             <div className="font-bold flex justify-between items-center text-xs">
               <span className="tracking-wide uppercase font-semibold text-gray-100">{BODY_PARTS[hoveredPart]}</span>
@@ -674,7 +755,7 @@ export default function HumanFigure({
 
       {/* RIGHT COLUMN: Labels (pointing to right side coordinates) */}
       {!hideLabels && (
-        <div className="w-full md:w-[290px] flex flex-col gap-2 select-none text-left">
+        <div id="right-side-indicators-container" className="hidden md:flex w-full md:w-[290px] flex-col gap-2 select-none text-left">
           <h4 className="text-[10px] font-bold text-[#5A5D60] uppercase tracking-wider border-b pb-1 mb-1">Right Side Indicators</h4>
           {keys
             .filter(k => PART_COORDINATES[k].labelSide === 'right')
@@ -706,6 +787,44 @@ export default function HumanFigure({
                 </div>
               );
             })}
+        </div>
+      )}
+
+      {/* 5. SELECTION SUMMARY FEEDBACK: Visible only on mobile screens at the bottom of the central graphic wrapper */}
+      {mode === 'interactive-select' && (
+        <div className="w-full mt-4 p-4 bg-slate-50 border border-slate-200 rounded-xl md:hidden text-left shadow-xs" id="mobile-selection-summary">
+          <h4 className="text-xs font-bold text-slate-700 uppercase tracking-wider mb-2.5">Selected Body Parts</h4>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', alignItems: 'center', minHeight: '48px' }}>
+            {Object.keys(selectedParts)
+              .filter(key => selectedParts[key as BodyPartKey])
+              .map(key => {
+                const bodyPartKey = key as BodyPartKey;
+                const label = BODY_PARTS[bodyPartKey];
+                return (
+                  <span
+                    key={bodyPartKey}
+                    className="inline-flex items-center gap-1.5 bg-rose-100 text-rose-800 text-xs font-bold px-3 py-1.5 rounded-full border border-rose-200 shadow-3xs"
+                  >
+                    <span>{label}</span>
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        if (onChange) {
+                          onChange(bodyPartKey, false);
+                        }
+                      }}
+                      className="text-rose-500 hover:text-rose-800 font-extrabold text-[13px] ml-1 focus:outline-none cursor-pointer"
+                    >
+                      ✕
+                    </button>
+                  </span>
+                );
+              })}
+            {Object.keys(selectedParts).filter(key => selectedParts[key as BodyPartKey]).length === 0 && (
+              <p className="text-xs text-slate-400 italic">None selected (tap hotspots above)</p>
+            )}
+          </div>
         </div>
       )}
     </div>

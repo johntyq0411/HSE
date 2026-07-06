@@ -189,7 +189,13 @@ Designed as a structured multi-step wizard to guide users from initial notificat
 - **Interactive Body Map (HumanFigure)**:
   - Custom vector graphic representing human anatomy from front and back profiles.
   - Users can click on anatomical nodes (e.g., Head, Face, Eye, Shoulder, Hands, Finger, Knee, Feet) to toggle injury status.
-  - Highlighted parts turn red to indicate an injury.
+  - Highlighted parts turn red with a pulsing radar ring to indicate an injury.
+  - **Mobile-Specific Touch-First UX Refactor (max-width: 767px)**:
+    - **Decluttered UI**: Left/right side textual indicators and the standard checkbox lists are completely hidden (`display: none;`) to maximize vertical breathing space and isolate the interactive graphic.
+    - **Centered Diagram**: The central anatomical illustration is isolated, centered (`margin: 0 auto;`), and scaled cleanly to standard mobile viewports (`width: 100%; max-width: 350px;`) without horizontal scrolling.
+    - **Expanded Touch Targets**: Invisible overlay hit circles of at least `44px x 44px` are configured for all hotspots to eliminate frustrating mis-taps on small touchscreens.
+    - **Boundary-Aware Tooltips**: Tooltips adapt dynamically to coordinate locations. High hotspots (like the Head) render tooltips below the node rather than above, and extreme edge hotspots use horizontal offset shifts to completely eliminate text clipping or overflow against container boundaries.
+    - **Persistent Selection Summary (Chip List)**: A wrap-aligned flexbox chip list (`display: flex; flex-wrap: wrap; gap: 8px; align-items: center; min-height: 48px;`) displays active selections as visual pills (e.g. `[ Knee ✕ ]`). Tapping the '✕' on a chip immediately removes it from the selection list and turns off the corresponding active radar dot on the body graphic.
 - **17-Point Classification Criteria Checklist**:
   - Complete checklist determining the severity of the event (e.g., results in death, recovery more than 6 months, absence more than 1 day with Lost Time Days input, medical treatment beyond first aid, significant injury, or simple first aid).
   - This systematic questionnaire automatically classifies the event severity (e.g., LTI, MTC, FAC, Near Miss) in the backend.
@@ -201,14 +207,16 @@ Designed as a structured multi-step wizard to guide users from initial notificat
 | 2 | **17-Point Criteria Checklist**| Interactive Checkboxes | Yes | Multiple-choice checkboxes mapping to severity classification standards. |
 | 3 | **Lost Time Days** | Numeric Input | Yes (if LTI is triggered) | Calculated total work shifts lost due to injury. Mandatory only when LTI or recovery period criteria is flagged. |
 
-#### Step 4: Root Cause Analysis, Actions & Consent (Step-4 for All Roles)
+#### Step 4: Root Cause Analysis, Actions & Sign-off (HSE Managers & Superusers Only)
+- **Role Restrictions**: Level 1 Reporters are strictly restricted from visiting or submitting Step 4. Instead, their wizard consists of 3 steps, and they sign their Personal Data Protection Act (PDPA) Consent and submit their Incident Report directly at the bottom of **Step 3**.
 - **5-Whys Methodology Section**: Sequential input blocks to trace failure chains (Why did it happen? -> Direct Cause -> System Failure -> Ineffective Control -> Process Gap).
 - **Corrective Actions**: Specific inputs for Immediate Corrective Actions and Long-Term Preventive Actions, along with Target Completion Dates.
 - **Official Closure Verification**: Sign-off block specifying the verifier's identity, date, and final closing remarks. Updates the ticket status to `Closed`.
-- **Personal Data Protection Act (PDPA) Consent (for All Roles prior to submission)**:
-  - Displayed at the bottom of Step 4 for all roles (Reporter, Level 2 Country Manager, Regional Manager, Superuser) prior to final submission.
+- **Personal Data Protection Act (PDPA) Consent**:
+  - For Reporters: Displayed at the bottom of Step 3 prior to final submission.
+  - For HSE Managers & Superusers: Displayed at the bottom of Step 4 prior to investigation closeout.
   - Ensures compliance with personal data collection and processing policies within DKSH.
-  - **Dim and Lock Control**: If the PDPA consent checkbox is not checked, the final action button ("Submit Incident Report" for Reporter, "Submit Report & Close" for Level 2/3/Admin) is visually dimmed and locked (disabled) to enforce data privacy compliance before any data can be saved.
+  - **Dim and Lock Control**: If the PDPA consent checkbox is not checked, the final submission action button is visually dimmed and locked (disabled) to enforce data privacy compliance before any data can be saved.
 
 #### Fields involved in Step 4 (CAPA, Consent & Investigation):
 | No. | Field Name | Field Type | Mandatory | Description / Validation |
@@ -333,7 +341,7 @@ To illustrate the real-world operational flows within the DKSH HSE CAPA System, 
   2. **Context Logging (Step 1)**: Selects the date, time, and incident category (e.g., Near Miss), then inputs the active Distribution Center.
   3. **Roster Enrollment (Step 2)**: Adds involved persons and key witnesses to the local session roster with corresponding IDs and departments.
   4. **Interim Saving**: Realizing they need to verify a badge ID, the supervisor clicks "Save Draft" at Step 2. The system caches all typed inputs locally and issues a success toast.
-  5. **Resuming and Completion (Step 3 & 4)**: Returning later, they find their draft under "My HSE Tickets Log", click "Edit", and the wizard immediately resumes at Step 2 with all values restored. They proceed to describe the narrative, complete the safety checklist, sign the PDPA privacy consent, and submit the ticket.
+  5. **Resuming and Completion (Step 3)**: Returning later, they find their draft under "My HSE Tickets Log", click "Edit", and the wizard immediately resumes at Step 2 with all values restored. They proceed to Step 3 to describe the narrative, complete the safety checklist, sign the PDPA privacy consent directly on Step 3, and submit the ticket. (They are restricted from accessing Step 4).
 
 ### Journey 2: The Country HSE Manager (Level 2 Role)
 * **Context**: An HSE Manager responsible for operations in a single country (e.g., Thailand) logs in to manage local KPIs and investigate tickets.

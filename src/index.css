@@ -195,3 +195,28 @@
   }
 }
 
+/* ========================================================= */
+/* MOBILE BODY PARTS UX REFACTOR                             */
+/* ========================================================= */
+@media (max-width: 767px) {
+  /* 1. DECLUTTER THE UI: Remove checklist & indicators from mobile flow */
+  #mobile-hide-checkbox-list,
+  #left-side-indicators-container,
+  #right-side-indicators-container {
+    display: none !important;
+  }
+
+  /* 2. ISOLATE THE DIAGRAM: Center and scale the body graphic cleanly */
+  #human-figure-center-graphic-wrapper {
+    margin: 0 auto !important;
+    width: 100% !important;
+    max-width: 350px !important;
+  }
+
+  /* 3. TOUCH-FIRST ACTIVE INDICATORS */
+  #human-figure-center-graphic-wrapper circle {
+    cursor: pointer !important;
+  }
+}
+
+

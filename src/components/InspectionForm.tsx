@@ -145,8 +145,10 @@ export default function InspectionForm({
       if (existing) {
         setReport(JSON.parse(JSON.stringify(existing))); // deep copy
         if (existing.status === 'draft' && existing.lastStep) {
-          setCurrentStep(existing.lastStep);
-          showFeedback(`Loaded draft successfully! Resumed at Step ${existing.lastStep}.`);
+          const maxAllowed = userRole === 'Reporter' ? 3 : 4;
+          const resumedStep = Math.min(existing.lastStep, maxAllowed);
+          setCurrentStep(resumedStep);
+          showFeedback(`Loaded draft successfully! Resumed at Step ${resumedStep}.`);
         } else {
           setCurrentStep(1);
           showFeedback('Loaded report successfully!');
@@ -327,7 +329,7 @@ export default function InspectionForm({
 
     if (!report.pdpaConsent) {
       showFeedback('Consent to the PDPA statement is mandatory before submitting.', true);
-      setCurrentStep(4);
+      setCurrentStep(userRole === 'Reporter' ? 3 : 4);
       return;
     }
 
@@ -400,7 +402,7 @@ export default function InspectionForm({
           
           <button
             onClick={() => setCurrentStep(1)}
-            className="relative z-10 flex flex-col items-center gap-1 group w-1/4"
+            className={`relative z-10 flex flex-col items-center gap-1 group ${userRole === 'Reporter' ? 'w-1/3' : 'w-1/4'}`}
             id="form-step-1-btn"
           >
             <div className={`w-9 h-9 rounded-full flex items-center justify-center font-bold text-sm border-2 transition shrink-0 ${
@@ -419,7 +421,7 @@ export default function InspectionForm({
 
           <button
             onClick={() => setCurrentStep(2)}
-            className="relative z-10 flex flex-col items-center gap-1 w-1/4"
+            className={`relative z-10 flex flex-col items-center gap-1 ${userRole === 'Reporter' ? 'w-1/3' : 'w-1/4'}`}
             id="form-step-2-btn"
           >
             <div className={`w-9 h-9 rounded-full flex items-center justify-center font-bold text-sm border-2 transition shrink-0 ${
@@ -438,7 +440,7 @@ export default function InspectionForm({
 
           <button
             onClick={() => setCurrentStep(3)}
-            className="relative z-10 flex flex-col items-center gap-1 w-1/4"
+            className={`relative z-10 flex flex-col items-center gap-1 ${userRole === 'Reporter' ? 'w-1/3' : 'w-1/4'}`}
             id="form-step-3-btn"
           >
             <div className={`w-9 h-9 rounded-full flex items-center justify-center font-bold text-sm border-2 transition shrink-0 ${
@@ -455,24 +457,26 @@ export default function InspectionForm({
             </span>
           </button>
 
-          <button
-            onClick={() => setCurrentStep(4)}
-            className="relative z-10 flex flex-col items-center gap-1 w-1/4"
-            id="form-step-4-btn"
-          >
-            <div className={`w-9 h-9 rounded-full flex items-center justify-center font-bold text-sm border-2 transition relative shrink-0 ${
-              currentStep === 4
-                ? 'bg-indigo-600 border-indigo-600 text-white shadow-md'
-                : 'bg-white border-gray-300 text-gray-500 hover:border-gray-400'
-            }`}>
-              4
-            </div>
-            <span className={`text-[11px] font-semibold text-center leading-tight max-w-[85px] md:max-w-none transition-all duration-200 ${
-              currentStep === 4 ? 'block text-indigo-700 font-bold' : 'hidden md:block text-gray-500'
-            }`}>
-              {userRole === 'Reporter' ? 'Step-4 (Consent)' : 'Step-4 (CAPA & Close)'}
-            </span>
-          </button>
+          {userRole !== 'Reporter' && (
+            <button
+              onClick={() => setCurrentStep(4)}
+              className="relative z-10 flex flex-col items-center gap-1 w-1/4"
+              id="form-step-4-btn"
+            >
+              <div className={`w-9 h-9 rounded-full flex items-center justify-center font-bold text-sm border-2 transition relative shrink-0 ${
+                currentStep === 4
+                  ? 'bg-indigo-600 border-indigo-600 text-white shadow-md'
+                  : 'bg-white border-gray-300 text-gray-500 hover:border-gray-400'
+              }`}>
+                4
+              </div>
+              <span className={`text-[11px] font-semibold text-center leading-tight max-w-[85px] md:max-w-none transition-all duration-200 ${
+                currentStep === 4 ? 'block text-indigo-700 font-bold' : 'hidden md:block text-gray-500'
+              }`}>
+                Step-4 (CAPA & Close)
+              </span>
+            </button>
+          )}
 
         </div>
       </div>
@@ -1222,7 +1226,7 @@ export default function InspectionForm({
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
                   
                   {/* Left checklist box (4 Cols) */}
-                  <div className="lg:col-span-4 bg-white p-4 rounded-lg border border-slate-200 space-y-2 h-[480px] overflow-y-auto">
+                  <div id="mobile-hide-checkbox-list" className="hidden lg:block lg:col-span-4 bg-white p-4 rounded-lg border border-slate-200 space-y-2 h-[480px] overflow-y-auto">
                     <span className="text-[10px] bg-slate-100 text-slate-700 px-2 py-1 rounded font-bold uppercase tracking-wider block mb-3">
                       List Checklist
                     </span>
@@ -1293,47 +1297,38 @@ export default function InspectionForm({
               </div>
             )}
 
-
-          </div>
-        )}
-
-        {/* ========================================================= */}
-        {/* STEP 4: PERSONAL DATA PROTECTION CONSENT (REPORTER ONLY) */}
-        {/* ========================================================= */}
-        {currentStep === 4 && userRole === 'Reporter' && (
-          <div className="space-y-6 animate-fade-in">
-            <div className="border-l-4 border-rose-500 bg-rose-50/50 p-4 rounded-r-lg">
-              <h3 className="text-sm font-bold text-rose-800 uppercase tracking-wide">Personal Data Protection Consent (Step 4)</h3>
-              <p className="text-xs text-rose-700">Please review and consent to the data protection policy before final submission of this Incident Report.</p>
-            </div>
-
-            <div className="bg-rose-50/50 border border-rose-200 rounded-xl p-6 space-y-4 shadow-sm" id="pdpa-consent-container-step4-reporter">
-              <div className="flex items-start gap-3">
-                <ShieldCheck className="w-5 h-5 text-rose-600 mt-0.5 shrink-0" />
-                <div className="space-y-2">
-                  <h4 className="text-xs font-bold text-rose-900 uppercase tracking-widest">
-                    Personal Data Protection Act (PDPA) Consent
-                  </h4>
-                  <p className="text-xs text-rose-800 leading-relaxed font-medium">
-                    In accordance with the Personal Data Protection Act (PDPA), DKSH is committed to protecting your personal data and ensuring that your privacy is respected. By submitting this form, you consent to the collection, use, disclosure, and processing of your personal data for the purpose of HSE Incident Reporting and related investigation, corrective action, compliance, and record-keeping activities within DKSH.
-                  </p>
+            {/* PDPA Consent Statement for Reporter on Step 3 */}
+            {userRole === 'Reporter' && (
+              <div className="bg-rose-50/50 border border-rose-200 rounded-xl p-6 space-y-4 shadow-sm mt-6 animate-fade-in" id="pdpa-consent-container-step3-reporter">
+                <div className="flex items-start gap-3">
+                  <ShieldCheck className="w-5 h-5 text-rose-600 mt-0.5 shrink-0" />
+                  <div className="space-y-2">
+                    <h4 className="text-xs font-bold text-rose-900 uppercase tracking-widest">
+                      Personal Data Protection Act (PDPA) Consent
+                    </h4>
+                    <p className="text-xs text-rose-800 leading-relaxed font-medium">
+                      In accordance with the Personal Data Protection Act (PDPA), DKSH is committed to protecting your personal data and ensuring that your privacy is respected. By submitting this form, you consent to the collection, use, disclosure, and processing of your personal data for the purpose of HSE Incident Reporting and related investigation, corrective action, compliance, and record-keeping activities within DKSH.
+                    </p>
+                  </div>
+                </div>
+                <div className="pt-2 border-t border-rose-200/60">
+                  <label className="flex items-center gap-3 cursor-pointer p-2.5 rounded-lg bg-white border border-rose-200 hover:bg-rose-50 transition">
+                    <input
+                      type="checkbox"
+                      checked={!!report.pdpaConsent}
+                      onChange={(e) => handleFieldChange('pdpaConsent', e.target.checked)}
+                      className="w-4 h-4 text-rose-600 border-rose-300 rounded focus:ring-rose-500 cursor-pointer"
+                      id="pdpa-consent-checkbox-step3-reporter"
+                    />
+                    <span className="text-xs font-bold text-rose-950">
+                      I agree and consent to the PDPA statement *
+                    </span>
+                  </label>
                 </div>
               </div>
-              <div className="pt-2 border-t border-rose-200/60">
-                <label className="flex items-center gap-3 cursor-pointer p-2.5 rounded-lg bg-white border border-rose-200 hover:bg-rose-50 transition">
-                  <input
-                    type="checkbox"
-                    checked={!!report.pdpaConsent}
-                    onChange={(e) => handleFieldChange('pdpaConsent', e.target.checked)}
-                    className="w-4 h-4 text-rose-600 border-rose-300 rounded focus:ring-rose-500 cursor-pointer"
-                    id="pdpa-consent-checkbox-step4-reporter"
-                  />
-                  <span className="text-xs font-bold text-rose-950">
-                    I agree and consent to the PDPA statement
-                  </span>
-                </label>
-              </div>
-            </div>
+            )}
+
+
           </div>
         )}
 
@@ -1560,10 +1555,10 @@ export default function InspectionForm({
             <Save className="w-3.5 h-3.5" /> Save Draft
           </button>
 
-          {currentStep < 4 ? (
+          {currentStep < (userRole === 'Reporter' ? 3 : 4) ? (
             <button
               type="button"
-              onClick={() => setCurrentStep(prev => Math.min(4, prev + 1))}
+              onClick={() => setCurrentStep(prev => Math.min(userRole === 'Reporter' ? 3 : 4, prev + 1))}
               className="w-full sm:w-auto bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold px-5 py-2 rounded-lg transition shadow-sm"
               id="next-step-btn"
             >
@@ -1580,7 +1575,7 @@ export default function InspectionForm({
                     ? 'bg-indigo-300 text-indigo-50/80 cursor-not-allowed opacity-70'
                     : 'bg-indigo-600 hover:bg-indigo-700 text-white'
                 }`}
-                id="submit-reporter-btn-step4"
+                id="submit-reporter-btn-step3"
               >
                 <Check className="w-4 h-4" /> Submit Incident Report
               </button>

@@ -39,7 +39,7 @@ The application is structured as an interactive, fully responsive full-stack sin
                      +---------------------------------------+
                      |              src/App.tsx              |
                      |  - Central State: Reports, DCs, Hours |
-                     |  - Role Switcher & SSO Simulator       |
+                     |  - Active User Role & Market Context  |
                      +-------------------+-------------------+
                                          |
          +-------------------------------+-------------------------------+
@@ -72,7 +72,6 @@ To secure corporate data, four distinct system roles are supported. Each role di
 
 | Permission / Action | Reporter (Level 1) | Country HSE Manager (Level 2) | Regional HSE Manager | Superuser (Global Admin) |
 | :--- | :--- | :--- | :--- | :--- |
-| **Select Simulated Session** | Yes (restricted to default country) | Yes (restricted to default country) | **Yes** (access to all region countries) | **Yes** (access to all countries globally) |
 | **View Regional Dashboard** | No (auto-redirected to Country view) | No (restricted to country context) | **Yes** (full regional consolidation) | **Yes** (full global consolidation) |
 | **View Country Dashboard** | Yes (restricted to their default country) | Yes (restricted to their default country) | **Yes** (can toggle any regional country) | **Yes** (can toggle any country globally) |
 | **Log Incident Reports (Tickets)** | **Yes** (creates and saves drafts) | **Yes** (full write permissions) | **Yes** (full write permissions) | **Yes** (full write permissions) |
@@ -86,16 +85,7 @@ To secure corporate data, four distinct system roles are supported. Each role di
 
 ## 4. Module Specifications & Functional Workflows
 
-### 4.1 Module 1: The SSO & Session Tester
-- **Objective**: Simulates secure single sign-on corporate directories to demonstrate multi-market behavior on the fly.
-- **Controls**:
-  - **Role Select**: Choice between `Superuser`, `Level2`, and `Reporter`.
-  - **Country Select**: Choice between `Malaysia`, `Thailand`, `Vietnam`, `Singapore`, and `Indonesia`.
-- **Aesthetic Guidelines**: Styled as a neutral, modern "Role Test Environment" header in neutral slate tones (`#F4F4F4`), clearly indicating active simulated parameters.
-
----
-
-### 4.2 Module 2: The HSE Performance Dashboard
+### 4.1 Module 1: The HSE Performance Dashboard
 
 The dashboard supports two display modes based on the active state:
 1. **Regional Dashboard** (Consolidated view across all markets for Superusers)
@@ -131,9 +121,21 @@ The dashboard supports two display modes based on the active state:
 - **Calculations**: Sum totals are generated in real-time.
 - **Lock & Save Security**: Input fields are strictly disabled for the `Reporter` role. `Level2` and `Superuser` roles can input numbers and click "Save & Unlock" to write directly to database state (simulated via LocalStorage).
 
+#### Fields involved in Module 1:
+| No. | Field Name | Field Type | Mandatory | Description / Validation |
+| :---: | :--- | :--- | :---: | :--- |
+| 1 | **Date Range Picker Presets** | Button Selection Group | No | Quick selector options (e.g., `Last 30 Days`, `Current Month`, `YTD`, `Last Year`). |
+| 2 | **Custom Start Date** | Calendar Date Picker | Yes (if Custom selected) | Beginning boundary date for safety KPI analytics. |
+| 3 | **Custom End Date** | Calendar Date Picker | Yes (if Custom selected) | Ending boundary date for safety KPI analytics. |
+| 4 | **Dashboard Country Filter** | Dropdown Selector | Yes (for admin/regional) | Filters safety visualizers/metrics to the selected market. Locked to local context for standard users. |
+| 5 | **Labor Year Selector** | Dropdown Selector | Yes | Selects target calendar year for hours entry (e.g. 2026). |
+| 6 | **Labor Month Selector** | Dropdown Selector | Yes | Selects target calendar month for hours entry. |
+| 7 | **Employee Hours** | Numeric Input | Yes | Sum of direct employee exposure hours worked. Supports decimals. |
+| 8 | **Contractor / Other Hours** | Numeric Input | Yes | Sum of external contractor/subcontractor exposure hours. Supports decimals. |
+
 ---
 
-### 4.3 Module 3: Step-by-Step Reporting Wizard (InspectionForm)
+### 4.2 Module 2: Step-by-Step Reporting Wizard (InspectionForm)
 
 Designed as a structured multi-step wizard to guide users from initial notification to official closure.
 
@@ -153,10 +155,35 @@ Designed as a structured multi-step wizard to guide users from initial notificat
 - **Fields**: Date, Time, Category Select (`Injury`, `Ill-health`, `Property damaged`, `Near miss`, `Hazard Observation`), Location/Distribution Center, and CC Emails.
 - **Behavior**: The location field displays a filtered list of only **active** Distribution Centers registered for the selected country.
 
+#### Fields involved in Step 1 (Basic Info):
+| No. | Field Name | Field Type | Mandatory | Description / Validation |
+| :---: | :--- | :--- | :---: | :--- |
+| 1 | **Reporting Date** | Calendar Date Picker | Yes | The date when the safety occurrence took place (past or current date). |
+| 2 | **Reporting Time** | Time Input (HH:MM) | Yes | The clock time of the safety occurrence. |
+| 3 | **Incident Category** | Dropdown Selector | Yes | Choice of: `Injury`, `Ill-health`, `Property damaged`, `Near miss`, `Hazard Observation`. |
+| 4 | **Distribution Center / Site** | Dropdown Selector | Yes | Active registered DC/facility. Filtered dynamically based on active country context. |
+| 5 | **CC Notification Emails** | Text Area / Email list | No | Semi-colon separated list of stakeholder email addresses to auto-notify. |
+
 #### Step 2: Involved Personnel & Witness Rosters
 - Dynamic entry grid to add stakeholders into two tables:
   1. **Involved/Injured Personnel Table**: Captures Name, Staff ID, Department, Business Unit, Employee Status (Direct vs Contractor), Injury Flag (Injured vs Involved), and Location within the plant.
   2. **Witness Roster Records**: Captures Witness Name, Staff ID, Department, Business Unit, and Employment type.
+
+#### Fields involved in Step 2 (Rosters):
+| No. | Field Name | Field Type | Mandatory | Description / Validation |
+| :---: | :--- | :--- | :---: | :--- |
+| 1 | **Involved Person Name** | Text Input | Yes (if row added) | Full name of the involved, witness, or injured worker. |
+| 2 | **Involved Staff ID** | Alphanumeric Text | Yes (if row added) | Employee system identifier or contractor badge number. |
+| 3 | **Involved Department** | Text Input | Yes (if row added) | Standard operations department of the worker. |
+| 4 | **Involved Business Unit** | Dropdown Selector | Yes (if row added) | Operating commercial BU of the worker. |
+| 5 | **Involved Employee Status** | Dropdown Selector | Yes (if row added) | Choices: `Direct Employee` or `Contractor`. |
+| 6 | **Involved Injury Designation**| Dropdown Selector | Yes (if row added) | Choices: `Injured` (undergoes body mapping) or `Involved`. |
+| 7 | **Specific Location** | Text Input | No | Precise location of the worker at the time of incident. |
+| 8 | **Witness Name** | Text Input | Yes (if witness added) | Full name of the eye witness. |
+| 9 | **Witness Staff ID** | Alphanumeric Text | No | System ID of the witness. |
+| 10 | **Witness Department** | Text Input | No | Operations department of the witness. |
+| 11 | **Witness Business Unit** | Dropdown Selector | No | Business unit of the witness. |
+| 12 | **Witness Employee Status** | Dropdown Selector | No | Choices: `Direct Employee` or `Contractor`. |
 
 #### Step 3: Injury Mapping & Classification Criteria
 - **Interactive Body Map (HumanFigure)**:
@@ -167,14 +194,37 @@ Designed as a structured multi-step wizard to guide users from initial notificat
   - Complete checklist determining the severity of the event (e.g., results in death, recovery more than 6 months, absence more than 1 day with Lost Time Days input, medical treatment beyond first aid, significant injury, or simple first aid).
   - This systematic questionnaire automatically classifies the event severity (e.g., LTI, MTC, FAC, Near Miss) in the backend.
 
+#### Fields involved in Step 3 (Mapping & Classification):
+| No. | Field Name | Field Type | Mandatory | Description / Validation |
+| :---: | :--- | :--- | :---: | :--- |
+| 1 | **Anatomical Body Parts** | Interactive Vector Area | No | Click hotspots (e.g. Head, Face, Eyes, Arm, Hand, Leg, Feet) to log injured physical locations. |
+| 2 | **17-Point Criteria Checklist**| Interactive Checkboxes | Yes | Multiple-choice checkboxes mapping to severity classification standards. |
+| 3 | **Lost Time Days** | Numeric Input | Yes (if LTI is triggered) | Calculated total work shifts lost due to injury. Mandatory only when LTI or recovery period criteria is flagged. |
+
 #### Step 4: Root Cause Analysis (CAPA & 5-Whys)
 - **5-Whys Methodology Section**: Sequential input blocks to trace failure chains (Why did it happen? -> Direct Cause -> System Failure -> Ineffective Control -> Process Gap).
 - **Corrective Actions**: Specific inputs for Immediate Corrective Actions and Long-Term Preventive Actions, along with Target Completion Dates.
 - **Official Closure Verification**: Sign-off block specifying the verifier's identity, date, and final closing remarks. Updates the ticket status to `Closed`.
 
+#### Fields involved in Step 4 (CAPA & Investigation):
+| No. | Field Name | Field Type | Mandatory | Description / Validation |
+| :---: | :--- | :--- | :---: | :--- |
+| 1 | **Why 1: Direct Incident Cause**| Text Input / Text Area | Yes | Initial event description trigger. |
+| 2 | **Why 2: Physical/Technical** | Text Input / Text Area | Yes | Mechanical, spatial, or physical fail-point. |
+| 3 | **Why 3: Human Action / Factor**| Text Input / Text Area | Yes | Unsafe acts or process compliance issues. |
+| 4 | **Why 4: Management/Process** | Text Input / Text Area | Yes | Process guidelines, checklists, or workflow gap. |
+| 5 | **Why 5: Systemic Root Cause** | Text Input / Text Area | Yes | Ultimate organizational culture or resourcing gap. |
+| 6 | **Immediate Corrective Action** | Text Area | Yes | Measures taken within 24 hours to contain hazard. |
+| 7 | **Long-Term Preventive Action**| Text Area | Yes | Permanent process changes to prevent recurrences. |
+| 8 | **Action Owner** | Text Input | Yes | Assigned supervisor responsible for implementing CAPA. |
+| 9 | **Target Due Date** | Calendar Date Picker | Yes | Expected completion date for actions. |
+| 10 | **Sign-off Verifier Name** | Text Input | Yes (on closure) | Lead manager validating closure (only for Level 2/3/Admin). |
+| 11 | **Sign-off Closure Date** | Calendar Date Picker | Yes (on closure) | Verified closeout date. |
+| 12 | **Final Closing Comments** | Text Area | Yes (on closure) | Comprehensive verification notes and checklist confirmation. |
+
 ---
 
-### 4.4 Module 4: My HSE Tickets Log & Search Engine
+### 4.3 Module 3: My HSE Tickets Log & Search Engine
 - **Objective**: Operational database explorer for managing open tickets, reviewing drafts, and updating records.
 - **Key Features**:
   - **Text Search**: Real-time fuzzy filtering across titles, locations, owners, and descriptions.
@@ -184,13 +234,28 @@ Designed as a structured multi-step wizard to guide users from initial notificat
     - `Closed` (Emerald - verified and resolved)
   - **Detailed Side Drawer**: Fully responsive sliding panel displaying the entire incident report, rosters, body mapping, 5-Whys, and investigation outcomes without reloading the page. Includes scrollable responsive tables for Involved/Witness rosters to prevent clipping on small displays.
 
+#### Fields involved in Module 3:
+| No. | Field Name | Field Type | Mandatory | Description / Validation |
+| :---: | :--- | :--- | :---: | :--- |
+| 1 | **Search Filter Box** | Text Search Input | No | Real-time text filter covering descriptions, location, names, and ticket identifiers. |
+| 2 | **Status Filter Tabs** | Multi-Select Group | No | Filter records selectively based on `Draft`, `Investigating`, or `Closed`. |
+| 3 | **Classification Quick Filters**| Toggle / Checkbox Group | No | Filter records by `Injury`, `Ill-health`, `Property damaged`, `Near miss`, `Hazard`. |
+
 ---
 
-### 4.5 Module 5: Masters Configuration (DC Config)
+### 4.4 Module 4: Masters Configuration (DC Config)
 - **Objective**: Manage organizational units (Distribution Centers) dynamically.
 - **Controls**:
   - **Site Registration**: Add Distribution Centers by specifying Name, Operating Country, and Assigned Manager.
   - **Activation Toggle**: Easily enable or disable sites. Inactive DCs are automatically hidden from the incident reporting wizard to prevent data entries for closed facilities.
+
+#### Fields involved in Module 4:
+| No. | Field Name | Field Type | Mandatory | Description / Validation |
+| :---: | :--- | :--- | :---: | :--- |
+| 1 | **DC / Site Name** | Text Input | Yes | Full human-readable name of the facility/Distribution Center. |
+| 2 | **Operating Country / Market**| Dropdown Selector | Yes | Target country context to assign the newly created site. |
+| 3 | **Assigned Plant Manager** | Text Input | Yes | Designate the manager in charge of facility HSE compliance. |
+| 4 | **DC Status Toggle** | Switch / Slider Checkbox| Yes | Active state of the DC. Non-active facilities are hidden from standard reporting drop-downs. |
 
 ---
 
@@ -231,4 +296,4 @@ To verify that the application complies with all business rules, it must pass th
 
 1. **Wizard Draft Resume Flow**: A local reporter begins logging a ticket, enters rosters, and saves it as a `Draft` at Step 2. When they click "Edit" on the Tickets Log, the wizard successfully launches and resumes exactly at Step 2.
 2. **5-Whys Safety Threshold Verification**: Attempting to close an incident classified as an Injury *without* completing the 5-Whys root cause analysis or assigning a Long-Term Preventive Action throws a validation error.
-3. **Multi-Market Scope Isolation**: Logging in as Country HSE Manager (Level 2) of Vietnam restricts the Dashboard filter and Distribution Centers dropdown strictly to Vietnam. Changing the simulated SSO country dynamically updates the UI context instantly.
+3. **Multi-Market Scope Isolation**: Logging in as Country HSE Manager (Level 2) of Vietnam restricts the Dashboard filter and Distribution Centers dropdown strictly to Vietnam. Changing the active country context dynamically updates the UI context instantly.

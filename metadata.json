@@ -1,0 +1,6 @@
+{
+  "name": "HSE Incident & Inspection Portal",
+  "description": "Comprehensive Health, Safety, and Environment portal for HSE logs, site safety checks, incident root cause reports, and compliant risk analytics with interactive body-part tracking.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

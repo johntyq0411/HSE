@@ -860,9 +860,9 @@ export default function Dashboard({
 
       {/* 2. LABOR HOURS ENTRY CARD */}
       {hoursCheck.isMissing && activeMissingTarget && (
-        <div className="bg-white border border-red-150 rounded-xl p-5 shadow-md flex flex-col gap-4 w-full">
+        <div id="labor-entry-main-card" className="bg-white border border-red-150 rounded-xl p-5 shadow-md flex flex-col gap-4 w-full">
           
-          <div className="flex items-start justify-between gap-3 border-b border-red-100 pb-3">
+          <div id="labor-entry-header-row" className="flex items-start justify-between gap-3 border-b border-red-100 pb-3">
             <div className="flex flex-col sm:flex-row sm:items-center gap-2 flex-1 min-w-0">
               <div className="flex items-center gap-1.5">
                 <Clock className="w-5 h-5 text-red-600 animate-pulse shrink-0" />
@@ -909,8 +909,8 @@ export default function Dashboard({
           </div>
 
           {/* Squeezed inputs refactored to stack vertically on mobile, horizontally on desktop */}
-          <div className="flex flex-col md:flex-row md:items-end gap-4 w-full">
-            <div className="flex flex-col flex-1 gap-1.5">
+          <div id="labor-entry-inputs-and-btn-row" className="flex flex-col md:flex-row md:items-end gap-4 w-full">
+            <div id="labor-entry-group-employee" className="flex flex-col flex-1 gap-1.5">
               <span className="text-xs md:text-[10px] font-bold text-gray-500 uppercase">Employee Hours</span>
               <input
                 type="number"
@@ -921,7 +921,7 @@ export default function Dashboard({
                 className="w-full text-sm font-bold border border-gray-200 rounded-lg p-3 md:p-2 bg-white font-sans text-slate-800 focus:ring-1 focus:ring-red-400 disabled:opacity-60 disabled:bg-gray-100 disabled:cursor-not-allowed min-h-[48px] md:min-h-[40px]"
               />
             </div>
-            <div className="flex flex-col flex-1 gap-1.5">
+            <div id="labor-entry-group-other" className="flex flex-col flex-1 gap-1.5">
               <span className="text-xs md:text-[10px] font-bold text-gray-500 uppercase">Other Hours</span>
               <input
                 type="number"
@@ -932,7 +932,7 @@ export default function Dashboard({
                 className="w-full text-sm font-bold border border-gray-200 rounded-lg p-3 md:p-2 bg-white font-sans text-slate-800 focus:ring-1 focus:ring-red-400 disabled:opacity-60 disabled:bg-gray-100 disabled:cursor-not-allowed min-h-[48px] md:min-h-[40px]"
               />
             </div>
-            <div className="flex flex-col flex-1 gap-1.5">
+            <div id="labor-entry-group-total" className="flex flex-col flex-1 gap-1.5">
               <span className="text-xs md:text-[10px] font-bold text-gray-700 uppercase">Total Hours</span>
               <input
                 type="number"
@@ -943,7 +943,7 @@ export default function Dashboard({
                 className="w-full text-sm font-bold border border-red-200 rounded-lg p-3 md:p-2 bg-red-50 font-sans text-red-950 font-semibold focus:ring-1 focus:ring-red-400 disabled:opacity-60 disabled:bg-gray-100 disabled:cursor-not-allowed min-h-[48px] md:min-h-[40px]"
               />
             </div>
-            <div className="flex flex-col w-full md:w-auto">
+            <div id="labor-entry-group-button" className="flex flex-col w-full md:w-auto">
               <button
                 disabled={userRole !== 'Superuser' && userRole !== 'Level2'}
                 onClick={handleSaveHoursPrompt}

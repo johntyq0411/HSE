@@ -1223,7 +1223,7 @@ export default function InspectionForm({
                   <p className="text-xs text-rose-500 mt-1">**Request to Include body part graphic. Directly touch hotspots on the worker below to toggle checklist, or check items below.</p>
                 </div>
 
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                <div id="body-parts-master-wrapper" className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
                   
                   {/* Left checklist box (4 Cols) */}
                   <div id="mobile-hide-checkbox-list" className="hidden lg:block lg:col-span-4 bg-white p-4 rounded-lg border border-slate-200 space-y-2 h-[480px] overflow-y-auto">
@@ -1255,7 +1255,7 @@ export default function InspectionForm({
                   </div>
 
                   {/* Right Human Worker Graphic wrapper component (8 Cols) */}
-                  <div className="lg:col-span-8 flex flex-col items-center">
+                  <div id="body-parts-diagram-area-wrapper" className="lg:col-span-8 flex flex-col items-center">
                     <HumanFigure
                       mode="interactive-select"
                       selectedParts={report.affectedBodyParts}

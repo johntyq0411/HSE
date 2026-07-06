@@ -75,7 +75,7 @@ export default function HumanFigure({
   const keys = Object.keys(PART_COORDINATES) as BodyPartKey[];
 
   return (
-    <div id="human-figure-outer-container" className={`relative w-full mx-auto flex flex-col md:flex-row items-center justify-center transition-all ${
+    <div id="human-figure-outer-container" className={`relative w-full mx-auto flex flex-col transition-all ${
       hideLabels 
         ? 'p-0 bg-transparent border-none shadow-none gap-0' 
         : 'max-w-4xl bg-white rounded-2xl border border-gray-200 p-6 gap-8 shadow-sm'
@@ -83,7 +83,7 @@ export default function HumanFigure({
       
       {/* Title indicating mode/role */}
       {!hideLabels && (
-        <div className="absolute top-4 left-4 flex items-center gap-2">
+        <div id="human-figure-instruction-header" className="absolute top-4 left-4 flex items-center gap-2">
           <span className={`w-2.5 h-2.5 rounded-full ${mode === 'interactive-select' ? 'bg-dksh-red animate-pulse' : 'bg-[#5A5D60]'}`} />
           <span className="text-[10px] font-bold font-mono text-gray-500 uppercase tracking-widest">
             {mode === 'interactive-select' ? 'Form Mode: Click diagram fields to flag body part' : 'Compliance Heatmap Analysis View'}
@@ -91,7 +91,9 @@ export default function HumanFigure({
         </div>
       )}
 
-      {/* LEFT COLUMN: Labels (pointing to left side coordinates) */}
+      {/* 3-COLUMN INNER WRAPPER */}
+      <div id="human-figure-inner-layout-grid" className="w-full flex flex-col md:flex-row items-center justify-center gap-8">
+        {/* LEFT COLUMN: Labels (pointing to left side coordinates) */}
       {!hideLabels && (
         <div id="left-side-indicators-container" className="hidden md:flex w-full md:w-[290px] flex-col gap-2 select-none text-right">
           <h4 className="text-[10px] font-bold text-[#5A5D60] uppercase tracking-wider border-b pb-1 mb-1">Left Side Indicators</h4>
@@ -789,6 +791,7 @@ export default function HumanFigure({
             })}
         </div>
       )}
+      </div>
 
       {/* 5. SELECTION SUMMARY FEEDBACK: Visible only on mobile screens at the bottom of the central graphic wrapper */}
       {mode === 'interactive-select' && (

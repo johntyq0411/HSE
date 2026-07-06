@@ -28,7 +28,8 @@ import {
   Trash2,
   Lock,
   Save,
-  Check
+  Check,
+  ShieldCheck
 } from 'lucide-react';
 
 interface InspectionFormProps {
@@ -103,7 +104,8 @@ const createNewBlankReport = (defaultCountry: string): IncidentReport => ({
     dateOfVerification: '',
     remarks: ''
   },
-  closeRemarks: ''
+  closeRemarks: '',
+  pdpaConsent: false
 });
 
 export default function InspectionForm({
@@ -320,6 +322,16 @@ export default function InspectionForm({
     if (!report.occurrenceTitle.trim()) {
       showFeedback('Please provide a descriptive short title in Step 3', true);
       setCurrentStep(3);
+      return;
+    }
+
+    if (!report.pdpaConsent) {
+      showFeedback('Consent to the PDPA statement is mandatory before submitting.', true);
+      if (userRole === 'Reporter') {
+        setCurrentStep(3);
+      } else {
+        setCurrentStep(4);
+      }
       return;
     }
 
@@ -1274,6 +1286,37 @@ export default function InspectionForm({
               </div>
             )}
 
+            {/* PDPA Consent Statement (Reporter submits at Step 3) */}
+            {userRole === 'Reporter' && (
+              <div className="bg-rose-50/50 border border-rose-200 rounded-xl p-6 space-y-4 shadow-sm" id="pdpa-consent-container-step3">
+                <div className="flex items-start gap-3">
+                  <ShieldCheck className="w-5 h-5 text-rose-600 mt-0.5 shrink-0" />
+                  <div className="space-y-2">
+                    <h4 className="text-xs font-bold text-rose-900 uppercase tracking-widest">
+                      Personal Data Protection Act (PDPA) Consent
+                    </h4>
+                    <p className="text-xs text-rose-800 leading-relaxed font-medium">
+                      In accordance with the Personal Data Protection Act (PDPA), DKSH is committed to protecting your personal data and ensuring that your privacy is respected. By submitting this form, you consent to the collection, use, disclosure, and processing of your personal data for the purpose of HSE Incident Reporting and related investigation, corrective action, compliance, and record-keeping activities within DKSH.
+                    </p>
+                  </div>
+                </div>
+                <div className="pt-2 border-t border-rose-200/60">
+                  <label className="flex items-center gap-3 cursor-pointer p-2.5 rounded-lg bg-white border border-rose-200 hover:bg-rose-50 transition">
+                    <input
+                      type="checkbox"
+                      checked={!!report.pdpaConsent}
+                      onChange={(e) => handleFieldChange('pdpaConsent', e.target.checked)}
+                      className="w-4 h-4 text-rose-600 border-rose-300 rounded focus:ring-rose-500 cursor-pointer"
+                      id="pdpa-consent-checkbox-step3"
+                    />
+                    <span className="text-xs font-bold text-rose-950">
+                      I agree and consent to the PDPA statement
+                    </span>
+                  </label>
+                </div>
+              </div>
+            )}
+
           </div>
         )}
 
@@ -1431,6 +1474,36 @@ export default function InspectionForm({
                   className="w-full text-xs font-medium border border-amber-300 bg-white rounded p-2.5 focus:ring-1 focus:ring-amber-500 mt-1"
                 />
               </div>
+
+              {/* 4.5 PDPA Consent Statement */}
+              <div className="bg-rose-50/50 border border-rose-200 rounded-xl p-6 space-y-4 shadow-sm" id="pdpa-consent-container-step4">
+                <div className="flex items-start gap-3">
+                  <ShieldCheck className="w-5 h-5 text-rose-600 mt-0.5 shrink-0" />
+                  <div className="space-y-2">
+                    <h4 className="text-xs font-bold text-rose-900 uppercase tracking-widest">
+                      Personal Data Protection Act (PDPA) Consent
+                    </h4>
+                    <p className="text-xs text-rose-800 leading-relaxed font-medium">
+                      In accordance with the Personal Data Protection Act (PDPA), DKSH is committed to protecting your personal data and ensuring that your privacy is respected. By submitting this form, you consent to the collection, use, disclosure, and processing of your personal data for the purpose of HSE Incident Reporting and related investigation, corrective action, compliance, and record-keeping activities within DKSH.
+                    </p>
+                  </div>
+                </div>
+                <div className="pt-2 border-t border-rose-200/60">
+                  <label className="flex items-center gap-3 cursor-pointer p-2.5 rounded-lg bg-white border border-rose-200 hover:bg-rose-50 transition">
+                    <input
+                      type="checkbox"
+                      checked={!!report.pdpaConsent}
+                      onChange={(e) => handleFieldChange('pdpaConsent', e.target.checked)}
+                      className="w-4 h-4 text-rose-600 border-rose-300 rounded focus:ring-rose-500 cursor-pointer"
+                      id="pdpa-consent-checkbox-step4"
+                    />
+                    <span className="text-xs font-bold text-rose-950">
+                      I agree and consent to the PDPA statement
+                    </span>
+                  </label>
+                </div>
+              </div>
+
             </div>
 
           </div>
@@ -1481,7 +1554,13 @@ export default function InspectionForm({
                   setCurrentStep(prev => Math.min(4, prev + 1));
                 }
               }}
-              className="w-full sm:w-auto bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold px-5 py-2 rounded-lg transition"
+              disabled={currentStep === 3 && userRole === 'Reporter' && !report.pdpaConsent}
+              className={`w-full sm:w-auto text-xs font-bold px-5 py-2 rounded-lg transition ${
+                (currentStep === 3 && userRole === 'Reporter' && !report.pdpaConsent)
+                  ? 'bg-indigo-300 text-indigo-50/80 cursor-not-allowed opacity-70'
+                  : 'bg-indigo-600 hover:bg-indigo-700 text-white shadow-sm'
+              }`}
+              id="next-or-submit-btn-step3"
             >
               {(currentStep === 3 && userRole === 'Reporter') ? 'Submit Incident Report' : 'Next Step'}
             </button>
@@ -1489,7 +1568,13 @@ export default function InspectionForm({
             <button
               type="button"
               onClick={handleSubmitReport}
-              className="w-full sm:w-auto bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-6 py-2 rounded-lg flex items-center justify-center gap-1.5 transition shadow"
+              disabled={!report.pdpaConsent}
+              className={`w-full sm:w-auto text-xs font-bold px-6 py-2 rounded-lg flex items-center justify-center gap-1.5 transition shadow ${
+                !report.pdpaConsent
+                  ? 'bg-emerald-300 text-emerald-50/80 cursor-not-allowed opacity-70'
+                  : 'bg-emerald-600 hover:bg-emerald-700 text-white'
+              }`}
+              id="submit-close-btn-step4"
             >
               <Check className="w-4 h-4" /> Submit Report & Close
             </button>

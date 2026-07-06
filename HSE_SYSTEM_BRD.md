@@ -193,6 +193,10 @@ Designed as a structured multi-step wizard to guide users from initial notificat
 - **17-Point Classification Criteria Checklist**:
   - Complete checklist determining the severity of the event (e.g., results in death, recovery more than 6 months, absence more than 1 day with Lost Time Days input, medical treatment beyond first aid, significant injury, or simple first aid).
   - This systematic questionnaire automatically classifies the event severity (e.g., LTI, MTC, FAC, Near Miss) in the backend.
+- **Personal Data Protection Act (PDPA) Consent (for Reporter submission)**:
+  - Displayed at the bottom of Step 3 specifically for the Reporter role prior to submitting.
+  - Ensures compliance with personal data collection and processing policies within DKSH.
+  - **Dim and Lock Control**: If the PDPA consent checkbox is not checked, the final submission button ("Submit Incident Report") is visually dimmed and locked (disabled) to enforce compliance before any data can be transmitted.
 
 #### Fields involved in Step 3 (Mapping & Classification):
 | No. | Field Name | Field Type | Mandatory | Description / Validation |
@@ -200,11 +204,16 @@ Designed as a structured multi-step wizard to guide users from initial notificat
 | 1 | **Anatomical Body Parts** | Interactive Vector Area | No | Click hotspots (e.g. Head, Face, Eyes, Arm, Hand, Leg, Feet) to log injured physical locations. |
 | 2 | **17-Point Criteria Checklist**| Interactive Checkboxes | Yes | Multiple-choice checkboxes mapping to severity classification standards. |
 | 3 | **Lost Time Days** | Numeric Input | Yes (if LTI is triggered) | Calculated total work shifts lost due to injury. Mandatory only when LTI or recovery period criteria is flagged. |
+| 4 | **PDPA Consent Checkbox** | Checkbox Selector | Yes (for Reporter) | Consent to the processing of personal data for HSE Incident Reporting inside DKSH. |
 
 #### Step 4: Root Cause Analysis (CAPA & 5-Whys)
 - **5-Whys Methodology Section**: Sequential input blocks to trace failure chains (Why did it happen? -> Direct Cause -> System Failure -> Ineffective Control -> Process Gap).
 - **Corrective Actions**: Specific inputs for Immediate Corrective Actions and Long-Term Preventive Actions, along with Target Completion Dates.
 - **Official Closure Verification**: Sign-off block specifying the verifier's identity, date, and final closing remarks. Updates the ticket status to `Closed`.
+- **Personal Data Protection Act (PDPA) Consent (for Level 2 / Superuser submission)**:
+  - Displayed at the bottom of Step 4 for other roles prior to final closeout.
+  - Ensures compliance with personal data collection and processing policies within DKSH.
+  - **Dim and Lock Control**: If the PDPA consent checkbox is not checked, the final "Submit Report & Close" button is visually dimmed and locked (disabled) to enforce data privacy compliance.
 
 #### Fields involved in Step 4 (CAPA & Investigation):
 | No. | Field Name | Field Type | Mandatory | Description / Validation |
@@ -221,6 +230,7 @@ Designed as a structured multi-step wizard to guide users from initial notificat
 | 10 | **Sign-off Verifier Name** | Text Input | Yes (on closure) | Lead manager validating closure (only for Level 2/3/Admin). |
 | 11 | **Sign-off Closure Date** | Calendar Date Picker | Yes (on closure) | Verified closeout date. |
 | 12 | **Final Closing Comments** | Text Area | Yes (on closure) | Comprehensive verification notes and checklist confirmation. |
+| 13 | **PDPA Consent Checkbox** | Checkbox Selector | Yes (for Lvl2/Super) | Consent to the processing of personal data for HSE Incident Reporting inside DKSH. |
 
 ---
 

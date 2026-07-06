@@ -124,6 +124,7 @@ export interface IncidentReport {
     remarks: string;
   };
   closeRemarks: string;
+  pdpaConsent?: boolean;
 }
 
 export interface DistributionCenter {

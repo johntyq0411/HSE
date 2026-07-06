@@ -61,10 +61,16 @@ export default function App() {
     try {
       const storedReports = localStorage.getItem('hse_reports');
       if (storedReports) {
-        setReports(JSON.parse(storedReports));
+        const parsed = JSON.parse(storedReports);
+        const mapped = parsed.map((r: any) => ({
+          ...r,
+          pdpaConsent: r.pdpaConsent !== undefined ? r.pdpaConsent : true
+        }));
+        setReports(mapped);
       } else {
-        setReports(INITIAL_INCIDENTS);
-        localStorage.setItem('hse_reports', JSON.stringify(INITIAL_INCIDENTS));
+        const mappedInit = INITIAL_INCIDENTS.map(r => ({ ...r, pdpaConsent: true }));
+        setReports(mappedInit);
+        localStorage.setItem('hse_reports', JSON.stringify(mappedInit));
       }
 
       const storedDCs = localStorage.getItem('hse_dcs');

@@ -203,9 +203,20 @@ Designed as a structured multi-step wizard to guide users from initial notificat
 #### Fields involved in Step 3 (Mapping & Classification):
 | No. | Field Name | Field Type | Mandatory | Description / Validation |
 | :---: | :--- | :--- | :---: | :--- |
-| 1 | **Anatomical Body Parts** | Interactive Vector Area | No | Click hotspots (e.g. Head, Face, Eyes, Arm, Hand, Leg, Feet) to log injured physical locations. |
-| 2 | **17-Point Criteria Checklist**| Interactive Checkboxes | Yes | Multiple-choice checkboxes mapping to severity classification standards. |
-| 3 | **Lost Time Days** | Numeric Input | Yes (if LTI is triggered) | Calculated total work shifts lost due to injury. Mandatory only when LTI or recovery period criteria is flagged. |
+| 1 | **Occurrence Title** | Text Input | Yes | A short descriptive title summarizing the incident (e.g., "Maintenance Worker Sustained Fractured Leg"). |
+| 2 | **Event Description** | Text Area | No | Detailed narrative describing safety gaps, machine speed settings, cargo conditions, etc. |
+| 3 | **Anatomical Body Parts** | Interactive Vector Area | No | Click hotspots (e.g. Head, Face, Eyes, Arm, Hand, Leg, Feet) to log injured physical locations. |
+| 4 | **17-Point Criteria Checklist**| Interactive Checkboxes | Yes | Multiple-choice checkboxes mapping to severity classification standards (Items 1-17). |
+| 5 | **Fatalities Count (No. 7)** | Numeric Input | Yes (if checked) | Mandatory when "Results in death" is flagged. Tracks the number of deceased persons. |
+| 6 | **High-Consequence Recovery Count (No. 8)** | Numeric Input | Yes (if checked) | Mandatory when "More than 6 months till recovery" is flagged. Tracks number of persons. |
+| 7 | **Absence / LTI Count (No. 9)** | Numeric Input | Yes (if checked) | Mandatory when LTI absence of more than one day is flagged. Tracks number of persons. |
+| 8 | **Lost Time Days (No. 9.1)** | Numeric Input | Yes (if checked) | Mandatory when LTI absence is flagged. Calculated total work shifts lost due to injury. |
+| 9 | **Restricted Work Count (No. 10)** | Numeric Input | Yes (if checked) | Tracks number of persons assigned to restricted work or change of role. |
+| 10 | **Loss of Consciousness Count (No. 11)** | Numeric Input | Yes (if checked) | Tracks number of persons suffering loss of consciousness. |
+| 11 | **Medical Treatment Count (No. 12)** | Numeric Input | Yes (if checked) | Tracks number of persons requiring medical treatment beyond first aid. |
+| 12 | **Significant Injury Count (No. 13)** | Numeric Input | Yes (if checked) | Tracks number of persons with significant injury diagnosed by a physician. |
+| 13 | **First Aid Count (No. 14)** | Numeric Input | Yes (if checked) | Tracks number of persons requiring first aid treatment only. |
+| 14 | **PDPA Consent Checkbox (Reporter)** | Checkbox | Yes (for Reporter role) | Mandatory agreement to DKSH data privacy policy prior to final submission. |
 
 #### Step 4: Root Cause Analysis, Actions & Sign-off (HSE Managers & Superusers Only)
 - **Role Restrictions**: Level 1 Reporters are strictly restricted from visiting or submitting Step 4. Instead, their wizard consists of 3 steps, and they sign their Personal Data Protection Act (PDPA) Consent and submit their Incident Report directly at the bottom of **Step 3**.
@@ -275,33 +286,82 @@ Designed as a structured multi-step wizard to guide users from initial notificat
 
 ## 5. Non-Functional Specifications & Design Standards
 
-### 5.1 Corporate Brand & Color Palette
-To align with the official **DKSH Corporate Styling Guidelines**, the application strictly employs the certified color palette and typography system:
-- **Primary Color**: DKSH Crimson Red (`#BE0028`) — the cornerstone color applied to corporate headers, branding, and status anchors.
-- **Secondary Accent**: Active Red (`#EF233C`) — high-visibility pure red reserved strictly for primary Call-to-Actions (CTAs) and interactive elements.
-- **Core Neutrals**: Corporate Dark Gray (`#1A1A1A`) for headers and readable body text, and White (`#FFFFFF`) for card backgrounds.
-- **Background Palette**: Soft Warm Grays (`#F4F4F4`, `#F8FAFC`) to prevent fatigue during long operational reporting shifts.
-- **Digital Accents**: Light Blue (`#90E0EF`), Medium Blue (`#00B4D8`), and Blue (`#0077B6`) applied as interactive hovers and state highlights.
-- **Typography Stack**: Standard digital font pairing: `"Noto Sans", "Arial", sans-serif` to ensure high accessibility, universal language support, and clean contrast.
+### 5.1 Corporate Brand Identity & Design Token System
 
-### 5.2 Responsive Layout Standards & Mobile-First Architecture
-- **Global Restraints**: All elements strictly enforce `box-sizing: border-box;` and parent container constraints. The main viewport wrapper restricts width to `100%` with `overflow-x: hidden` to eliminate horizontal page scrolling on all mobile platforms.
-- **Edge-to-Edge Root**: Under 768px viewports, the outermost root container, body, and app wrapper fully collapse horizontal padding and margins (`padding-inline: 0; margin-inline: 0;`) to capture every pixel of horizontal space.
-- **Full-Width Grey Wrapper**: The grey background container (`#F4F4F4`) stretches completely edge-to-edge on mobile with a flexible `width: 100%` and zero border-radius.
-- **Optimized Mobile Spacing**: Inside the grey background container, outer margin spacers are reduced to a strict maximum of `8px` to `12px` via a unified `.global-form-container` wrapper to maximize available data entry width.
-- **Refined Internal Card Padding**: All form cards utilize the `.global-form-card` component. On mobile viewports, the internal horizontal padding is tightened to a precise `12px` (down from `32px` on desktop) so that multi-column input fields (e.g., Witness Name, Roster grids, and Department) can stretch wider for maximum readability and easier tap-input interaction.
-- **Tablet & Desktop Preservation**: Standard maximum-width rules are preserved for larger screens via media queries. On tablet screens, the form cards center beautifully with a maximum width of `600px` (`margin: 0 auto`) to maintain a clean, balanced look.
-- **Desktop Grid Expansion**: On desktop screens (`min-width: 1024px`), the main layout container expands dynamically to a full-screen optimized `max-width: 1440px` with a side-by-side flex layout. The "HSE Incident Record" form card expands fluidly (`flex: 1`) to fill the left-hand column while the "Active Drafts Catalog" anchors to a clean right-hand sidebar (`width: 320px`).
-- **Multi-Column Fields Expansion**: On desktop viewports, cramped form fields (e.g. A. Name, B. Staff ID, C. Department) inside the "Details of Person Injured" card automatically convert into a multi-column responsive grid layout (`grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px`) to utilize desktop width efficiently.
-- **Progressive Stepper Disclosure**: Under 768px viewports, step text labels are selectively hidden for inactive stages via progressive disclosure, preserving only the active step's label. The step navigation buttons are evenly distributed in a flex layout, and a custom connecting line is locked at `top-[18px]` to perfectly bisect the circular icons regardless of varying button heights.
-- **Corporate Logo Aspect Ratio Enforcement**: The DKSH brand logo is styled with strict `object-fit: contain` and height locked to `32px` with a fluid auto-width, completely preventing horizontal and vertical distortion. It is centered vertically inside a flexible padded container that preserves brand clear-space guidelines.
-- **"One-Thumb" Navigation**: A fixed bottom navigation bar is active on mobile viewports (< 768px) to allow effortless single-hand transitions between the Regional Dashboard, Country Dashboard, Incident Ticket logs, Wizard reporting forms, and Masters configuration screens.
-- **Collapsible Filter Consolidation**: Top-level environment filter selectors (Role, Market, Date Range, Category) are condensed into a high-contrast collapsible accordion panel, saving up to 250px of vertical screen real estate for direct data visibility.
-- **Vertical Stacking & Desktop Ribbon Layout**: The "Labor Hours Entry" section automatically reflows from multi-column rows into clean vertical column stacks on mobile screens (< 768px) to optimize input ergonomics. On desktop screens (>= 1024px), it transforms into an ultra-compact single-row "ribbon" layout using horizontal flex row alignment (`flex-direction: row; align-items: flex-end; gap: 24px;`) with compressed numeric input widths (maximum 130px to 140px) to minimize vertical footprint and maximize high-density dashboard real estate.
-- **Desktop Body Parts Area Rebalance & Wrap**: For the "Body Parts Affected" section on desktop viewports (>= 1024px), the top-level parent wrapper implements a balanced grid layout (`grid-template-columns: 280px 1fr; gap: 32px;`) that separates the scrollable List Checklist (locked at `280px` width) from the fluid Diagram Area to maximize screen utilization. Inside, the instruction text ("FORM MODE: CLICK DIAGRAM FIELDS...") is styled to wrap cleanly (`white-space: normal; overflow-wrap: break-word; word-wrap: break-word;`) to prevent text-bleed outside its container. The side indicators lists (Left and Right Side Indicators) are fully constrained within the frame through a tight `16px` grid column gap, a streamlined central graphic width (`240px` width, `480px` height), item padding reduction, and text-wrapping overrides (`white-space: normal !important`) to eliminate any horizontal overflow or out-of-frame bleed.
-- **Accessible Touch Targets**: All interactive controls, inputs, dropdown selectors, list toggles, and buttons maintain a minimum height of **48px** on mobile viewports to comply with standard accessibility and touch-target guidelines.
-- **Symmetric 2x2 Grid Stats**: Key metrics blocks (Total, Investigating, Closed, and Draft counters) are refactored into a balanced `2x2` CSS grid container on mobile screens, preventing horizontal clipping while maximizing screen density.
-- **Tables and Data Displays**: Scrollable horizontal containers (`overflow-x-auto`) are wrapped around dense data grids (such as Involved Rosters and Witness Records) to ensure readability on small displays.
+To align with the official **DKSH Corporate Styling Guidelines**, the application strictly employs a unified design token system for colors, typography, and visual branding:
+
+#### 5.1.1 Certified Color Palette
+| Token Category | Token Name | Hex Code | Applied System Context |
+| :--- | :--- | :---: | :--- |
+| **Primary Brand** | DKSH Crimson Red | `#BE0028` | Corporate headers, branding logos, primary titles, and high-level status anchors. |
+| **Active Accent** | Active Red | `#EF233C` | High-visibility interactive elements, hover states, and primary Call-to-Actions (CTAs). |
+| **Neutral Dark** | Corporate Charcoal | `#1A1A1A` | Header backgrounds, primary body text, and dark structural lines. |
+| **Neutral Light** | Pure White | `#FFFFFF` | Card backgrounds, list panels, and content container sheets. |
+| **Page Background** | Soft Warm Gray | `#F4F4F4` | Outer stage background to reduce physical fatigue during long operational shifts. |
+| **Section Background** | Clean Slate Gray | `#F8FAFC` | Inner tables, nested headers, and alternating row backgrounds. |
+| **Digital Accents** | Interactive Blues | `#90E0EF`, `#00B4D8`, `#0077B6` | Interactive hover highlights, informational micro-copy, and active links. |
+
+#### 5.1.2 Typography & Aspect Ratios
+- **Typography Stack**: High-accessibility sans-serif pairing using `"Noto Sans", "Arial", sans-serif` to ensure global language support, pristine rendering, and strong contrast.
+- **Brand Logo Aspect Ratio**: The DKSH brand logo is locked to an exact height of `32px` with a fluid auto-width and strict `object-fit: contain`. This completely prevents horizontal or vertical distortion while maintaining branding clear-space guidelines.
+
+---
+
+### 5.2 Responsive Layout Standards & Adaptive Viewport Architecture
+
+All elements are built with a strict **Mobile-First Responsive Workflow** ensuring absolute visual coherence from mobile screens (<768px) to wide-screen desktop displays (>=1024px).
+
+```
++-----------------------------------------------------------------------------+
+| MOBILE VIEWPORT (<768px)                                                    |
+| - Edge-to-edge Root Layout (0px margins)                                    |
+| - 12px Card Padding (maximizes entry area)                                  |
+| - Single-column layout (vertical form stacking)                             |
+| - "One-Thumb" Bottom Navigation Bar & Selective Stepper labels              |
++-----------------------------------------------------------------------------+
+                                      |
+                                      v
++-----------------------------------------------------------------------------+
+| TABLET VIEWPORT (768px - 1023px)                                            |
+| - Centered Form Layout (max-width: 600px)                                   |
+| - Balanced Spacing (margin: 0 auto)                                         |
++-----------------------------------------------------------------------------+
+                                      |
+                                      v
++-----------------------------------------------------------------------------+
+| DESKTOP VIEWPORT (>=1024px)                                                 |
+| - Full-screen layout (max-width: 1440px)                                    |
+| - Side-by-side Layout (Main Form + 320px Sidebar Draft Catalog)            |
+| - Multi-column responsive grids (200px min-width inputs)                    |
+| - Dynamic Ribbon & Compact Panels (Labor entry ribbon, Body Parts grid)     |
++-----------------------------------------------------------------------------+
+```
+
+#### 5.2.1 Mobile Viewport Specifications (< 768px)
+- **Edge-to-Edge Root Canvas**: Root container, body, and app-shell fully collapse horizontal margins and padding (`padding-inline: 0; margin-inline: 0`) to capture every available pixel of screen space.
+- **Unbounded Stage Background**: The grey background container (`#F4F4F4`) stretches fully edge-to-edge with `width: 100%` and zero border-radius.
+- **Minimized Spacing Spacers**: Inside the grey stage, outer margins and card spacers are restricted to a strict range of `8px` to `12px` (using a unified `.global-form-container` wrapper) to preserve horizontal space.
+- **High-Density Form Padding**: Outer form cards (using the `.global-form-card` class) reduce their internal horizontal padding to exactly `12px` (down from `32px` on desktop) to allow dense multi-column input fields (e.g. Witness Name, Roster grids) to expand to maximum legible width.
+- **Progressive Stepper Disclosure**: Standard labels for inactive steps are hidden in the Stepper Navigation, leaving only the active step label visible. Navigation icons are evenly distributed, and the background connecting line is locked at `top-[18px]` to perfectly bisect the icons.
+- **"One-Thumb" Mobile Navigation**: A fixed bottom navigation bar is loaded to allow easy single-hand thumb transitions between the Regional Dashboard, Country Dashboard, Incident Log, Report Wizard, and Masters screens.
+- **Symmetric 2x2 Grid Statistics**: Dashboard metrics counters (Total, Investigating, Closed, and Draft counts) reflow into a balanced `2x2` CSS grid to prevent text clipping and fit neatly within a single screen.
+
+#### 5.2.2 Tablet Viewport Specifications (768px - 1023px)
+- **Centered Form Layout**: Form cards are constrained to a balanced maximum width of `600px` (`margin: 0 auto`) to avoid horizontal stretch and keep inputs comfortably grouped.
+
+#### 5.2.3 Desktop Viewport Specifications (>= 1024px)
+- **Maximum Width & Side-by-Side Split**: Outer containers are bounded at `max-width: 1440px` with a sidebar structure. The main HSE Incident Record card expands fluidly (`flex: 1`) to fill the left column, while the "Active Drafts Catalog" anchors to a clean right-hand sidebar (`width: 320px`).
+- **Multi-Column Auto-Grid**: Cramped form fields inside cards (such as Person Injured details) automatically reflow into highly legible grid structures (`grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px;`).
+- **High-Density Ribbon (Labor Hours Entry)**: The labor hours section transforms into an ultra-compact single-row "ribbon" (`flex-direction: row; align-items: flex-end; gap: 24px;` with compact `12px 20px` padding). Direct numeric input container widths are compressed to a maximum of `130px` to `140px` to optimize screen density.
+- **Grid Layout for Body Parts Affected Section**: Uses a structured grid (`grid-template-columns: 280px 1fr; gap: 32px;`) to separate the scrollable Left Checklist (fixed at `280px` width) from the fluid Main Diagram Area.
+- **Side Indicators Space Optimization**: The side indicator lists (Left and Right Side Indicators) are fully constrained within the card boundaries through a tight `16px` grid column gap, a streamlined central anatomical graphic (`240px` width, `480px` height), item padding reduction, and text-wrapping overrides (`white-space: normal !important`) to eliminate any horizontal overflow or out-of-frame bleed.
+
+---
+
+### 5.3 Common Usability, Accessibility & Interaction Rules
+- **Accessible Touch Targets**: All interactive buttons, text inputs, dropdown selectors, and checklists maintain a minimum height of **48px** on touch devices to comply with standard mobile usability guidelines.
+- **Collapsible Filter Accordions**: Desktop and tablet filter bars are grouped into a high-contrast collapsible accordion panel, freeing up to `250px` of vertical screen height for direct dashboard data view.
+- **Tables and Dense Data Displays**: All dense tabular data grids (such as Involved Rosters and Witness tables) are wrapped inside horizontal scroll wrappers (`overflow-x-auto`) with elegant trailing shadows to indicate scrollability on small screens.
 
 ---
 

@@ -317,3 +317,33 @@ To verify that the application complies with all business rules, it must pass th
 1. **Wizard Draft Resume Flow**: A local reporter begins logging a ticket, enters rosters, and saves it as a `Draft` at Step 2. When they click "Edit" on the Tickets Log, the wizard successfully launches and resumes exactly at Step 2.
 2. **5-Whys Safety Threshold Verification**: Attempting to close an incident classified as an Injury *without* completing the 5-Whys root cause analysis or assigning a Long-Term Preventive Action throws a validation error.
 3. **Multi-Market Scope Isolation**: Logging in as Country HSE Manager (Level 2) of Vietnam restricts the Dashboard filter and Distribution Centers dropdown strictly to Vietnam. Changing the active country context dynamically updates the UI context instantly.
+
+---
+
+## 8. Key User Journeys
+
+To illustrate the real-world operational flows within the DKSH HSE CAPA System, the following user journeys define the exact paths of our primary target personas:
+
+### Journey 1: The First-Line Frontline Reporter (Level 1 Role)
+* **Context**: A warehouse supervisor witness at a distribution center discovers a hazard or witnesses a minor injury.
+* **Flow Steps**:
+  1. **Accessing the Form**: The reporter opens the application on their mobile tablet, navigating immediately to the "New Ticket" tab.
+  2. **Context Logging (Step 1)**: Selects the date, time, and incident category (e.g., Near Miss), then inputs the active Distribution Center.
+  3. **Roster Enrollment (Step 2)**: Adds involved persons and key witnesses to the local session roster with corresponding IDs and departments.
+  4. **Interim Saving**: Realizing they need to verify a badge ID, the supervisor clicks "Save Draft" at Step 2. The system caches all typed inputs locally and issues a success toast.
+  5. **Resuming and Completion (Step 3 & 4)**: Returning later, they find their draft under "My HSE Tickets Log", click "Edit", and the wizard immediately resumes at Step 2 with all values restored. They proceed to describe the narrative, complete the safety checklist, sign the PDPA privacy consent, and submit the ticket.
+
+### Journey 2: The Country HSE Manager (Level 2 Role)
+* **Context**: An HSE Manager responsible for operations in a single country (e.g., Thailand) logs in to manage local KPIs and investigate tickets.
+* **Flow Steps**:
+  1. **Local Performance Audit**: Navigates to the "Country Dashboard" to audit local statistics. The multi-market system automatically pre-filters the view specifically to Thailand.
+  2. **Operational Logging**: Clicks the restricted "Insert Labor Hours" action block, enters the active operational month, and logs the latest work hours to keep safety rate computations (LTIFR / TRIFR) mathematically precise.
+  3. **Root Cause Analysis (5-Whys)**: Selects a newly submitted ticket from the "My HSE Tickets Log" and transitions to Step 4. They perform a structured 5-Whys diagnostic chain to map the systemic root failure.
+  4. **CAPA Assignment**: Defines immediate containment actions and assigns long-term preventive actions with explicit owners and realistic target completion dates.
+
+### Journey 3: The Regional HSE Manager / Superuser (Level 3 Role)
+* **Context**: A regional director oversees safety standards across all of Asia-Pacific and needs global configuration rights.
+* **Flow Steps**:
+  1. **Consolidated Overview**: Navigates to the "Regional Dashboard", reviewing high-level safety trend charts and country-level comparison tables across all operational countries.
+  2. **Master Site List Updates**: Navigates to the restricted "Masters (DC Config)" tab. As a regional superuser, they possess authorization to append newly commissioned distribution centers and toggle the operational status of existing sites.
+  3. **Compliance Sign-off**: Audits all open tickets with active CAPA items, conducts final verification, and closes out the resolved investigations to archive them securely.

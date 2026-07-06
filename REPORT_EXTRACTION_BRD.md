@@ -35,7 +35,8 @@ The Report Extraction feature must strictly enforce the existing role hierarchy 
 
 | Role Profile | Data Access Scope | Allowed Export Formats | Functional Permissions / Constraints |
 | :--- | :--- | :--- | :--- |
-| **Superuser** <br>*(Global Admin)* | **Global Scope**<br>Access to all countries, markets, business units, and historical archives. | • Raw CSV/XLSX Dumps<br>• PDF Executive Summaries<br>• Board-level Slide Deck Exports | • Full unrestricted download capacity.<br>• Access to cross-country labor statistics and incident investigations. |
+| **Superuser** <br>*(Global Admin)* | **Global Scope**<br>Access to all countries, markets, business units, and historical archives. | • Raw CSV/XLSX Dumps<br>• PDF Executive Summaries<br>• Board-level Slide Deck Exports | • Full unrestricted download capacity.<br>• Access to cross-country labor statistics and incident investigations.<br>• Administrative control to modify master configurations (Distribution Centers) globally. |
+| **Regional HSE Manager** <br>*(Regional Coordinator)* | **Regional Scope**<br>Access to all assigned countries/markets within their region (e.g., APAC). | • Raw CSV/XLSX Dumps (Consolidated or by Market)<br>• PDF Executive Summaries | • Full viewing, analytical, and extraction rights across all regional markets.<br>• Can verify investigations and CAPA sign-offs globally.<br>• Excluded from master master list (DC) modifications outside authorization. |
 | **Country HSE Manager** <br>*(Level 2)* | **Single Market Scope**<br>Access restricted to their authorized Country/Market context. | • Raw CSV/XLSX Dumps<br>• Market PDF Summaries | • Restructured to their specific market (e.g. Thailand, Malaysia, Vietnam).<br>• Cannot export cross-border statistics without explicit global delegation. |
 | **Reporter** <br>*(Level 1)* | **Restricted Local Scope**<br>Read-only access to localized dashboards and standard incident records. | • Basic Excel lists of logged incidents and tickets. | • Excluded from raw labor hour exports or aggregate payroll safety calculations.<br>• Data is masked for sensitive personal information (PII). |
 
@@ -122,18 +123,37 @@ Designed for distribution during Monthly Country Management Meetings and Regiona
 
 ## 5. Calculations & Analytical Business Logic
 
-To maintain mathematical standardization across all global operations, the export engine must calculate the following formulas on-the-fly:
+To maintain mathematical standardization across all global operations, the export and analytical engine must calculate metrics on-the-fly according to the standard corporate rate formula.
 
-### 5.1 Lost Time Injury Frequency Rate (LTIFR)
-$$\text{LTIFR} = \frac{\text{Total Lost Time Injuries (LTIs)} \times 1,000,000}{\text{Total Employee \& Contractor Working Hours}}$$
-- **Scope**: Includes both direct employees and on-site contractors.
-- **Lost Time Injury definition**: Any workplace injury resulting in at least 1 shift of absence or temporary disability.
+### 5.1 Standard Formula Rate Principle
+The system applies a uniform frequency rate standard based on **1,000,000 exposure hours worked**:
+$$\text{Standard Rate} = \frac{\text{Total Incident Cases of Specific Type} \times 1,000,000}{\text{Total Labor Hours Worked}}$$
 
-### 5.2 Total Recordable Injury Rate (TRIR)
-$$\text{TRIR} = \frac{\text{Total Recordable Injuries (LTIs + MTCs + FACs)} \times 1,000,000}{\text{Total Employee \& Contractor Working Hours}}$$
+---
 
-### 5.3 Safety Severity Rate (SR)
-$$\text{Severity Rate (SR)} = \frac{\text{Total Lost Work Days} \times 1,000,000}{\text{Total Employee \& Contractor Working Hours}}$$
+### 5.2 Complete Mathematical Indicator Matrix
+
+The safety rates and counts are mathematically classified and audited against the following master matrix:
+
+| No. | Indicator / Chart Name | Formula / Calculation Methodology | Short Form | Category Scope |
+| :---: | :--- | :--- | :---: | :--- |
+| **1** | **Fatalities Result** | $\frac{\text{Total Fatalities (No.7)} \times 1,000,000}{\text{Total Labor Hours Worked}}$ | **DEATH** | Fatal occurrences during work hours. |
+| **2** | **High Consequence Work-Related Injuries** | $\frac{\text{Total High-Consequence Work-Related Injuries (No.8)} \times 1,000,000}{\text{Total Labor Hours Worked}}$ | **>6M** | Injuries resulting in recovery time >6 months. |
+| **3** | **Lost Time Injury Rate** | $\frac{\text{Total Lost Time Injuries (No.9)} \times 1,000,000}{\text{Total Labor Hours Worked}}$ | **LTI** | Injuries causing at least 1 full day/shift of absence. |
+| **4** | **Recordable Injuries** | $\frac{\text{Total Recordable Work-Related Injuries (No.8-13)} \times 1,000,000}{\text{Total Labor Hours Worked}}$ | **REC** | Sum of recordable injuries (No. 8 through 13). |
+| **5** | **Work-Related Injuries** | $\frac{\text{Total Work-Related Injuries (No.8-14)} \times 1,000,000}{\text{Total Labor Hours Worked}}$ | **WRI** | Sum of all work-related injuries (No. 8 through 14). |
+| **6** | **Property Damage Cases** | $\text{Absolute Case Count}$ | **PD** | Incidents resulting in asset/equipment damage only. |
+| **7** | **Near Miss Cases** | $\text{Absolute Case Count}$ | **NM** | Potential hazards with no actual injury or loss. |
+| **8** | **Hazard Observation Cases** | $\text{Absolute Case Count}$ | **HZ** | Identified unsafe behaviors or physical conditions. |
+
+---
+
+### 5.3 Technical Specifications for Data Collection
+1. **Total Labor Hours Worked (Denominator)**: Represents the consolidated sum of Direct Employee Hours and Contractor/Subcontractor Hours within the specified Date Range.
+2. **Standard Classifications**:
+   - Classifications 1 to 5 require dynamic rate calculations (normalized per 1M hours).
+   - Classifications 6 to 8 represent simple integer counters (Case Numbers) and do not utilize the labor hours denominator.
+3. **No-Activity Safety Baseline**: If Total Labor Hours Worked is 0, the rates default to `0.00` with a warning flag instead of throwing division-by-zero exceptions.
 
 ---
 

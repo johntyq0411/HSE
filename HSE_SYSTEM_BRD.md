@@ -68,19 +68,19 @@ The application is structured as an interactive, fully responsive full-stack sin
 
 ## 3. Role-Based Access Control (RBAC) Matrix
 
-To secure corporate data, three distinct system roles are simulated. Each role dictates read, write, edit, and configuration capabilities across modules.
+To secure corporate data, four distinct system roles are supported. Each role dictates read, write, edit, and configuration capabilities across modules.
 
-| Permission / Action | Reporter (Level 1) | Country HSE Manager (Level 2) | Superuser (Global Admin) |
-| :--- | :--- | :--- | :--- |
-| **Select Simulated Session** | Yes (restricted to default country) | Yes (restricted to default country) | Yes (access to all countries) |
-| **View Regional Dashboard** | No (auto-redirected to Country view) | No (restricted to country context) | **Yes** (full regional consolidation) |
-| **View Country Dashboard** | Yes (restricted to their default country) | Yes (restricted to their default country) | **Yes** (can toggle any country) |
-| **Log Incident Reports (Tickets)** | **Yes** (creates and saves drafts) | **Yes** (full write permissions) | **Yes** (full write permissions) |
-| **Conduct Investigation (Step 4)** | **No** (disabled in wizard) | **Yes** (full write & verification) | **Yes** (full write & verification) |
-| **Edit Incident Drafts** | Yes (only their own drafts) | Yes (all drafts within their market) | **Yes** (unrestricted editing) |
-| **Modify Labor Hours Grid** | **No** (view-only) | **Yes** (authorized market only) | **Yes** (unrestricted saving) |
-| **Configure Masters (DCs)** | **No** (view-only UI) | **Yes** (can add/toggle local DCs) | **Yes** (full administrative master access) |
-| **Extract Safety Data** | Redacted CSV format (no PII) | Full CSV/XLSX for local market | Full Regional CSV/XLSX & Executive PDF |
+| Permission / Action | Reporter (Level 1) | Country HSE Manager (Level 2) | Regional HSE Manager | Superuser (Global Admin) |
+| :--- | :--- | :--- | :--- | :--- |
+| **Select Simulated Session** | Yes (restricted to default country) | Yes (restricted to default country) | **Yes** (access to all region countries) | **Yes** (access to all countries globally) |
+| **View Regional Dashboard** | No (auto-redirected to Country view) | No (restricted to country context) | **Yes** (full regional consolidation) | **Yes** (full global consolidation) |
+| **View Country Dashboard** | Yes (restricted to their default country) | Yes (restricted to their default country) | **Yes** (can toggle any regional country) | **Yes** (can toggle any country globally) |
+| **Log Incident Reports (Tickets)** | **Yes** (creates and saves drafts) | **Yes** (full write permissions) | **Yes** (full write permissions) | **Yes** (full write permissions) |
+| **Conduct Investigation (Step 4)** | **No** (disabled in wizard) | **Yes** (full write & verification) | **Yes** (full write & verification) | **Yes** (full write & verification) |
+| **Edit Incident Drafts** | Yes (only their own drafts) | Yes (all drafts within their market) | **Yes** (all drafts in their region) | **Yes** (unrestricted editing) |
+| **Modify Labor Hours Grid** | **No** (view-only) | **Yes** (authorized market only) | **Yes** (authorized region markets) | **Yes** (unrestricted saving) |
+| **Configure Masters (DCs)** | **No** (view-only UI) | **Yes** (can add/toggle local DCs) | **No** (view-only configuration lists) | **Yes** (full administrative master access) |
+| **Extract Safety Data** | Redacted CSV format (no PII) | Full CSV/XLSX for local market | **Yes** (Full Regional CSV & PDF Summaries) | **Yes** (Full Regional CSV/XLSX & executive PDF) |
 
 ---
 
@@ -107,11 +107,24 @@ The dashboard supports two display modes based on the active state:
   - **Right Panel**: Responsive interactive grid to manually pick a continuous range of start and end dates. Handles responsive reflowing on mobile devices (`w-[92vw]`).
 
 #### 4.2.2 Key Mathematical Performance Indicators (KPIs)
-- **Safe Work Days**: Displayed as a metric block, representing consecutive calendar days since the last recorded **Lost Time Injury (LTI)**.
-- **LTIFR Calculation**:
-  $$\text{LTIFR} = \frac{\text{Total Lost Time Injuries (LTI Cases)} \times 1,000,000}{\text{Total Working Hours}}$$
-- **TRIR Calculation**:
-  $$\text{TRIR} = \frac{\text{Total Recordable Cases (LTI + MTC + FAC)} \times 1,000,000}{\text{Total Working Hours}}$$
+- **Safe Work Days**: Represented as a dynamic indicator displaying consecutive days without any Lost Time Injury (LTI) occurrences.
+- **Corporate Standard Frequency Rate**: The portal normalizes incident frequency rates per **1,000,000 hours worked**:
+  $$\text{Standard Rate} = \frac{\text{Total Incident Cases of a Specific Type} \times 1,000,000}{\text{Total Labor Hours Worked}}$$
+
+- **Standardized Calculations List**:
+  1. **Fatalities Rate (DEATH)**:
+     $$\text{DEATH Rate} = \frac{\text{Total Fatalities (No.7)} \times 1,000,000}{\text{Total Labor Hours Worked}}$$
+  2. **High Consequence Work-Related Injury Rate (>6M)**:
+     $$\text{>6M Rate} = \frac{\text{Total High-Consequence Work-Related Injuries (No.8)} \times 1,000,000}{\text{Total Labor Hours Worked}}$$
+  3. **Lost Time Injury Rate (LTI)**:
+     $$\text{LTI Rate} = \frac{\text{Total Lost Time Injuries (No.9)} \times 1,000,000}{\text{Total Labor Hours Worked}}$$
+  4. **Recordable Injury Rate (REC)**:
+     $$\text{REC Rate} = \frac{\text{Total Recordable Work-Related Injuries (No.8-13)} \times 1,000,000}{\text{Total Labor Hours Worked}}$$
+  5. **Work-Related Injury Rate (WRI)**:
+     $$\text{WRI Rate} = \frac{\text{Total Work-Related Injuries (No.8-14)} \times 1,000,000}{\text{Total Labor Hours Worked}}$$
+  6. **Property Damage Case Count (PD)**: Absolute count of property damage incidents (No.15).
+  7. **Near Misses Case Count (NM)**: Absolute count of near-miss occurrences (No.16).
+  8. **Hazard Observation Case Count (HZ)**: Absolute count of hazard observations (No.17).
 
 #### 4.2.3 Interactive Labor Hours Configurator (Excel-Style Grid)
 - **Grid Layout**: Monthly matrix dividing labor categories into **Employee Hours** and **Other/Contractor Hours**.

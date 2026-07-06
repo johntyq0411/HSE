@@ -1,13 +1,17 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Noto Sans", "Arial", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
-  --color-dksh-red: #9D2235;
-  --color-dksh-dark-red: #7F1828;
-  --color-dksh-gray: #5A5D60;
+  --color-dksh-red: #BE0028;
+  --color-dksh-dark-red: #1A1A1A;
+  --color-dksh-gray: #1A1A1A;
   --color-dksh-light: #F4F4F4;
+  --color-dksh-active-red: #EF233C;
+  --color-dksh-light-blue: #90E0EF;
+  --color-dksh-medium-blue: #00B4D8;
+  --color-dksh-blue: #0077B6;
 }
 
 @layer base {
@@ -23,4 +27,131 @@
 
 .animate-fade-in {
   animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* ========================================== */
+/* UNIFIED MOBILE-FIRST DESIGN SYSTEM LAYOUTS */
+/* ========================================== */
+:root {
+  --container-padding-mobile: 8px; /* Strict maximum space under 12px for mobile edge-to-edge card alignments */
+  --container-padding-desktop: 24px;
+  --card-padding-mobile: 12px; /* Tight padding inside form cards for maximum field extension */
+  --card-padding-desktop: 24px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Global Responsive Form Container */
+.global-form-container {
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding-left: var(--container-padding-mobile) !important;
+  padding-right: var(--container-padding-mobile) !important;
+  padding-top: 12px !important;
+  padding-bottom: 24px !important;
+}
+
+@media (min-width: 768px) {
+  .global-form-container {
+    max-width: 600px !important; /* Tablet and desktop centered, max-width container format */
+    margin: 0 auto !important;
+    padding-left: var(--container-padding-desktop) !important;
+    padding-right: var(--container-padding-desktop) !important;
+    padding-top: 24px !important;
+    padding-bottom: 32px !important;
+  }
+}
+
+/* Unified Form Card class ensuring fluid width, edge-to-edge on mobile, and refined padding */
+.global-form-card {
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  background-color: #ffffff !important;
+  border: 1px solid #e2e8f0 !important; /* border-slate-200 */
+  border-radius: 8px !important; /* tight border-radius for mobile screens */
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03) !important;
+  padding: var(--card-padding-mobile) !important; /* tightened 12px padding on mobile */
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  margin-bottom: 12px !important;
+}
+
+@media (min-width: 768px) {
+  .global-form-card {
+    border-radius: 16px !important; /* wider round corners on desktop */
+    padding: var(--card-padding-desktop) !important; /* 24px padding on desktop */
+    margin-bottom: 24px !important;
+  }
+}
+
+/* Secondary internal sub-cards / sections inside forms */
+.global-sub-card {
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  background-color: #f8fafc !important; /* bg-slate-50 */
+  border: 1px solid #e2e8f0 !important; /* border-slate-200 */
+  border-radius: 8px !important; /* tight rounded corners for mobile */
+  padding: var(--card-padding-mobile) !important; /* tightened 12px padding on mobile */
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  margin-bottom: 12px !important;
+}
+
+@media (min-width: 768px) {
+  .global-sub-card {
+    border-radius: 12px !important;
+    padding: var(--card-padding-desktop) !important; /* 24px padding on desktop */
+    margin-bottom: 24px !important;
+  }
+}
+
+/* ========================================== */
+/* RESPONSIVE EDGE-TO-EDGE OVERRIDES          */
+/* ========================================== */
+@media (max-width: 767px) {
+  /* 1. EDGE-TO-EDGE ROOT */
+  body, #root, .min-h-screen {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding-inline: 0 !important;
+    margin-inline: 0 !important;
+  }
+
+  /* 2. FULL-WIDTH GREY WRAPPER */
+  .min-h-screen {
+    width: 100% !important;
+    max-width: 100% !important;
+    border-radius: 0 !important;
+  }
+
+  /* 3. OPTIMIZED CARD SPACING inside the grey wrapper */
+  .main-content-stage,
+  .max-w-7xl {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+
+  /* 4. INNER CARD TIGHTENING: horizontal padding inside steps and main form cards to 12px */
+  .global-form-card,
+  .form-step-container,
+  .global-form-container .p-4,
+  .global-form-container .p-6,
+  .global-form-container .p-8,
+  .global-form-container .global-sub-card {
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+    padding-top: 16px !important;
+    padding-bottom: 16px !important;
+  }
 }

@@ -29,7 +29,11 @@ import {
   Briefcase,
   Layers,
   FileCheck2,
-  Trash
+  Trash,
+  Globe,
+  MapPin,
+  PlusCircle,
+  Settings
 } from 'lucide-react';
 
 export default function App() {
@@ -168,7 +172,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F4F4F4] text-slate-800 font-sans antialiased pb-20 selection:bg-red-50">
+    <div className="min-h-screen w-full overflow-x-hidden bg-[#F4F4F4] text-slate-800 font-sans antialiased pb-28 md:pb-12 selection:bg-red-50">
       
       {/* 1. TOP DOCKS: ACTIVE CLIENT ROLE SIMULATOR & DKSH HEADER */}
       <div className="bg-white border-b border-gray-200">
@@ -184,7 +188,7 @@ export default function App() {
           </div>
 
           {/* ROLE SIMULATOR PANEL (Simulates secure SSO credentials) */}
-          <div className="bg-[#F4F4F4] border border-gray-200 px-4 py-2 rounded-lg flex flex-wrap items-center justify-center md:justify-start gap-3">
+          <div className="hidden md:flex bg-[#F4F4F4] border border-gray-200 px-4 py-2 rounded-lg flex-wrap items-center justify-center md:justify-start gap-3">
             <span className="text-[10px] font-bold text-dksh-gray uppercase tracking-wider">Role Test Environment:</span>
             <div className="flex gap-1.5">
               <select
@@ -250,7 +254,7 @@ export default function App() {
       </div>
 
       {/* 2. SUB NAVIGATION RAILS (DKSH CRM horizontal links style) */}
-      <div className="bg-white border-b border-gray-200 sticky top-0 z-40 shadow-xs">
+      <div className="hidden md:block bg-white border-b border-gray-200 sticky top-0 z-40 shadow-xs">
         <div className="max-w-7xl mx-auto px-4 md:px-6 flex justify-between items-center gap-4">
           
           <div className="flex gap-6 overflow-x-auto scrollbar-none w-full md:w-auto">
@@ -314,7 +318,7 @@ export default function App() {
       </div>
 
       {/* 3. CORE ROUTER STAGE */}
-      <div className="max-w-7xl mx-auto px-4 md:px-6 py-4">
+      <div className="max-w-7xl mx-auto px-4 md:px-6 py-4 main-content-stage">
         
         <div className="grid grid-cols-1 xl:grid-cols-12 gap-8 items-start">
           
@@ -325,6 +329,8 @@ export default function App() {
               <Dashboard
                 userRole={userRole}
                 userCountry={userCountry}
+                setUserRole={setUserRole}
+                setUserCountry={setUserCountry}
                 reports={reports}
                 workingHours={workingHours}
                 onSaveWorkingHours={handleSaveWorkingHours}
@@ -435,6 +441,64 @@ export default function App() {
 
         </div>
 
+      </div>
+
+      {/* MOBILE BOTTOM NAVIGATION BAR */}
+      <div className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 z-50 px-2 py-2 shadow-lg">
+        <div className="grid grid-cols-5 gap-1 max-w-md mx-auto">
+          {[
+            { id: 'RegionalDashboard', label: 'Regional', icon: Globe },
+            { id: 'CountryDashboard', label: 'Country', icon: MapPin },
+            { id: 'MyTickets', label: 'Tickets', icon: ClipboardList },
+            { id: 'NewTicket', label: 'New', icon: PlusCircle },
+            { id: 'DCConfig', label: 'Masters', icon: Settings }
+          ].map((tab) => {
+            let active = false;
+            if (tab.id === 'RegionalDashboard') {
+              active = activeTab === 'Dashboard' && dashboardCountry === 'Overall';
+            } else if (tab.id === 'CountryDashboard') {
+              active = activeTab === 'Dashboard' && dashboardCountry !== 'Overall';
+            } else if (tab.id === 'MyTickets') {
+              active = activeTab === 'MyTickets';
+            } else if (tab.id === 'NewTicket') {
+              active = activeTab === 'ReportForm' && activeEditId === null;
+            } else if (tab.id === 'DCConfig') {
+              active = activeTab === 'DCConfig';
+            }
+
+            const IconComponent = tab.icon;
+
+            return (
+              <button
+                key={tab.id}
+                onClick={() => {
+                  if (tab.id === 'RegionalDashboard') {
+                    setActiveTab('Dashboard');
+                    setDashboardCountry('Overall');
+                  } else if (tab.id === 'CountryDashboard') {
+                    setActiveTab('Dashboard');
+                    setDashboardCountry(userCountry === 'Overall' ? 'Malaysia' : userCountry);
+                  } else if (tab.id === 'MyTickets') {
+                    setActiveTab('MyTickets');
+                  } else if (tab.id === 'NewTicket') {
+                    setActiveTab('ReportForm');
+                    setActiveEditId(null);
+                  } else if (tab.id === 'DCConfig') {
+                    setActiveTab('DCConfig');
+                  }
+                }}
+                className={`flex flex-col items-center justify-center py-1 rounded-lg transition-all min-h-[48px] ${
+                  active
+                    ? 'text-dksh-red font-bold'
+                    : 'text-gray-400 hover:text-gray-600'
+                }`}
+              >
+                <IconComponent className={`w-5 h-5 mb-1 ${active ? 'text-dksh-red' : 'text-gray-400'}`} />
+                <span className="text-[10px] tracking-tight">{tab.label}</span>
+              </button>
+            );
+          })}
+        </div>
       </div>
 
     </div>

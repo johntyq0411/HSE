@@ -154,7 +154,7 @@ export default function TicketsLog({ reports, onSelectReport, onDeleteReport }: 
         </div>
 
         {/* Mini stats counters */}
-        <div className="flex gap-3">
+        <div className="grid grid-cols-2 gap-3 w-full md:flex md:w-auto md:gap-3" id="tickets-summary-stats">
           <div className="bg-slate-50 px-3.5 py-2 rounded-xl border border-slate-100 text-center">
             <div className="text-[10px] text-gray-400 font-bold uppercase tracking-wider">Total</div>
             <div className="text-base font-extrabold text-slate-800">{reports.length}</div>

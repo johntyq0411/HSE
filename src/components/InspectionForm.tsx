@@ -327,11 +327,7 @@ export default function InspectionForm({
 
     if (!report.pdpaConsent) {
       showFeedback('Consent to the PDPA statement is mandatory before submitting.', true);
-      if (userRole === 'Reporter') {
-        setCurrentStep(3);
-      } else {
-        setCurrentStep(4);
-      }
+      setCurrentStep(4);
       return;
     }
 
@@ -370,9 +366,10 @@ export default function InspectionForm({
   };
 
   return (
-    <div className="bg-white rounded-2xl border border-gray-100 shadow-xl overflow-hidden">
-      
-      {/* Header Info */}
+    <div className="global-form-container animate-fade-in">
+      <div className="global-form-card overflow-hidden !p-0">
+        
+        {/* Header Info */}
       <div className="bg-gradient-to-r from-slate-900 to-indigo-950 text-white p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
           <h2 className="text-xl font-bold tracking-tight">HSE Incident Record & Inspection Logging</h2>
@@ -448,22 +445,18 @@ export default function InspectionForm({
 
           <button
             onClick={() => setCurrentStep(4)}
-            className={`relative z-10 flex flex-col items-center gap-1`}
+            className="relative z-10 flex flex-col items-center gap-1"
             id="form-step-4-btn"
-            disabled={userRole === 'Reporter'}
-            title={userRole === 'Reporter' ? 'Requires Level 2 country manager access' : ''}
           >
             <div className={`w-9 h-9 rounded-full flex items-center justify-center font-bold text-sm border-2 transition relative ${
               currentStep === 4
                 ? 'bg-indigo-600 border-indigo-600 text-white shadow-md'
-                : userRole === 'Reporter'
-                ? 'bg-gray-100 border-gray-200 text-gray-300 cursor-not-allowed'
                 : 'bg-white border-gray-300 text-gray-500 hover:border-gray-400'
             }`}>
-              {userRole === 'Reporter' ? <Lock className="w-3.5 h-3.5 text-gray-400" /> : '4'}
+              4
             </div>
             <span className="text-[11px] font-semibold text-gray-700 flex items-center gap-0.5">
-              Step-4 (Lvl 2 Only)
+              {userRole === 'Reporter' ? 'Step-4 (Consent)' : 'Step-4 (CAPA & Close)'}
             </span>
           </button>
 
@@ -483,7 +476,7 @@ export default function InspectionForm({
       )}
 
       {/* ACTIVE STEP PANELS */}
-      <div className="p-8">
+      <div className="p-4 md:p-8 form-step-container">
         
         {/* ========================================================= */}
         {/* STEP 1: OCCURRENCE CONTEXT */}
@@ -921,7 +914,7 @@ export default function InspectionForm({
           <div className="space-y-10 animate-fade-in">
             
             {/* Occurrence Text Details */}
-            <div className="bg-slate-50 rounded-xl p-6 border border-slate-200">
+            <div className="global-sub-card">
               <h3 className="text-sm font-bold text-slate-900 border-b pb-2 mb-4">Brief Narrative Summary:</h3>
               <div className="space-y-4">
                 <div>
@@ -951,7 +944,7 @@ export default function InspectionForm({
             </div>
 
             {/* CRITERIA MATRIX - 17 EXCEL ITEMS */}
-            <div className={`rounded-xl border p-6 transition-opacity ${
+            <div className={`rounded-xl border p-4 md:p-6 transition-opacity ${
               report.category === 'Hazard Observation' ? 'bg-sky-50/50 border-sky-100 opacity-80' : 'bg-white border-gray-200'
             }`}>
               <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b pb-3 mb-4 gap-2">
@@ -1286,37 +1279,47 @@ export default function InspectionForm({
               </div>
             )}
 
-            {/* PDPA Consent Statement (Reporter submits at Step 3) */}
-            {userRole === 'Reporter' && (
-              <div className="bg-rose-50/50 border border-rose-200 rounded-xl p-6 space-y-4 shadow-sm" id="pdpa-consent-container-step3">
-                <div className="flex items-start gap-3">
-                  <ShieldCheck className="w-5 h-5 text-rose-600 mt-0.5 shrink-0" />
-                  <div className="space-y-2">
-                    <h4 className="text-xs font-bold text-rose-900 uppercase tracking-widest">
-                      Personal Data Protection Act (PDPA) Consent
-                    </h4>
-                    <p className="text-xs text-rose-800 leading-relaxed font-medium">
-                      In accordance with the Personal Data Protection Act (PDPA), DKSH is committed to protecting your personal data and ensuring that your privacy is respected. By submitting this form, you consent to the collection, use, disclosure, and processing of your personal data for the purpose of HSE Incident Reporting and related investigation, corrective action, compliance, and record-keeping activities within DKSH.
-                    </p>
-                  </div>
-                </div>
-                <div className="pt-2 border-t border-rose-200/60">
-                  <label className="flex items-center gap-3 cursor-pointer p-2.5 rounded-lg bg-white border border-rose-200 hover:bg-rose-50 transition">
-                    <input
-                      type="checkbox"
-                      checked={!!report.pdpaConsent}
-                      onChange={(e) => handleFieldChange('pdpaConsent', e.target.checked)}
-                      className="w-4 h-4 text-rose-600 border-rose-300 rounded focus:ring-rose-500 cursor-pointer"
-                      id="pdpa-consent-checkbox-step3"
-                    />
-                    <span className="text-xs font-bold text-rose-950">
-                      I agree and consent to the PDPA statement
-                    </span>
-                  </label>
+
+          </div>
+        )}
+
+        {/* ========================================================= */}
+        {/* STEP 4: PERSONAL DATA PROTECTION CONSENT (REPORTER ONLY) */}
+        {/* ========================================================= */}
+        {currentStep === 4 && userRole === 'Reporter' && (
+          <div className="space-y-6 animate-fade-in">
+            <div className="border-l-4 border-rose-500 bg-rose-50/50 p-4 rounded-r-lg">
+              <h3 className="text-sm font-bold text-rose-800 uppercase tracking-wide">Personal Data Protection Consent (Step 4)</h3>
+              <p className="text-xs text-rose-700">Please review and consent to the data protection policy before final submission of this Incident Report.</p>
+            </div>
+
+            <div className="bg-rose-50/50 border border-rose-200 rounded-xl p-6 space-y-4 shadow-sm" id="pdpa-consent-container-step4-reporter">
+              <div className="flex items-start gap-3">
+                <ShieldCheck className="w-5 h-5 text-rose-600 mt-0.5 shrink-0" />
+                <div className="space-y-2">
+                  <h4 className="text-xs font-bold text-rose-900 uppercase tracking-widest">
+                    Personal Data Protection Act (PDPA) Consent
+                  </h4>
+                  <p className="text-xs text-rose-800 leading-relaxed font-medium">
+                    In accordance with the Personal Data Protection Act (PDPA), DKSH is committed to protecting your personal data and ensuring that your privacy is respected. By submitting this form, you consent to the collection, use, disclosure, and processing of your personal data for the purpose of HSE Incident Reporting and related investigation, corrective action, compliance, and record-keeping activities within DKSH.
+                  </p>
                 </div>
               </div>
-            )}
-
+              <div className="pt-2 border-t border-rose-200/60">
+                <label className="flex items-center gap-3 cursor-pointer p-2.5 rounded-lg bg-white border border-rose-200 hover:bg-rose-50 transition">
+                  <input
+                    type="checkbox"
+                    checked={!!report.pdpaConsent}
+                    onChange={(e) => handleFieldChange('pdpaConsent', e.target.checked)}
+                    className="w-4 h-4 text-rose-600 border-rose-300 rounded focus:ring-rose-500 cursor-pointer"
+                    id="pdpa-consent-checkbox-step4-reporter"
+                  />
+                  <span className="text-xs font-bold text-rose-950">
+                    I agree and consent to the PDPA statement
+                  </span>
+                </label>
+              </div>
+            </div>
           </div>
         )}
 
@@ -1543,46 +1546,51 @@ export default function InspectionForm({
             <Save className="w-3.5 h-3.5" /> Save Draft
           </button>
 
-          {currentStep < 3 || (currentStep === 3 && userRole !== 'Reporter' && currentStep < 4) ? (
+          {currentStep < 4 ? (
             <button
               type="button"
-              onClick={() => {
-                // If moving from step 3 to 4, check role first
-                if (currentStep === 3 && userRole === 'Reporter') {
-                  handleSubmitReport();
-                } else {
-                  setCurrentStep(prev => Math.min(4, prev + 1));
-                }
-              }}
-              disabled={currentStep === 3 && userRole === 'Reporter' && !report.pdpaConsent}
-              className={`w-full sm:w-auto text-xs font-bold px-5 py-2 rounded-lg transition ${
-                (currentStep === 3 && userRole === 'Reporter' && !report.pdpaConsent)
-                  ? 'bg-indigo-300 text-indigo-50/80 cursor-not-allowed opacity-70'
-                  : 'bg-indigo-600 hover:bg-indigo-700 text-white shadow-sm'
-              }`}
-              id="next-or-submit-btn-step3"
+              onClick={() => setCurrentStep(prev => Math.min(4, prev + 1))}
+              className="w-full sm:w-auto bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold px-5 py-2 rounded-lg transition shadow-sm"
+              id="next-step-btn"
             >
-              {(currentStep === 3 && userRole === 'Reporter') ? 'Submit Incident Report' : 'Next Step'}
+              Next Step
             </button>
           ) : (
-            <button
-              type="button"
-              onClick={handleSubmitReport}
-              disabled={!report.pdpaConsent}
-              className={`w-full sm:w-auto text-xs font-bold px-6 py-2 rounded-lg flex items-center justify-center gap-1.5 transition shadow ${
-                !report.pdpaConsent
-                  ? 'bg-emerald-300 text-emerald-50/80 cursor-not-allowed opacity-70'
-                  : 'bg-emerald-600 hover:bg-emerald-700 text-white'
-              }`}
-              id="submit-close-btn-step4"
-            >
-              <Check className="w-4 h-4" /> Submit Report & Close
-            </button>
+            userRole === 'Reporter' ? (
+              <button
+                type="button"
+                onClick={handleSubmitReport}
+                disabled={!report.pdpaConsent}
+                className={`w-full sm:w-auto text-xs font-bold px-6 py-2 rounded-lg flex items-center justify-center gap-1.5 transition shadow ${
+                  !report.pdpaConsent
+                    ? 'bg-indigo-300 text-indigo-50/80 cursor-not-allowed opacity-70'
+                    : 'bg-indigo-600 hover:bg-indigo-700 text-white'
+                }`}
+                id="submit-reporter-btn-step4"
+              >
+                <Check className="w-4 h-4" /> Submit Incident Report
+              </button>
+            ) : (
+              <button
+                type="button"
+                onClick={handleSubmitReport}
+                disabled={!report.pdpaConsent}
+                className={`w-full sm:w-auto text-xs font-bold px-6 py-2 rounded-lg flex items-center justify-center gap-1.5 transition shadow ${
+                  !report.pdpaConsent
+                    ? 'bg-emerald-300 text-emerald-50/80 cursor-not-allowed opacity-70'
+                    : 'bg-emerald-600 hover:bg-emerald-700 text-white'
+                }`}
+                id="submit-close-btn-step4"
+              >
+                <Check className="w-4 h-4" /> Submit Report & Close
+              </button>
+            )
           )}
         </div>
 
       </div>
 
     </div>
+  </div>
   );
 }

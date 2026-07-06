@@ -17,6 +17,9 @@ import {
   CheckCircle2,
   ChevronLeft,
   ChevronRight,
+  ChevronDown,
+  ChevronUp,
+  SlidersHorizontal,
   Info,
   ListTodo,
   FileSpreadsheet,
@@ -34,6 +37,8 @@ import {
 interface DashboardProps {
   userRole: UserRole;
   userCountry: string;
+  setUserRole?: (r: UserRole) => void;
+  setUserCountry?: (c: string) => void;
   reports: IncidentReport[];
   workingHours: WorkingHoursEntry[];
   onSaveWorkingHours: (entry: WorkingHoursEntry) => void;
@@ -143,6 +148,8 @@ const getReportsForMetric = (reportsList: IncidentReport[], metricKey: string) =
 export default function Dashboard({
   userRole,
   userCountry,
+  setUserRole,
+  setUserCountry,
   reports,
   workingHours,
   onSaveWorkingHours,
@@ -153,6 +160,7 @@ export default function Dashboard({
   const [startDate, setStartDate] = useState<Date>(new Date(2026, 0, 1)); // Default: Jan 1, 2026
   const [endDate, setEndDate] = useState<Date>(new Date(2026, 4, 31)); // Default: May 31, 2026 (Routine Audit Range)
   const [isDatePickerOpen, setIsDatePickerOpen] = useState<boolean>(false);
+  const [isFiltersCollapsed, setIsFiltersCollapsed] = useState<boolean>(true);
 
   // Temporary picker states before Apply is clicked
   const [tempStartDate, setTempStartDate] = useState<Date | null>(new Date(2026, 0, 1));
@@ -564,344 +572,411 @@ export default function Dashboard({
   return (
     <div className="space-y-4 animate-fade-in">
       
-      {/* 1. FILTER CONTROLS BAR */}
-      <div className="bg-white p-4 rounded-xl border border-gray-100 shadow-md flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-4">
-        
-        <div className="flex flex-wrap items-center gap-3">
-          <Calendar className="text-dksh-red w-5 h-5" />
-          
-          {/* Country Selection */}
-          <div className="flex flex-col">
-            <span className="text-[10px] font-bold text-gray-500 uppercase">Country Market</span>
-            {userRole === 'Superuser' ? (
-              <select
-                value={filterCountry}
-                onChange={(e) => setFilterCountry(e.target.value)}
-                className="text-xs font-semibold border rounded-md p-1.5 bg-gray-50/50 border-gray-200 focus:ring-1 focus:ring-dksh-red"
-              >
-                <option value="Overall">Overall (All Markets)</option>
-                {COUNTRIES.map(c => <option key={c} value={c}>{c}</option>)}
-              </select>
-            ) : (
-              <select
-                value={filterCountry}
-                disabled
-                className="text-xs font-semibold border rounded-md p-1.5 bg-gray-100 text-slate-400 cursor-not-allowed opacity-60 border-gray-200"
-              >
-                <option value={userCountry}>{userCountry} (Locked)</option>
-              </select>
-            )}
-          </div>
-
-          {/* User friendly calendar-based Date Range selector instead of old separate dropdowns */}
-          <div className="flex flex-col relative text-left">
-            <span className="text-[10px] font-bold text-gray-500 uppercase">Audited Date Range</span>
-            <button
-              onClick={() => {
-                setTempStartDate(startDate);
-                setTempEndDate(endDate);
-                setIsDatePickerOpen(!isDatePickerOpen);
-              }}
-              className="flex items-center gap-2 text-xs font-semibold border border-gray-200 rounded-md p-1.5 bg-gray-50/50 hover:bg-gray-100 transition focus:ring-1 focus:ring-dksh-red max-w-[280px] text-left"
-            >
-              <Calendar className="w-3.5 h-3.5 text-dksh-red shrink-0" />
-              <span>
-                {formatDateLabel(startDate)} — {formatDateLabel(endDate)}
+      {/* 1. COLLAPSIBLE ACCORDION FOR TOP-LEVEL FILTERS */}
+      <div className="bg-white rounded-xl border border-gray-200 shadow-md overflow-hidden">
+        <button
+          onClick={() => setIsFiltersCollapsed(!isFiltersCollapsed)}
+          className="w-full px-4 py-3 flex items-center justify-between bg-slate-50 hover:bg-slate-100 transition duration-150 text-left min-h-[48px]"
+          id="toggle-filters-accordion"
+        >
+          <div className="flex items-center gap-2.5 flex-1 min-w-0">
+            <SlidersHorizontal className="text-dksh-red w-4 h-4 shrink-0" />
+            <span className="text-xs font-bold text-gray-800 uppercase tracking-wider">
+              {isFiltersCollapsed ? 'Show Filters & Controls' : 'Hide Filters & Controls'}
+            </span>
+            {isFiltersCollapsed && (
+              <span className="hidden sm:inline-block text-[10px] text-gray-500 font-medium truncate ml-2">
+                Active — Market: <strong className="text-dksh-red">{finalCountryFilter}</strong> | Dates: <strong className="text-dksh-red">{formatDateLabel(startDate)} - {formatDateLabel(endDate)}</strong> | Workers: <strong className="text-dksh-red">{filterWorkerType}</strong> | Category: <strong className="text-dksh-red">{filterIncidentCategory}</strong>
               </span>
-            </button>
-
-            {isDatePickerOpen && (
-              <div className="absolute top-full left-1/2 -translate-x-1/2 md:left-0 md:translate-x-0 mt-2 bg-white border border-gray-150 rounded-2xl shadow-2xl p-4 z-50 flex flex-col md:flex-row gap-4 w-[92vw] sm:w-[480px] md:w-auto md:min-w-[500px]">
-                
-                {/* Left side: Presets panel */}
-                <div className="w-full md:w-40 border-b pb-3 md:border-b-0 md:pb-0 md:border-r md:pr-3 border-gray-100 flex flex-col gap-1.5 shrink-0">
-                  <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1">Quick Presets</span>
-                  {PRESETS.map((preset, i) => (
-                    <button
-                      key={i}
-                      onClick={() => applyPreset(preset.start, preset.end)}
-                      className="text-left text-xs p-2 rounded-lg hover:bg-red-50 text-gray-700 hover:text-red-950 font-medium transition cursor-pointer"
-                    >
-                      {preset.label}
-                    </button>
-                  ))}
-                </div>
- 
-                {/* Right side: Interactive Calendar */}
-                <div className="flex-1 flex flex-col gap-3 min-w-0 sm:min-w-[280px]">
-                  
-                  {/* Calendar Month/Year Navigator Header */}
-                  <div className="flex items-center justify-between">
-                    <button
-                      onClick={() => {
-                        let m = calMonth - 1;
-                        let y = calYear;
-                        if (m < 0) {
-                          m = 11;
-                          y -= 1;
-                        }
-                        setCalMonth(m);
-                        setCalYear(y);
-                      }}
-                      className="p-1 hover:bg-gray-100 rounded transition text-gray-500 cursor-pointer"
-                    >
-                      <ChevronLeft className="w-4 h-4" />
-                    </button>
-                    
-                    <span className="text-xs font-bold text-gray-800">
-                      {MONTHS[calMonth]} {calYear}
-                    </span>
-
-                    <button
-                      onClick={() => {
-                        let m = calMonth + 1;
-                        let y = calYear;
-                        if (m > 11) {
-                          m = 0;
-                          y += 1;
-                        }
-                        setCalMonth(m);
-                        setCalYear(y);
-                      }}
-                      className="p-1 hover:bg-gray-100 rounded transition text-gray-500 cursor-pointer"
-                    >
-                      <ChevronRight className="w-4 h-4" />
-                    </button>
-                  </div>
-
-                  {/* Days grid of the navigated month */}
-                  <div className="grid grid-cols-7 gap-1 text-center font-sans">
-                    {['S', 'M', 'T', 'W', 'T', 'F', 'S'].map((dayChar, i) => (
-                      <span key={i} className="text-[10px] font-bold text-gray-400">{dayChar}</span>
-                    ))}
-
-                    {gridCells.map((val, cellIdx) => {
-                      if (val === null) {
-                        return <div key={cellIdx} className="h-6 w-6" />;
-                      }
-                      
-                      const cellDate = new Date(calYear, calMonth, val);
-                      
-                      const isStart = tempStartDate && formatDateToYYYYMMDD(tempStartDate) === formatDateToYYYYMMDD(cellDate);
-                      const isEnd = tempEndDate && formatDateToYYYYMMDD(tempEndDate) === formatDateToYYYYMMDD(cellDate);
-                      const isBetween = tempStartDate && tempEndDate && cellDate > tempStartDate && cellDate < tempEndDate;
-                      
-                      let cellClass = "h-6 w-6 text-[11px] rounded-md font-semibold select-none flex items-center justify-center transition cursor-pointer ";
-                      if (isStart || isEnd) {
-                        cellClass += "bg-dksh-red text-white";
-                      } else if (isBetween) {
-                        cellClass += "bg-red-50 text-dksh-red hover:bg-dksh-red/10";
-                      } else {
-                        cellClass += "text-gray-700 hover:bg-gray-100";
-                      }
-
-                      return (
-                        <button
-                          key={cellIdx}
-                          onClick={() => handleDayClick(val)}
-                          className={cellClass}
-                        >
-                          {val}
-                        </button>
-                      );
-                    })}
-                  </div>
-
-                  {/* Feedback selections & Range verification info */}
-                  <div className="bg-slate-50 border border-slate-100 p-2.5 rounded-xl text-[10px] text-gray-600 space-y-1 mt-1">
-                    <div>
-                      <span className="font-semibold text-gray-800">Start Date:</span>{' '}
-                      {tempStartDate ? formatDateLabel(tempStartDate) : <span className="italic text-gray-400">Not selected</span>}
-                    </div>
-                    <div>
-                      <span className="font-semibold text-gray-800">End Date:</span>{' '}
-                      {tempEndDate ? formatDateLabel(tempEndDate) : <span className="italic text-gray-400">Select an end date</span>}
-                    </div>
-                  </div>
-
-                  {/* Actions buttons */}
-                  <div className="flex items-center justify-end gap-2 pt-2 border-t border-gray-105 mt-1">
-                    <button
-                      onClick={() => setIsDatePickerOpen(false)}
-                      className="px-2.5 py-1 text-[11px] font-semibold text-gray-500 hover:bg-gray-50 rounded bg-transparent cursor-pointer"
-                    >
-                      Cancel
-                    </button>
-                    <button
-                      onClick={() => {
-                        if (tempStartDate && tempEndDate) {
-                          if (tempStartDate > tempEndDate) {
-                            alert('Start date must be before or equal to End date.');
-                            return;
-                          }
-                          setStartDate(tempStartDate);
-                          setEndDate(tempEndDate);
-                          setIsDatePickerOpen(false);
-                        } else {
-                          alert('Please select both a Start and an End date before applying.');
-                        }
-                      }}
-                      className="px-3 py-1 bg-dksh-red hover:bg-dksh-red/90 text-white font-bold text-[11px] rounded cursor-pointer"
-                    >
-                      Apply Range
-                    </button>
-                  </div>
-
-                </div>
-
-              </div>
             )}
           </div>
-
-          {/* Worker Category selection */}
-          <div className="flex flex-col">
-            <span className="text-[10px] font-bold text-gray-500 uppercase">Worker Category</span>
-            <select
-              value={filterWorkerType}
-              onChange={(e) => setFilterWorkerType(e.target.value as 'Overall' | 'Employee' | 'Other Worker')}
-              className="text-xs font-semibold border rounded-md p-1.5 bg-gray-50/50 border-gray-200 focus:ring-1 focus:ring-dksh-red font-sans"
-            >
-              <option value="Overall">Overall Workers</option>
-              <option value="Employee">Employee</option>
-              <option value="Other Worker">Other Worker</option>
-            </select>
+          <div className="flex items-center gap-1.5 pl-2 shrink-0">
+            {isFiltersCollapsed ? (
+              <ChevronDown className="w-4 h-4 text-gray-500" />
+            ) : (
+              <ChevronUp className="w-4 h-4 text-gray-500" />
+            )}
           </div>
+        </button>
 
-          {/* Incident Category selection */}
-          <div className="flex flex-col">
-            <span className="text-[10px] font-bold text-gray-500 uppercase">Incident Category</span>
-            <select
-              value={filterIncidentCategory}
-              onChange={(e) => setFilterIncidentCategory(e.target.value as 'Overall' | IncidentCategory)}
-              className="text-xs font-semibold border rounded-md p-1.5 bg-gray-50/50 border-gray-200 focus:ring-1 focus:ring-dksh-red font-sans"
-            >
-              <option value="Overall">All Categories</option>
-              <option value="Injury">Injury</option>
-              <option value="Ill-health">Ill-health</option>
-              <option value="Property damaged">Property Damaged</option>
-              <option value="Near miss">Near Miss</option>
-              <option value="Hazard Observation">Hazard Observation</option>
-            </select>
-          </div>
+        {!isFiltersCollapsed && (
+          <div className="p-4 border-t border-gray-150 bg-white space-y-4 animate-fade-in">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              
+              {/* Simulator Role (Only visible if setters are provided, styled for mobile) */}
+              {setUserRole && (
+                <div className="flex flex-col gap-1.5 md:hidden">
+                  <span className="text-[10px] font-bold text-gray-500 uppercase">Test Env Role Simulator</span>
+                  <select
+                    value={userRole}
+                    onChange={(e) => setUserRole(e.target.value as UserRole)}
+                    className="w-full text-xs font-semibold border rounded-lg p-3 bg-white border-gray-200 focus:ring-1 focus:ring-dksh-red min-h-[48px]"
+                  >
+                    <option value="Superuser">🔑 Role: Super User</option>
+                    <option value="Level2">👔 Role: Country HSE Manager (Lvl 2)</option>
+                    <option value="Reporter">📝 Role: Reporter (Step 4 Audit only)</option>
+                  </select>
+                </div>
+              )}
 
-        </div>
+              {/* Simulator Market (Only visible if setters are provided, styled for mobile) */}
+              {setUserCountry && (
+                <div className="flex flex-col gap-1.5 md:hidden">
+                  <span className="text-[10px] font-bold text-gray-500 uppercase">Test Env Market Simulator</span>
+                  <select
+                    value={userCountry}
+                    disabled={userRole === 'Reporter'}
+                    onChange={(e) => setUserCountry(e.target.value)}
+                    className="w-full text-xs font-semibold border rounded-lg p-3 bg-white border-gray-200 focus:ring-1 focus:ring-dksh-red min-h-[48px] disabled:opacity-50 disabled:bg-gray-100"
+                  >
+                    {COUNTRIES.map(cty => (
+                      <option key={cty} value={cty}>Market: {cty}</option>
+                    ))}
+                  </select>
+                </div>
+              )}
 
-        {/* Right Side: Labor Hours Entry (If missing) OR active indicator (If entered) */}
-        {hoursCheck.isMissing && activeMissingTarget ? (
-          <div className="bg-red-50/40 border border-red-100 rounded-xl p-3 flex flex-col gap-1.5 shrink-0 max-w-full md:max-w-[480px]">
-            <div className="flex items-center justify-between gap-2">
-              <div className="flex items-center gap-1.5 flex-1 min-w-0">
-                <Clock className="w-3.5 h-3.5 text-red-600 animate-pulse shrink-0" />
-                <span className="text-[11px] font-bold text-red-950 uppercase tracking-wide shrink-0">
-                  Labor Entry:
-                </span>
-                <select
-                  value={selectedMissingIndex >= hoursCheck.missingList.length ? 0 : selectedMissingIndex}
-                  onChange={(e) => setSelectedMissingIndex(parseInt(e.target.value))}
-                  className="text-[11px] font-bold border border-red-200 rounded px-1.5 py-0.5 bg-white text-red-950 focus:ring-1/50 focus:ring-red-400 outline-none max-w-[210px] truncate"
+              {/* Country Selection */}
+              <div className="flex flex-col gap-1.5">
+                <span className="text-[10px] font-bold text-gray-500 uppercase">Country Market</span>
+                {userRole === 'Superuser' ? (
+                  <select
+                    value={filterCountry}
+                    onChange={(e) => setFilterCountry(e.target.value)}
+                    className="w-full text-xs font-semibold border rounded-lg p-3 md:p-1.5 bg-gray-50/50 border-gray-200 focus:ring-1 focus:ring-dksh-red min-h-[48px] md:min-h-[38px]"
+                  >
+                    <option value="Overall">Overall (All Markets)</option>
+                    {COUNTRIES.map(c => <option key={c} value={c}>{c}</option>)}
+                  </select>
+                ) : (
+                  <select
+                    value={filterCountry}
+                    disabled
+                    className="w-full text-xs font-semibold border rounded-lg p-3 md:p-1.5 bg-gray-100 text-slate-400 cursor-not-allowed opacity-60 border-gray-200 min-h-[48px] md:min-h-[38px]"
+                  >
+                    <option value={userCountry}>{userCountry} (Locked)</option>
+                  </select>
+                )}
+              </div>
+
+              {/* User friendly calendar-based Date Range selector */}
+              <div className="flex flex-col gap-1.5 relative text-left">
+                <span className="text-[10px] font-bold text-gray-500 uppercase">Audited Date Range</span>
+                <button
+                  onClick={() => {
+                    setTempStartDate(startDate);
+                    setTempEndDate(endDate);
+                    setIsDatePickerOpen(!isDatePickerOpen);
+                  }}
+                  className="w-full flex items-center justify-between gap-2 text-xs font-semibold border border-gray-200 rounded-lg p-3 md:p-1.5 bg-gray-50/50 hover:bg-gray-100 transition focus:ring-1 focus:ring-dksh-red min-h-[48px] md:min-h-[38px] text-left"
                 >
-                  {hoursCheck.missingList.map((item, idx) => (
-                    <option key={idx} value={idx}>
-                      {item.country} — {item.month} {item.year}
-                    </option>
-                  ))}
+                  <div className="flex items-center gap-2 min-w-0">
+                    <Calendar className="w-3.5 h-3.5 text-dksh-red shrink-0" />
+                    <span className="truncate">
+                      {formatDateLabel(startDate)} — {formatDateLabel(endDate)}
+                    </span>
+                  </div>
+                  <ChevronDown className="w-3.5 h-3.5 text-gray-400 shrink-0" />
+                </button>
+
+                {isDatePickerOpen && (
+                  <div className="absolute top-full left-1/2 -translate-x-1/2 md:left-0 md:translate-x-0 mt-2 bg-white border border-gray-150 rounded-2xl shadow-2xl p-4 z-50 flex flex-col md:flex-row gap-4 w-[92vw] sm:w-[480px] md:w-auto md:min-w-[500px]">
+                    
+                    {/* Left side: Presets panel */}
+                    <div className="w-full md:w-40 border-b pb-3 md:border-b-0 md:pb-0 md:border-r md:pr-3 border-gray-100 flex flex-col gap-1.5 shrink-0">
+                      <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1">Quick Presets</span>
+                      {PRESETS.map((preset, i) => (
+                        <button
+                          key={i}
+                          onClick={() => applyPreset(preset.start, preset.end)}
+                          className="text-left text-xs p-2 rounded-lg hover:bg-red-50 text-gray-700 hover:text-red-950 font-medium transition cursor-pointer min-h-[48px] md:min-h-[36px]"
+                        >
+                          {preset.label}
+                        </button>
+                      ))}
+                    </div>
+     
+                    {/* Right side: Interactive Calendar */}
+                    <div className="flex-1 flex flex-col gap-3 min-w-0 sm:min-w-[280px]">
+                      
+                      {/* Calendar Month/Year Navigator Header */}
+                      <div className="flex items-center justify-between">
+                        <button
+                          onClick={() => {
+                            let m = calMonth - 1;
+                            let y = calYear;
+                            if (m < 0) {
+                              m = 11;
+                              y -= 1;
+                            }
+                            setCalMonth(m);
+                            setCalYear(y);
+                          }}
+                          className="p-2 hover:bg-gray-100 rounded transition text-gray-500 cursor-pointer min-h-[48px] md:min-h-[36px] flex items-center justify-center"
+                        >
+                          <ChevronLeft className="w-4 h-4" />
+                        </button>
+                        
+                        <span className="text-xs font-bold text-gray-800">
+                          {MONTHS[calMonth]} {calYear}
+                        </span>
+
+                        <button
+                          onClick={() => {
+                            let m = calMonth + 1;
+                            let y = calYear;
+                            if (m > 11) {
+                              m = 0;
+                              y += 1;
+                            }
+                            setCalMonth(m);
+                            setCalYear(y);
+                          }}
+                          className="p-2 hover:bg-gray-100 rounded transition text-gray-500 cursor-pointer min-h-[48px] md:min-h-[36px] flex items-center justify-center"
+                        >
+                          <ChevronRight className="w-4 h-4" />
+                        </button>
+                      </div>
+
+                      {/* Days grid of the navigated month */}
+                      <div className="grid grid-cols-7 gap-1 text-center font-sans">
+                        {['S', 'M', 'T', 'W', 'T', 'F', 'S'].map((dayChar, i) => (
+                          <span key={i} className="text-[10px] font-bold text-gray-400">{dayChar}</span>
+                        ))}
+
+                        {gridCells.map((val, cellIdx) => {
+                          if (val === null) {
+                            return <div key={cellIdx} className="h-6 w-6" />;
+                          }
+                          
+                          const cellDate = new Date(calYear, calMonth, val);
+                          
+                          const isStart = tempStartDate && formatDateToYYYYMMDD(tempStartDate) === formatDateToYYYYMMDD(cellDate);
+                          const isEnd = tempEndDate && formatDateToYYYYMMDD(tempEndDate) === formatDateToYYYYMMDD(cellDate);
+                          const isBetween = tempStartDate && tempEndDate && cellDate > tempStartDate && cellDate < tempEndDate;
+                          
+                          let cellClass = "h-8 w-8 text-[11px] rounded-md font-semibold select-none flex items-center justify-center transition cursor-pointer ";
+                          if (isStart || isEnd) {
+                            cellClass += "bg-dksh-red text-white";
+                          } else if (isBetween) {
+                            cellClass += "bg-red-50 text-dksh-red hover:bg-dksh-red/10";
+                          } else {
+                            cellClass += "text-gray-700 hover:bg-gray-100";
+                          }
+
+                          return (
+                            <button
+                              key={cellIdx}
+                              onClick={() => handleDayClick(val)}
+                              className={cellClass}
+                            >
+                              {val}
+                            </button>
+                          );
+                        })}
+                      </div>
+
+                      {/* Feedback selections & Range verification info */}
+                      <div className="bg-slate-50 border border-slate-100 p-2.5 rounded-xl text-[10px] text-gray-600 space-y-1 mt-1">
+                        <div>
+                          <span className="font-semibold text-gray-800">Start Date:</span>{' '}
+                          {tempStartDate ? formatDateLabel(tempStartDate) : <span className="italic text-gray-400">Not selected</span>}
+                        </div>
+                        <div>
+                          <span className="font-semibold text-gray-800">End Date:</span>{' '}
+                          {tempEndDate ? formatDateLabel(tempEndDate) : <span className="italic text-gray-400">Select an end date</span>}
+                        </div>
+                      </div>
+
+                      {/* Actions buttons */}
+                      <div className="flex items-center justify-end gap-2 pt-2 border-t border-gray-105 mt-1">
+                        <button
+                          onClick={() => setIsDatePickerOpen(false)}
+                          className="px-3 py-2 text-[11px] font-semibold text-gray-500 hover:bg-gray-50 rounded bg-transparent cursor-pointer min-h-[48px] md:min-h-[36px]"
+                        >
+                          Cancel
+                        </button>
+                        <button
+                          onClick={() => {
+                            if (tempStartDate && tempEndDate) {
+                              if (tempStartDate > tempEndDate) {
+                                alert('Start date must be before or equal to End date.');
+                                return;
+                              }
+                              setStartDate(tempStartDate);
+                              setEndDate(tempEndDate);
+                              setIsDatePickerOpen(false);
+                            } else {
+                              alert('Please select both a Start and an End date before applying.');
+                            }
+                          }}
+                          className="px-3 py-2 bg-dksh-red hover:bg-dksh-red/90 text-white font-bold text-[11px] rounded cursor-pointer min-h-[48px] md:min-h-[36px]"
+                        >
+                          Apply Range
+                        </button>
+                      </div>
+
+                    </div>
+
+                  </div>
+                )}
+              </div>
+
+              {/* Worker Category selection */}
+              <div className="flex flex-col gap-1.5">
+                <span className="text-[10px] font-bold text-gray-500 uppercase">Worker Category</span>
+                <select
+                  value={filterWorkerType}
+                  onChange={(e) => setFilterWorkerType(e.target.value as 'Overall' | 'Employee' | 'Other Worker')}
+                  className="w-full text-xs font-semibold border rounded-lg p-3 md:p-1.5 bg-gray-50/50 border-gray-200 focus:ring-1 focus:ring-dksh-red font-sans min-h-[48px] md:min-h-[38px]"
+                >
+                  <option value="Overall">Overall Workers</option>
+                  <option value="Employee">Employee</option>
+                  <option value="Other Worker">Other Worker</option>
                 </select>
               </div>
-              
-              {/* Tooltip Info Icon with explanation */}
-              <div className="relative group inline-block">
-                <Info className="w-4 h-4 text-red-400 hover:text-red-700 transition cursor-pointer" />
-                <div className="absolute right-0 top-full mt-2 hidden group-hover:block bg-slate-900 text-white text-[11px] rounded-xl p-3.5 shadow-xl z-[100] w-72 pointer-events-none font-normal leading-relaxed">
-                  <p className="font-bold text-amber-400 mb-1">ℹ️ Working Hours Required</p>
-                  <p className="mb-2">You must input working hours for previous months before safety stats can be calculated! Overall hours is calculated automatically as Employee + Other Worker, but can be overwritten manually.</p>
-                  {hoursCheck.missingList.length > 1 && (
-                    <div className="border-t border-slate-700 pt-2 mt-2">
-                      <p className="font-semibold text-red-300">Remaining missing periods ({hoursCheck.missingList.length}):</p>
-                      <div className="flex flex-wrap gap-1 mt-1 max-h-24 overflow-y-auto">
-                        {hoursCheck.missingList.slice(0, 15).map((comb, i) => (
-                          <span key={i} className="bg-red-950/80 text-red-300 px-1.5 py-0.5 rounded text-[9px] font-semibold border border-red-900">
-                            {comb.country} - {comb.month}
-                          </span>
-                        ))}
-                        {hoursCheck.missingList.length > 15 && (
-                          <span className="text-[9px] text-gray-400">+{hoursCheck.missingList.length - 15} more</span>
-                        )}
-                      </div>
-                    </div>
-                  )}
-                </div>
-              </div>
-            </div>
 
-            <div className="flex flex-wrap md:flex-nowrap items-end gap-2">
-              <div className="flex flex-col flex-1 min-w-[70px]">
-                <span className="text-[9px] font-bold text-gray-500 uppercase truncate">Employee</span>
-                <input
-                  type="number"
-                  disabled={userRole !== 'Superuser' && userRole !== 'Level2'}
-                  value={inputEmployeeHours}
-                  onChange={(e) => handleEmployeeHoursChange(e.target.value)}
-                  placeholder="Employee"
-                  className="w-full text-xs font-bold border border-gray-200 rounded p-1 focus:ring-1 focus:ring-red-400 bg-white font-sans text-slate-800 disabled:opacity-60 disabled:bg-gray-100 disabled:cursor-not-allowed"
-                />
-              </div>
-              <div className="flex flex-col flex-1 min-w-[70px]">
-                <span className="text-[9px] font-bold text-gray-500 uppercase truncate">Other</span>
-                <input
-                  type="number"
-                  disabled={userRole !== 'Superuser' && userRole !== 'Level2'}
-                  value={inputOtherHours}
-                  onChange={(e) => handleOtherHoursChange(e.target.value)}
-                  placeholder="Other"
-                  className="w-full text-xs font-bold border border-gray-200 rounded p-1 focus:ring-1 focus:ring-red-400 bg-white font-sans text-slate-800 disabled:opacity-60 disabled:bg-gray-100 disabled:cursor-not-allowed"
-                />
-              </div>
-              <div className="flex flex-col flex-1 min-w-[70px]">
-                <span className="text-[9px] font-bold text-gray-700 uppercase truncate">Total</span>
-                <input
-                  type="number"
-                  disabled={userRole !== 'Superuser' && userRole !== 'Level2'}
-                  value={inputOverallHours}
-                  onChange={(e) => setInputOverallHours(e.target.value)}
-                  placeholder="Total"
-                  className="w-full text-xs font-bold border border-red-200 rounded p-1 focus:ring-1 focus:ring-red-400 bg-red-50 font-sans text-red-950 font-semibold disabled:opacity-60 disabled:bg-gray-100 disabled:cursor-not-allowed"
-                />
-              </div>
-              <div className="flex flex-col flex-1 md:flex-initial w-full md:w-auto">
-                <span className="text-[9px] font-bold text-transparent select-none hidden md:block">&nbsp;</span>
-                <button
-                  disabled={userRole !== 'Superuser' && userRole !== 'Level2'}
-                  onClick={handleSaveHoursPrompt}
-                  className="w-full md:w-auto bg-red-600 hover:bg-red-700 disabled:bg-slate-300 disabled:text-slate-500 disabled:cursor-not-allowed text-white font-bold text-[11px] px-2.5 py-1.5 rounded transition shrink-0 cursor-pointer shadow-sm text-center justify-center flex items-center"
-                  title={userRole !== 'Superuser' && userRole !== 'Level2' ? "Only Country HSE Manager can insert labor hours" : ""}
+              {/* Incident Category selection */}
+              <div className="flex flex-col gap-1.5">
+                <span className="text-[10px] font-bold text-gray-500 uppercase">Incident Category</span>
+                <select
+                  value={filterIncidentCategory}
+                  onChange={(e) => setFilterIncidentCategory(e.target.value as 'Overall' | IncidentCategory)}
+                  className="w-full text-xs font-semibold border rounded-lg p-3 md:p-1.5 bg-gray-50/50 border-gray-200 focus:ring-1 focus:ring-dksh-red font-sans min-h-[48px] md:min-h-[38px]"
                 >
-                  Save & Unlock
-                </button>
+                  <option value="Overall">All Categories</option>
+                  <option value="Injury">Injury</option>
+                  <option value="Ill-health">Ill-health</option>
+                  <option value="Property damaged">Property Damaged</option>
+                  <option value="Near miss">Near Miss</option>
+                  <option value="Hazard Observation">Hazard Observation</option>
+                </select>
               </div>
+
             </div>
-
-            {userRole !== 'Superuser' && userRole !== 'Level2' && (
-              <div className="text-[10px] font-bold text-rose-800 bg-rose-50 border border-rose-150 px-2 py-1.5 rounded flex items-center gap-1.5 animate-fade-in shadow-xs">
-                <Lock className="w-3.5 h-3.5 text-rose-500 shrink-0" /> Insert restricted to Country HSE Manager Only
-              </div>
-            )}
-
-            {hoursFeedback && (
-              <div className="text-[9px] font-semibold text-emerald-700 bg-emerald-50/80 px-2 py-0.5 rounded flex items-center gap-1 animate-pulse">
-                ✓ {hoursFeedback}
-              </div>
-            )}
-          </div>
-        ) : (
-          <div className="bg-emerald-50/50 border border-emerald-100 text-emerald-800 rounded-xl px-3.5 py-2.5 text-xs font-semibold flex items-center gap-2 shrink-0 self-center">
-            <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-            <span className="leading-snug">
-              Standard Catalog Active: <strong className="text-emerald-950">{hoursCheck.totalHours.toLocaleString()} labor-hours</strong> recorded.
-            </span>
           </div>
         )}
-
       </div>
+
+      {/* 2. LABOR HOURS ENTRY CARD */}
+      {hoursCheck.isMissing && activeMissingTarget && (
+        <div className="bg-white border border-red-150 rounded-xl p-5 shadow-md flex flex-col gap-4 w-full">
+          
+          <div className="flex items-start justify-between gap-3 border-b border-red-100 pb-3">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-2 flex-1 min-w-0">
+              <div className="flex items-center gap-1.5">
+                <Clock className="w-5 h-5 text-red-600 animate-pulse shrink-0" />
+                <span className="text-xs font-bold text-red-950 uppercase tracking-wider shrink-0">
+                  Labor Entry Required:
+                </span>
+              </div>
+              <select
+                value={selectedMissingIndex >= hoursCheck.missingList.length ? 0 : selectedMissingIndex}
+                onChange={(e) => setSelectedMissingIndex(parseInt(e.target.value))}
+                className="text-xs font-bold border border-red-200 rounded-lg p-3 sm:py-1.5 sm:px-2.5 bg-red-50/50 text-red-950 focus:ring-1 focus:ring-red-400 outline-none w-full sm:w-auto sm:max-w-[280px] truncate min-h-[48px] sm:min-h-[36px]"
+              >
+                {hoursCheck.missingList.map((item, idx) => (
+                  <option key={idx} value={idx}>
+                    {item.country} — {item.month} {item.year}
+                  </option>
+                ))}
+              </select>
+            </div>
+            
+            {/* Tooltip Info Icon with explanation */}
+            <div className="relative group inline-block shrink-0 pt-1">
+              <Info className="w-5 h-5 text-red-400 hover:text-red-700 transition cursor-pointer" />
+              <div className="absolute right-0 top-full mt-2 hidden group-hover:block bg-slate-900 text-white text-[11px] rounded-xl p-4 shadow-xl z-[100] w-72 pointer-events-none font-normal leading-relaxed">
+                <p className="font-bold text-amber-400 mb-1">ℹ️ Working Hours Required</p>
+                <p className="mb-2">You must input working hours for previous months before safety stats can be calculated! Overall hours is calculated automatically as Employee + Other Worker, but can be overwritten manually.</p>
+                {hoursCheck.missingList.length > 1 && (
+                  <div className="border-t border-slate-700 pt-2 mt-2">
+                    <p className="font-semibold text-red-300">Remaining missing periods ({hoursCheck.missingList.length}):</p>
+                    <div className="flex flex-wrap gap-1 mt-1 max-h-24 overflow-y-auto">
+                      {hoursCheck.missingList.slice(0, 15).map((comb, i) => (
+                        <span key={i} className="bg-red-950/80 text-red-300 px-1.5 py-0.5 rounded text-[9px] font-semibold border border-red-900">
+                          {comb.country} - {comb.month}
+                        </span>
+                      ))}
+                      {hoursCheck.missingList.length > 15 && (
+                        <span className="text-[9px] text-gray-400">+{hoursCheck.missingList.length - 15} more</span>
+                      )}
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+
+          {/* Squeezed inputs refactored to stack vertically on mobile, horizontally on desktop */}
+          <div className="flex flex-col md:flex-row md:items-end gap-4 w-full">
+            <div className="flex flex-col flex-1 gap-1.5">
+              <span className="text-xs md:text-[10px] font-bold text-gray-500 uppercase">Employee Hours</span>
+              <input
+                type="number"
+                disabled={userRole !== 'Superuser' && userRole !== 'Level2'}
+                value={inputEmployeeHours}
+                onChange={(e) => handleEmployeeHoursChange(e.target.value)}
+                placeholder="Employee"
+                className="w-full text-sm font-bold border border-gray-200 rounded-lg p-3 md:p-2 bg-white font-sans text-slate-800 focus:ring-1 focus:ring-red-400 disabled:opacity-60 disabled:bg-gray-100 disabled:cursor-not-allowed min-h-[48px] md:min-h-[40px]"
+              />
+            </div>
+            <div className="flex flex-col flex-1 gap-1.5">
+              <span className="text-xs md:text-[10px] font-bold text-gray-500 uppercase">Other Hours</span>
+              <input
+                type="number"
+                disabled={userRole !== 'Superuser' && userRole !== 'Level2'}
+                value={inputOtherHours}
+                onChange={(e) => handleOtherHoursChange(e.target.value)}
+                placeholder="Other"
+                className="w-full text-sm font-bold border border-gray-200 rounded-lg p-3 md:p-2 bg-white font-sans text-slate-800 focus:ring-1 focus:ring-red-400 disabled:opacity-60 disabled:bg-gray-100 disabled:cursor-not-allowed min-h-[48px] md:min-h-[40px]"
+              />
+            </div>
+            <div className="flex flex-col flex-1 gap-1.5">
+              <span className="text-xs md:text-[10px] font-bold text-gray-700 uppercase">Total Hours</span>
+              <input
+                type="number"
+                disabled={userRole !== 'Superuser' && userRole !== 'Level2'}
+                value={inputOverallHours}
+                onChange={(e) => setInputOverallHours(e.target.value)}
+                placeholder="Total"
+                className="w-full text-sm font-bold border border-red-200 rounded-lg p-3 md:p-2 bg-red-50 font-sans text-red-950 font-semibold focus:ring-1 focus:ring-red-400 disabled:opacity-60 disabled:bg-gray-100 disabled:cursor-not-allowed min-h-[48px] md:min-h-[40px]"
+              />
+            </div>
+            <div className="flex flex-col w-full md:w-auto">
+              <button
+                disabled={userRole !== 'Superuser' && userRole !== 'Level2'}
+                onClick={handleSaveHoursPrompt}
+                className="w-full md:w-auto bg-red-600 hover:bg-red-700 disabled:bg-slate-300 disabled:text-slate-500 disabled:cursor-not-allowed text-white font-bold text-sm md:text-xs py-3 md:py-2.5 px-6 rounded-lg transition shrink-0 cursor-pointer shadow-md text-center justify-center flex items-center min-h-[48px] md:min-h-[40px]"
+                title={userRole !== 'Superuser' && userRole !== 'Level2' ? "Only Country HSE Manager can insert labor hours" : ""}
+              >
+                Save & Unlock
+              </button>
+            </div>
+          </div>
+
+          {userRole !== 'Superuser' && userRole !== 'Level2' && (
+            <div className="text-xs font-bold text-rose-800 bg-rose-50 border border-rose-150 px-3 py-2 rounded-lg flex items-center gap-1.5 animate-fade-in shadow-xs">
+              <Lock className="w-4 h-4 text-rose-500 shrink-0" /> Insert restricted to Country HSE Manager Only
+            </div>
+          )}
+
+          {hoursFeedback && (
+            <div className="text-xs font-semibold text-emerald-700 bg-emerald-50/80 px-3 py-1.5 rounded-lg flex items-center gap-1.5 animate-pulse">
+              ✓ {hoursFeedback}
+            </div>
+          )}
+        </div>
+      )}
+
+      {!hoursCheck.isMissing && (
+        <div className="bg-emerald-50/50 border border-emerald-100 text-emerald-800 rounded-xl p-4 text-xs font-semibold flex items-center gap-2.5">
+          <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0" />
+          <span className="leading-snug">
+            Standard Catalog Active: <strong className="text-emerald-950">{hoursCheck.totalHours.toLocaleString()} labor-hours</strong> recorded.
+          </span>
+        </div>
+      )}
 
       {/* ========================================================= */}
       {/* 3. SPLIT TRENDS GRID: 7 INCIDENT CLASSIFICATIONS + COMPLIANCE DIAL */}

@@ -193,10 +193,6 @@ Designed as a structured multi-step wizard to guide users from initial notificat
 - **17-Point Classification Criteria Checklist**:
   - Complete checklist determining the severity of the event (e.g., results in death, recovery more than 6 months, absence more than 1 day with Lost Time Days input, medical treatment beyond first aid, significant injury, or simple first aid).
   - This systematic questionnaire automatically classifies the event severity (e.g., LTI, MTC, FAC, Near Miss) in the backend.
-- **Personal Data Protection Act (PDPA) Consent (for Reporter submission)**:
-  - Displayed at the bottom of Step 3 specifically for the Reporter role prior to submitting.
-  - Ensures compliance with personal data collection and processing policies within DKSH.
-  - **Dim and Lock Control**: If the PDPA consent checkbox is not checked, the final submission button ("Submit Incident Report") is visually dimmed and locked (disabled) to enforce compliance before any data can be transmitted.
 
 #### Fields involved in Step 3 (Mapping & Classification):
 | No. | Field Name | Field Type | Mandatory | Description / Validation |
@@ -204,18 +200,17 @@ Designed as a structured multi-step wizard to guide users from initial notificat
 | 1 | **Anatomical Body Parts** | Interactive Vector Area | No | Click hotspots (e.g. Head, Face, Eyes, Arm, Hand, Leg, Feet) to log injured physical locations. |
 | 2 | **17-Point Criteria Checklist**| Interactive Checkboxes | Yes | Multiple-choice checkboxes mapping to severity classification standards. |
 | 3 | **Lost Time Days** | Numeric Input | Yes (if LTI is triggered) | Calculated total work shifts lost due to injury. Mandatory only when LTI or recovery period criteria is flagged. |
-| 4 | **PDPA Consent Checkbox** | Checkbox Selector | Yes (for Reporter) | Consent to the processing of personal data for HSE Incident Reporting inside DKSH. |
 
-#### Step 4: Root Cause Analysis (CAPA & 5-Whys)
+#### Step 4: Root Cause Analysis, Actions & Consent (Step-4 for All Roles)
 - **5-Whys Methodology Section**: Sequential input blocks to trace failure chains (Why did it happen? -> Direct Cause -> System Failure -> Ineffective Control -> Process Gap).
 - **Corrective Actions**: Specific inputs for Immediate Corrective Actions and Long-Term Preventive Actions, along with Target Completion Dates.
 - **Official Closure Verification**: Sign-off block specifying the verifier's identity, date, and final closing remarks. Updates the ticket status to `Closed`.
-- **Personal Data Protection Act (PDPA) Consent (for Level 2 / Superuser submission)**:
-  - Displayed at the bottom of Step 4 for other roles prior to final closeout.
+- **Personal Data Protection Act (PDPA) Consent (for All Roles prior to submission)**:
+  - Displayed at the bottom of Step 4 for all roles (Reporter, Level 2 Country Manager, Regional Manager, Superuser) prior to final submission.
   - Ensures compliance with personal data collection and processing policies within DKSH.
-  - **Dim and Lock Control**: If the PDPA consent checkbox is not checked, the final "Submit Report & Close" button is visually dimmed and locked (disabled) to enforce data privacy compliance.
+  - **Dim and Lock Control**: If the PDPA consent checkbox is not checked, the final action button ("Submit Incident Report" for Reporter, "Submit Report & Close" for Level 2/3/Admin) is visually dimmed and locked (disabled) to enforce data privacy compliance before any data can be saved.
 
-#### Fields involved in Step 4 (CAPA & Investigation):
+#### Fields involved in Step 4 (CAPA, Consent & Investigation):
 | No. | Field Name | Field Type | Mandatory | Description / Validation |
 | :---: | :--- | :--- | :---: | :--- |
 | 1 | **Why 1: Direct Incident Cause**| Text Input / Text Area | Yes | Initial event description trigger. |
@@ -230,7 +225,7 @@ Designed as a structured multi-step wizard to guide users from initial notificat
 | 10 | **Sign-off Verifier Name** | Text Input | Yes (on closure) | Lead manager validating closure (only for Level 2/3/Admin). |
 | 11 | **Sign-off Closure Date** | Calendar Date Picker | Yes (on closure) | Verified closeout date. |
 | 12 | **Final Closing Comments** | Text Area | Yes (on closure) | Comprehensive verification notes and checklist confirmation. |
-| 13 | **PDPA Consent Checkbox** | Checkbox Selector | Yes (for Lvl2/Super) | Consent to the processing of personal data for HSE Incident Reporting inside DKSH. |
+| 13 | **PDPA Consent Checkbox** | Checkbox Selector | Yes | Consent to the processing of personal data for HSE Incident Reporting inside DKSH. Mandatory for all roles before submitting. |
 
 ---
 
@@ -272,15 +267,27 @@ Designed as a structured multi-step wizard to guide users from initial notificat
 ## 5. Non-Functional Specifications & Design Standards
 
 ### 5.1 Corporate Brand & Color Palette
-To align with the **DKSH Corporate Styling Guidelines**, the application utilizes a tailored slate-and-crimson high-contrast light theme:
-- **Primary Color**: DKSH Crimson Red (`#D3121A`) — applied to main navigation accents, buttons, and alert states.
-- **Secondary Color**: Corporate Charcoal Gray (`#1E293B`) — applied to headers, body text, and structural dividers.
-- **Backgrounds**: Soft Warm Grays (`#F8FAFC`, `#F1F5F9`) to ensure visual comfort during long reporting shifts.
+To align with the official **DKSH Corporate Styling Guidelines**, the application strictly employs the certified color palette and typography system:
+- **Primary Color**: DKSH Crimson Red (`#BE0028`) — the cornerstone color applied to corporate headers, branding, and status anchors.
+- **Secondary Accent**: Active Red (`#EF233C`) — high-visibility pure red reserved strictly for primary Call-to-Actions (CTAs) and interactive elements.
+- **Core Neutrals**: Corporate Dark Gray (`#1A1A1A`) for headers and readable body text, and White (`#FFFFFF`) for card backgrounds.
+- **Background Palette**: Soft Warm Grays (`#F4F4F4`, `#F8FAFC`) to prevent fatigue during long operational reporting shifts.
+- **Digital Accents**: Light Blue (`#90E0EF`), Medium Blue (`#00B4D8`), and Blue (`#0077B6`) applied as interactive hovers and state highlights.
+- **Typography Stack**: Standard digital font pairing: `"Noto Sans", "Arial", sans-serif` to ensure high accessibility, universal language support, and clean contrast.
 
-### 5.2 Responsive Layout Standards
-- **Grid Structure**: Fluid standard desktop grids reflow into simple vertical containers on smaller screens.
-- **Tables and Data Displays**: Scrollable horizontal containers (`overflow-x-auto`) wrapped around tables in involved rosters and witness records to ensure layout integrity on mobile devices.
-- **Mobile Touch Elements**: Buttons, selection tabs, and dropdown menus maintain a minimum click area of 44px x 44px for warehouse operators using handheld devices.
+### 5.2 Responsive Layout Standards & Mobile-First Architecture
+- **Global Restraints**: All elements strictly enforce `box-sizing: border-box;` and parent container constraints. The main viewport wrapper restricts width to `100%` with `overflow-x: hidden` to eliminate horizontal page scrolling on all mobile platforms.
+- **Edge-to-Edge Root**: Under 768px viewports, the outermost root container, body, and app wrapper fully collapse horizontal padding and margins (`padding-inline: 0; margin-inline: 0;`) to capture every pixel of horizontal space.
+- **Full-Width Grey Wrapper**: The grey background container (`#F4F4F4`) stretches completely edge-to-edge on mobile with a flexible `width: 100%` and zero border-radius.
+- **Optimized Mobile Spacing**: Inside the grey background container, outer margin spacers are reduced to a strict maximum of `8px` to `12px` via a unified `.global-form-container` wrapper to maximize available data entry width.
+- **Refined Internal Card Padding**: All form cards utilize the `.global-form-card` component. On mobile viewports, the internal horizontal padding is tightened to a precise `12px` (down from `32px` on desktop) so that multi-column input fields (e.g., Witness Name, Roster grids, and Department) can stretch wider for maximum readability and easier tap-input interaction.
+- **Tablet & Desktop Preservation**: Standard maximum-width rules are preserved for larger screens via media queries (`@media (min-width: 768px)`). On desktop and tablet, the form cards center beautifully with a maximum width of `600px` (`margin: 0 auto`) to maintain a clean, professional, and balanced visual look.
+- **"One-Thumb" Navigation**: A fixed bottom navigation bar is active on mobile viewports (< 768px) to allow effortless single-hand transitions between the Regional Dashboard, Country Dashboard, Incident Ticket logs, Wizard reporting forms, and Masters configuration screens.
+- **Collapsible Filter Consolidation**: Top-level environment filter selectors (Role, Market, Date Range, Category) are condensed into a high-contrast collapsible accordion panel, saving up to 250px of vertical screen real estate for direct data visibility.
+- **Vertical Stacking Ergonomics**: Forms such as the "Labor Hours Entry" section automatically reflow from multi-column rows into clean vertical column stacks (`flex-direction: column; gap: 16px;`) on mobile screens, optimizing layout balance and input ergonomics.
+- **Accessible Touch Targets**: All interactive controls, inputs, dropdown selectors, list toggles, and buttons maintain a minimum height of **48px** on mobile viewports to comply with standard accessibility and touch-target guidelines.
+- **Symmetric 2x2 Grid Stats**: Key metrics blocks (Total, Investigating, Closed, and Draft counters) are refactored into a balanced `2x2` CSS grid container on mobile screens, preventing horizontal clipping while maximizing screen density.
+- **Tables and Data Displays**: Scrollable horizontal containers (`overflow-x-auto`) are wrapped around dense data grids (such as Involved Rosters and Witness Records) to ensure readability on small displays.
 
 ---
 

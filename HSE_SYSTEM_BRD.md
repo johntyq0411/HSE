@@ -19,7 +19,7 @@
 ## 1. Executive Summary & Vision
 
 ### 1.1 Vision Statement
-The **DKSH HSE Incident & CAPA Compliance Portal** is designed to digitize, standardize, and streamline the tracking of Health, Safety, and Environment (HSE) occurrences and the execution of Corrective and Preventive Actions (CAPA) across the entire Asia-Pacific region. By replacing fragmented manual spreadsheets, the portal serves as a single, unified source of truth for safety reporting, performance analytics, and regulatory compliance.
+The **DKSH HSE Incident & CAPA Compliance Portal** is designed to digitize, standardize, and streamline the tracking of Health, Safety, and Environment (HSE) occurrences and the recording of Corrective and Preventive Actions (CAPA) across the entire Asia-Pacific region. CAPA tasks and their execution are conducted and tracked on an external system, meaning this portal is utilized purely as a central register for HSE incident and CAPA logging. By replacing fragmented manual spreadsheets, the portal serves as a single, unified source of truth for safety reporting, performance analytics, and regulatory compliance.
 
 ### 1.2 Strategic Goals
 - **Empower Local Teams**: Enable site-level coordinators to easily report hazards, near-misses, and injuries through an interactive, intuitive multi-step wizard.
@@ -293,15 +293,8 @@ Below is the structured, end-to-end user journey mapping out how an incident tic
                                   │
                                   ▼
              ┌─────────────────────────────────────────┐
-             │    CAPA TASK EXECUTION & MONITORING     │
-             │ - Assigned owner executes action plan   │
-             │ - Manager tracks progress in Ticket Log │
-             └────────────────────┬────────────────────┘
-                                  │
-                                  ▼
-             ┌─────────────────────────────────────────┐
              │   CLOSURE VERIFICATION & SIGN-OFF       │
-             │ - Manager verifies execution details    │
+             │ - Manager verifies recording details    │
              │ - Submits closure date & comments       │
              │ - Ticket state changes: "Investigating" │
              │   transitioned to "Closed" status       │

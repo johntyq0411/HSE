@@ -248,7 +248,74 @@ Designed as a structured multi-step wizard to guide users from initial notificat
 
 ---
 
-### 4.3 Module 3: My HSE Tickets Log & Search Engine
+### 4.3 Unified User Journey & Incident Life Cycle Flow
+
+Below is the structured, end-to-end user journey mapping out how an incident ticket progresses from the initial physical event to official investigation, Corrective Action (CAPA) implementation, and final administrative closure.
+
+```
+                  [ INCIDENT OCCURRENCE / HSE EVENT ]
+                                  │
+                                  ▼
+             ┌─────────────────────────────────────────┐
+             │    STEP 1: BASIC OPERATIONAL DATA       │
+             │ - Reporter inputs Date, Time & Category │
+             │ - Selects active Distribution Center    │
+             └────────────────────┬────────────────────┘
+                                  │
+                                  ▼
+             ┌─────────────────────────────────────────┐
+             │    STEP 2: PERSONNEL & WITNESSES        │
+             │ - Enters involved workers & ID cards    │
+             │ - Logs eye witnesses & contractor tags  │
+             └────────────────────┬────────────────────┘
+                                  │
+                                  ▼
+             ┌─────────────────────────────────────────┐
+             │    STEP 3: BODY MAPPING & CLASSIFY      │
+             │ - Toggles anatomical injury hotspots    │
+             │ - Checks 17-Point Compliance triggers   │
+             │ - System auto-rates Severity Class      │
+             └────────────────────┬────────────────────┘
+                                  │
+                  Is Active User a Level 1 Reporter?
+                     ├─── [YES: Submit Draft] ───────► [Save as Ticket Draft]
+                     │                                           │
+                     ├─── [NO: Manager/Superuser]                ▼
+                     │                                [Manager Reviews Draft]
+                     v                                           │
+             ┌─────────────────────────────────────────┐         │
+             │   STEP 4: RCA 5-WHYS & CAPA DEPLOYMENT  │◄────────┘
+             │ - Performs systematic 5-Whys Analysis   │
+             │ - Commits immediate corrective action   │
+             │ - Commits long-term preventive action   │
+             │ - Assigns Task Owner, Deadline, Priority│
+             └────────────────────┬────────────────────┘
+                                  │
+                                  ▼
+             ┌─────────────────────────────────────────┐
+             │    CAPA TASK EXECUTION & MONITORING     │
+             │ - Assigned owner executes action plan   │
+             │ - Manager tracks progress in Ticket Log │
+             └────────────────────┬────────────────────┘
+                                  │
+                                  ▼
+             ┌─────────────────────────────────────────┐
+             │   CLOSURE VERIFICATION & SIGN-OFF       │
+             │ - Manager verifies execution details    │
+             │ - Submits closure date & comments       │
+             │ - Ticket state changes: "Investigating" │
+             │   transitioned to "Closed" status       │
+             └────────────────────┬────────────────────┘
+                                  │
+                                  ▼
+                    [ REGIONAL DASHBOARD UPDATES ]
+              - Safe Days & Incident Frequency Rates sync
+              - Executive reports generated for review
+```
+
+---
+
+### 4.4 Module 3: My HSE Tickets Log & Search Engine
 - **Objective**: Operational database explorer for managing open tickets, reviewing drafts, and updating records.
 - **Key Features**:
   - **Text Search**: Real-time fuzzy filtering across titles, locations, owners, and descriptions.
@@ -267,7 +334,7 @@ Designed as a structured multi-step wizard to guide users from initial notificat
 
 ---
 
-### 4.4 Module 4: Masters Configuration (DC Config)
+### 4.5 Module 4: Masters Configuration (DC Config)
 - **Objective**: Manage organizational units (Distribution Centers) dynamically.
 - **Controls**:
   - **Site Registration**: Add Distribution Centers by specifying Name, Operating Country, and Assigned Manager. (Restricted to Regional HSE Manager / Superuser only).

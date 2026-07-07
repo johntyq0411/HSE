@@ -298,7 +298,7 @@ export default function TicketsLog({ reports, onSelectReport, onDeleteReport }: 
                       className={`inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold transition min-h-[40px] ${
                         r.status === 'draft'
                           ? 'bg-amber-100 hover:bg-amber-150 text-amber-900 border border-amber-200'
-                          : 'bg-indigo-50 hover:bg-indigo-100 text-indigo-900 border border-indigo-200'
+                          : 'bg-red-50 hover:bg-indigo-100 text-slate-900 border border-red-200'
                       }`}
                     >
                       {r.status === 'draft' ? (
@@ -308,7 +308,7 @@ export default function TicketsLog({ reports, onSelectReport, onDeleteReport }: 
                         </>
                       ) : (
                         <>
-                          <Eye className="w-3.5 h-3.5 text-indigo-700" />
+                          <Eye className="w-3.5 h-3.5 text-dksh-red" />
                           <span>Enlarge</span>
                         </>
                       )}
@@ -415,7 +415,7 @@ export default function TicketsLog({ reports, onSelectReport, onDeleteReport }: 
                         className={`inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-[11px] font-bold transition ${
                           r.status === 'draft'
                             ? 'bg-amber-50 text-amber-700 hover:bg-amber-100 border border-amber-200'
-                            : 'bg-indigo-50 text-indigo-700 hover:bg-indigo-100 border border-indigo-200'
+                            : 'bg-red-50 text-dksh-red hover:bg-indigo-100 border border-red-200'
                         }`}
                         title={r.status === 'draft' ? 'Resume draft editing' : 'Enlarge to view all details'}
                       >
@@ -577,9 +577,9 @@ export default function TicketsLog({ reports, onSelectReport, onDeleteReport }: 
 
               {/* STEP 2: DETAILS OF PERSON INVOLVED & WITNESS */}
               <div className="space-y-4">
-                <div className="border-l-4 border-indigo-500 bg-indigo-50/50 p-4 rounded-r-lg">
+                <div className="border-l-4 border-indigo-500 bg-red-50/50 p-4 rounded-r-lg">
                   <h3 className="text-sm font-bold text-indigo-800 uppercase tracking-wide">STEP 2: DETAILS OF PERSON INVOLVED & WITNESS</h3>
-                  <p className="text-xs text-indigo-700">Roster logs of primary personnel and observers present during the event.</p>
+                  <p className="text-xs text-dksh-red">Roster logs of primary personnel and observers present during the event.</p>
                 </div>
 
                 <div className="grid grid-cols-1 gap-6">
@@ -613,7 +613,7 @@ export default function TicketsLog({ reports, onSelectReport, onDeleteReport }: 
                                 </td>
                                 <td className="p-3">
                                   <span className={`px-1.5 py-0.5 rounded text-[10px] font-bold ${
-                                    p.isEmployee ? 'bg-indigo-50 text-indigo-700' : 'bg-slate-100 text-slate-700'
+                                    p.isEmployee ? 'bg-red-50 text-dksh-red' : 'bg-slate-100 text-slate-700'
                                   }`}>
                                     {p.isEmployee ? 'Employee' : 'Other'}
                                   </span>
@@ -666,7 +666,7 @@ export default function TicketsLog({ reports, onSelectReport, onDeleteReport }: 
                                 </td>
                                 <td className="p-3">
                                   <span className={`px-1.5 py-0.5 rounded text-[10px] font-bold ${
-                                    w.isEmployee ? 'bg-indigo-50 text-indigo-700' : 'bg-slate-100 text-slate-700'
+                                    w.isEmployee ? 'bg-red-50 text-dksh-red' : 'bg-slate-100 text-slate-700'
                                   }`}>
                                     {w.isEmployee ? 'Employee' : 'Other'}
                                   </span>
@@ -834,9 +834,9 @@ export default function TicketsLog({ reports, onSelectReport, onDeleteReport }: 
 
               {/* STEP 4: INVESTIGATION & ACTIONS */}
               <div className="space-y-4">
-                <div className="border-l-4 border-indigo-500 bg-indigo-50/50 p-4 rounded-r-lg">
+                <div className="border-l-4 border-indigo-500 bg-red-50/50 p-4 rounded-r-lg">
                   <h3 className="text-sm font-bold text-indigo-800 uppercase tracking-wide">STEP 4: INVESTIGATION, CORRECTIVE ACTIONS & SIGN-OFF</h3>
-                  <p className="text-xs text-indigo-700">Root cause 5-Why methodology analysis, corrective actions, and sign-off status.</p>
+                  <p className="text-xs text-dksh-red">Root cause 5-Why methodology analysis, corrective actions, and sign-off status.</p>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -844,7 +844,7 @@ export default function TicketsLog({ reports, onSelectReport, onDeleteReport }: 
                   {activeEnlargedReport.category !== 'Hazard Observation' && (
                     <div className="bg-slate-50 border border-slate-200 rounded-2xl p-6 shadow-xs space-y-4 animate-fade-in">
                       <h4 className="text-xs font-bold text-slate-900 uppercase tracking-wider border-b pb-2 flex items-center gap-1.5">
-                        <ListTodo className="w-4 h-4 text-indigo-600" />
+                        <ListTodo className="w-4 h-4 text-dksh-red" />
                         4.1 Root Cause Investigation (5-Why Methodology)
                       </h4>
                       
@@ -857,7 +857,7 @@ export default function TicketsLog({ reports, onSelectReport, onDeleteReport }: 
                           { num: 5, title: 'Why 5 (Process or Systemic Gap - Root Cause)', val: activeEnlargedReport.investigation?.whyGapExists }
                         ].map((why) => (
                           <div key={why.num} className="p-2.5 bg-white border border-slate-200/60 rounded-xl">
-                            <span className="font-extrabold text-[9px] text-indigo-600 block uppercase tracking-wider mb-0.5">{why.title}</span>
+                            <span className="font-extrabold text-[9px] text-dksh-red block uppercase tracking-wider mb-0.5">{why.title}</span>
                             <p className="text-gray-700 font-medium leading-relaxed">{why.val || 'Not analyzed.'}</p>
                           </div>
                         ))}

@@ -50,6 +50,7 @@ export default function App() {
   const [activeTab, setActiveTab] = useState<'Dashboard' | 'ReportForm' | 'DCConfig' | 'MyTickets'>('Dashboard');
   const [activeEditId, setActiveEditId] = useState<string | null>(null);
   const [dashboardCountry, setDashboardCountry] = useState<string>('Overall');
+  const [isScrolled, setIsScrolled] = useState<boolean>(false);
 
   // Sync dashboard filter to active simulated role & country
   useEffect(() => {
@@ -59,6 +60,19 @@ export default function App() {
       setDashboardCountry('Overall');
     }
   }, [userRole, userCountry]);
+
+  // Handle window scroll to toggle top bar background style
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 15) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   // Init local storage records
   useEffect(() => {
@@ -172,96 +186,101 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen w-full overflow-x-hidden bg-[#F4F4F4] text-slate-800 font-sans antialiased pb-28 md:pb-12 selection:bg-red-50">
+    <div className="min-h-screen w-full bg-[#F4F4F4] text-slate-800 font-sans antialiased pb-28 md:pb-12 selection:bg-red-50">
       
-      {/* 1. TOP DOCKS: ACTIVE CLIENT ROLE SIMULATOR & DKSH HEADER */}
-      <div className="bg-white border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 md:px-6 py-4 flex flex-col md:flex-row items-center justify-between gap-4">
-          
-          <div className="text-center md:text-left">
-            <h1 className="text-xl font-bold tracking-tight text-dksh-red" style={{ fontFamily: 'Georgia, serif' }}>
-              HSE CAPA Production System
-            </h1>
-            <p className="text-[10px] text-dksh-gray uppercase tracking-widest font-mono font-bold mt-0.5">
-              Health, Safety, Environment, & Compliance Assurance
-            </p>
-          </div>
-
-          {/* ROLE SIMULATOR PANEL (Simulates secure SSO credentials) */}
-          <div className="hidden md:flex bg-[#F4F4F4] border border-gray-200 px-4 py-2 rounded-lg flex-wrap items-center justify-center md:justify-start gap-3">
-            <span className="text-[10px] font-bold text-dksh-gray uppercase tracking-wider">Role Test Environment:</span>
-            <div className="flex gap-1.5">
-              <select
-                value={userRole}
-                onChange={(e) => {
-                  const role = e.target.value as UserRole;
-                  setUserRole(role);
-                }}
-                className="text-[11px] font-bold border border-gray-300 rounded bg-white px-2 py-0.5 text-slate-700 focus:outline-none"
-              >
-                <option value="Superuser">🔑 Role: Super User (Full Region access)</option>
-                <option value="Level2">👔 Role: Country HSE Manager (Lvl 2 / Write)</option>
-                <option value="Reporter">📝 Role: Reporter (Step 4 Audit only)</option>
-              </select>
-
-              <select
-                value={userCountry}
-                disabled={userRole === 'Reporter'}
-                onChange={(e) => setUserCountry(e.target.value)}
-                className="text-[11px] font-bold border border-gray-300 rounded bg-white px-2 py-0.5 text-slate-700 focus:outline-none disabled:opacity-50 disabled:bg-gray-100 disabled:cursor-not-allowed"
-              >
-                {COUNTRIES.map(cty => (
-                  <option key={cty} value={cty}>Market: {cty}</option>
-                ))}
-              </select>
+      {/* STICKY GLOBAL HEADER CONTAINER */}
+      <header className="sticky top-0 z-40 w-full shadow-xs">
+        {/* 1. TOP DOCKS: ACTIVE CLIENT ROLE SIMULATOR & DKSH HEADER */}
+        <div className={`transition-all duration-300 ${isScrolled ? 'bg-[#BE0028] border-b border-red-800 shadow-sm py-2' : 'bg-white border-b border-gray-200 py-4'}`}>
+          <div className="max-w-7xl mx-auto px-4 md:px-6 flex flex-col md:flex-row items-center justify-between gap-4">
+            
+            <div className="text-center md:text-left">
+              <h1 className={`text-xl font-bold tracking-tight transition-colors duration-300 ${isScrolled ? 'text-white' : 'text-[#BE0028]'}`} style={{ fontFamily: 'Georgia, serif' }}>
+                HSE CAPA Production System
+              </h1>
+              <p className={`text-[10px] uppercase tracking-widest font-mono font-bold mt-0.5 transition-colors duration-300 ${isScrolled ? 'text-red-100' : 'text-slate-500'}`}>
+                Health, Safety, Environment, & Compliance Assurance
+              </p>
             </div>
-          </div>
 
-          {/* DKSH CORPORATE LOGO SVG */}
-          <div className="flex items-center justify-center md:justify-end gap-4 border-t pt-4 w-full md:w-auto md:border-t-0 md:pt-0 md:border-l md:pl-5 border-gray-200">
-            <div className="text-right text-xs">
-              <span className="text-gray-400">Welcome, </span>
-              <strong className="text-slate-800">{userRole === 'Superuser' ? 'Global Admin' : `Coord (${userCountry})`}</strong>
+            {/* ROLE SIMULATOR PANEL (Simulates secure SSO credentials) */}
+            <div className={`hidden md:flex px-4 py-2 rounded-lg flex-wrap items-center justify-center md:justify-start gap-3 transition-colors duration-300 ${isScrolled ? 'bg-red-950/40 border border-red-700/50' : 'bg-[#F4F4F4] border border-gray-200'}`}>
+              <span className={`text-[10px] font-bold uppercase tracking-wider transition-colors duration-300 ${isScrolled ? 'text-red-100' : 'text-slate-500'}`}>Role Test Environment:</span>
+              <div className="flex gap-1.5">
+                <select
+                  value={userRole}
+                  onChange={(e) => {
+                    const role = e.target.value as UserRole;
+                    setUserRole(role);
+                  }}
+                  className={`text-[11px] font-bold border rounded px-2 py-0.5 focus:outline-none transition-colors duration-300 ${isScrolled ? 'border-red-700 bg-red-950/60 text-white' : 'border-gray-300 bg-white text-slate-700'}`}
+                >
+                  <option value="Superuser">🔑 Role: Super User (Full Region access)</option>
+                  <option value="Level2">👔 Role: Country HSE Manager (Lvl 2 / Write)</option>
+                  <option value="Reporter">📝 Role: Reporter (Step 4 Audit only)</option>
+                </select>
+
+                <select
+                  value={userCountry}
+                  disabled={userRole === 'Reporter'}
+                  onChange={(e) => setUserCountry(e.target.value)}
+                  className={`text-[11px] font-bold border rounded px-2 py-0.5 focus:outline-none transition-colors duration-300 ${isScrolled ? 'border-red-700 bg-red-950/60 text-white disabled:opacity-30' : 'border-gray-300 bg-white text-slate-700 disabled:opacity-50 disabled:bg-gray-100'} disabled:cursor-not-allowed`}
+                >
+                  {COUNTRIES.map(cty => (
+                    <option key={cty} value={cty}>Market: {cty}</option>
+                  ))}
+                </select>
+              </div>
             </div>
-            <div className="flex items-center justify-center select-none p-1 bg-white border border-slate-100 rounded shadow-xs" style={{ minHeight: '40px' }}>
-              <svg 
-                viewBox="0 0 165 54" 
-                className="rounded object-contain shrink-0" 
-                style={{ height: '32px', width: 'auto', objectFit: 'contain' }}
-                fill="none" 
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                {/* Solid official DKSH red background (#BE0028) */}
-                <rect width="165" height="54" fill="#BE0028" />
-                
-                {/* Left side white semi-circle perfectly centered vertically */}
-                <path d="M 35,6 A 21,21 0 0 0 35,48 Z" fill="white" />
-                
-                {/* Palm tree branches scaled down slightly (0.75x) to fit fully inside the circle bounds */}
-                <g transform="translate(35, 27) scale(0.75)">
-                  {/* Left branches (red, overlaying the white semi-circle background) */}
-                  <path d="M0,0 C-2,-12 -12,-20 -21,-20 C-11,-15 -3,-5 0,0" fill="#BE0028" />
-                  <path d="M0,0 C2,-12 -5,-23 -13,-25 C-6,-18 -1,-7 0,0" fill="#BE0028" />
-                  <path d="M0,0 C6,-10 3,-23 -5,-27 C0,-19 -1,-8 0,0" fill="#BE0028" />
+
+            {/* DKSH CORPORATE LOGO SVG */}
+            <div className={`flex items-center justify-center md:justify-end gap-4 border-t pt-4 w-full md:w-auto md:border-t-0 md:pt-0 md:border-l md:pl-5 transition-colors duration-300 ${isScrolled ? 'border-red-700/60' : 'border-gray-200'}`}>
+              <div className="text-right text-xs">
+                <span className={`transition-colors duration-300 ${isScrolled ? 'text-red-200' : 'text-gray-400'}`}>Welcome, </span>
+                <strong className={`transition-colors duration-300 ${isScrolled ? 'text-white' : 'text-slate-800'}`}>{userRole === 'Superuser' ? 'Global Admin' : `Coord (${userCountry})`}</strong>
+              </div>
+              <div className={`flex items-center justify-center select-none p-1 rounded transition-colors duration-300 ${isScrolled ? 'bg-transparent border border-transparent' : 'bg-white border border-slate-100 shadow-xs'}`} style={{ minHeight: '40px' }}>
+                <svg 
+                  viewBox="0 0 165 54" 
+                  className="rounded object-contain shrink-0" 
+                  style={{ height: '32px', width: 'auto', objectFit: 'contain' }}
+                  fill="none" 
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  {/* Left side red/white semi-circle */}
+                  <path d="M 35,6 A 21,21 0 0 0 35,48 Z" fill={isScrolled ? "white" : "#BE0028"} />
+                  {/* Right side white/red semi-circle making the circle complete and robust on any background */}
+                  <path d="M 35,6 A 21,21 0 0 1 35,48 Z" fill={isScrolled ? "#BE0028" : "white"} />
                   
-                  {/* Right branches (white, overlaying the red background) */}
-                  <path d="M0,0 C10,-8 11,-19 4,-26 C5,-18 2,-8 0,0" fill="white" />
-                  <path d="M0,0 C12,-4 15,-12 12,-21 C9,-14 4,-6 0,0" fill="white" />
-                  <path d="M0,0 C12,0 17,-4 17,-12 C12,-8 6,-3 0,0" fill="white" />
-                </g>
-                
-                {/* Bold white DKSH text */}
-                <text x="68" y="38" fill="white" fontSize="30" fontWeight="900" fontFamily="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" letterSpacing="-1px">DKSH</text>
-              </svg>
+                  {/* Palm tree branches scaled down slightly (0.72x) to fit fully inside the circle bounds */}
+                  <g transform="translate(35, 27) scale(0.72)">
+                    {/* Left branches (white or background color in red-scrolled header) */}
+                    <path d="M0,0 C -2,-10 -6,-19 -9,-23 C -5,-15 -2,-8 0,0" fill={isScrolled ? "#BE0028" : "white"} />
+                    <path d="M0,0 C -5,-9 -12,-16 -17,-19 C -10,-12 -3,-6 0,0" fill={isScrolled ? "#BE0028" : "white"} />
+                    <path d="M0,0 C -8,-7 -17,-11 -22,-13 C -14,-8 -5,-4 0,0" fill={isScrolled ? "#BE0028" : "white"} />
+                    <path d="M0,0 C -10,-4 -20,-4 -24,-6 C -16,-3 -6,-2 0,0" fill={isScrolled ? "#BE0028" : "white"} />
+                    <path d="M0,0 C -10,-1 -21,-1 -25,0 C -17,1 -7,1 0,0" fill={isScrolled ? "#BE0028" : "white"} />
+                    
+                    {/* Right branches (red or scrolled-white header) */}
+                    <path d="M0,0 C 2,-10 6,-19 9,-23 C 5,-15 2,-8 0,0" fill={isScrolled ? "white" : "#BE0028"} />
+                    <path d="M0,0 C 5,-9 12,-16 17,-19 C 10,-12 3,-6 0,0" fill={isScrolled ? "white" : "#BE0028"} />
+                    <path d="M0,0 C 8,-7 17,-11 22,-13 C 14,-8 5,-4 0,0" fill={isScrolled ? "white" : "#BE0028"} />
+                    <path d="M0,0 C 10,-4 20,-4 24,-6 C 16,-3 6,-2 0,0" fill={isScrolled ? "white" : "#BE0028"} />
+                    <path d="M0,0 C 10,-1 21,-1 25,0 C 17,1 7,1 0,0" fill={isScrolled ? "white" : "#BE0028"} />
+                  </g>
+                  
+                  {/* Bold red/white DKSH text */}
+                  <text x="68" y="38" fill={isScrolled ? "white" : "#BE0028"} fontSize="31" fontWeight="900" fontFamily="'Noto Sans', Arial, sans-serif" letterSpacing="-1.5px">DKSH</text>
+                </svg>
+              </div>
             </div>
+
           </div>
-
         </div>
-      </div>
 
-      {/* 2. SUB NAVIGATION RAILS (DKSH CRM horizontal links style) */}
-      <div className="hidden md:block bg-white border-b border-gray-200 sticky top-0 z-40 shadow-xs">
-        <div className="max-w-7xl mx-auto px-4 md:px-6 flex justify-between items-center gap-4">
+        {/* 2. SUB NAVIGATION RAILS (DKSH CRM horizontal links style) */}
+        <div className="hidden md:block bg-white border-b border-gray-200">
+          <div className="max-w-7xl mx-auto px-4 md:px-6 flex justify-between items-center gap-4">
           
           <div className="flex gap-6 overflow-x-auto scrollbar-none w-full md:w-auto">
             {[
@@ -322,6 +341,7 @@ export default function App() {
 
         </div>
       </div>
+    </header>
 
       {/* 3. CORE ROUTER STAGE */}
       <div className="max-w-7xl mx-auto px-4 md:px-6 py-4 main-content-stage" id="main-content-stage-container">

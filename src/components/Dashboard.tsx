@@ -1033,9 +1033,9 @@ export default function Dashboard({
               criteria: 'TRIR continuous tracking',
               color: '#6366f1',
               stroke: '#4f46e5',
-              bgLight: 'bg-indigo-50/50',
-              textDark: 'text-indigo-950',
-              borderColor: 'border-indigo-100',
+              bgLight: 'bg-red-50/50',
+              textDark: 'text-[#1A1A1A]',
+              borderColor: 'border-red-100',
               badge: 'REC',
               count: metrics.recordableCount,
               rate: metrics.recordableRate,
@@ -1129,7 +1129,7 @@ export default function Dashboard({
                   <div 
                     key={s.key} 
                     onClick={() => setSelectedEnlargedCard(s)}
-                    className="bg-white p-4 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition flex flex-col justify-between h-[210px] relative select-none cursor-pointer group hover:border-indigo-300 active:scale-[0.995]"
+                    className="bg-white p-4 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition flex flex-col justify-between h-[210px] relative select-none cursor-pointer group hover:border-dksh-red active:scale-[0.995]"
                     onMouseMove={(e) => {
                       const rect = e.currentTarget.getBoundingClientRect();
                       const relX = e.clientX - rect.left;
@@ -1151,7 +1151,7 @@ export default function Dashboard({
                           {s.title}
                         </span>
                         <span className="text-[9px] text-gray-400 block font-normal mt-0.5 truncate">
-                          {s.criteria} <span className="text-[8px] font-bold text-indigo-500 opacity-0 group-hover:opacity-100 transition-opacity ml-1">(Enlarge & Export)</span>
+                          {s.criteria} <span className="text-[8px] font-bold text-dksh-red opacity-0 group-hover:opacity-100 transition-opacity ml-1">(Enlarge & Export)</span>
                         </span>
                       </div>
                       <div className="flex items-center gap-1.5 shrink-0">
@@ -1414,7 +1414,7 @@ export default function Dashboard({
                     <span className="text-gray-300">•</span>
                     <span>Country: <strong className="text-dksh-red uppercase">{finalCountryFilter === 'Overall' ? 'All Corporate' : finalCountryFilter}</strong></span>
                     <span className="text-gray-300">•</span>
-                    <span>Worker Category: <strong className="text-indigo-600 font-semibold">{filterWorkerType}</strong></span>
+                    <span>Worker Category: <strong className="text-dksh-red font-semibold">{filterWorkerType}</strong></span>
                     <span className="text-gray-300">•</span>
                     <span>Category: <strong className="text-sky-600 font-semibold">{filterIncidentCategory}</strong></span>
                     <span className="text-gray-300">•</span>
@@ -1440,7 +1440,7 @@ export default function Dashboard({
                     <TrendingUp className="w-4 h-4 text-slate-400" />
                     12 Months Performance Chart
                   </h4>
-                  <span className="text-[10px] bg-indigo-50 text-indigo-700 px-2 py-0.5 rounded font-bold font-mono tracking-wide uppercase">
+                  <span className="text-[10px] bg-red-50 text-dksh-red px-2 py-0.5 rounded font-bold font-mono tracking-wide uppercase">
                     Cases & Incident Frequency Rate
                   </span>
                 </div>
@@ -1711,7 +1711,7 @@ export default function Dashboard({
                                   <td className="px-4 py-3">
                                     <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${
                                       workerType === 'Employee' 
-                                        ? 'bg-indigo-50 text-indigo-700 border border-indigo-100' 
+                                        ? 'bg-red-50 text-dksh-red border border-red-100' 
                                         : workerType === 'Contractor / Third Party'
                                         ? 'bg-amber-50 text-amber-700 border border-amber-100'
                                         : 'bg-slate-100 text-slate-700 border border-slate-200'
@@ -1909,9 +1909,9 @@ export default function Dashboard({
 
               {/* STEP 2: DETAILS OF PERSON INVOLVED & WITNESS */}
               <div className="space-y-4">
-                <div className="border-l-4 border-indigo-500 bg-indigo-50/50 p-4 rounded-r-lg">
+                <div className="border-l-4 border-indigo-500 bg-red-50/50 p-4 rounded-r-lg">
                   <h3 className="text-sm font-bold text-indigo-800 uppercase tracking-wide">STEP 2: DETAILS OF PERSON INVOLVED & WITNESS</h3>
-                  <p className="text-xs text-indigo-700">Roster logs of primary personnel and observers present during the event.</p>
+                  <p className="text-xs text-dksh-red">Roster logs of primary personnel and observers present during the event.</p>
                 </div>
 
                 <div className="grid grid-cols-1 gap-6">
@@ -1945,7 +1945,7 @@ export default function Dashboard({
                                 </td>
                                 <td className="p-3">
                                   <span className={`px-1.5 py-0.5 rounded text-[10px] font-bold ${
-                                    p.isEmployee ? 'bg-indigo-50 text-indigo-700' : 'bg-slate-100 text-slate-700'
+                                    p.isEmployee ? 'bg-red-50 text-dksh-red' : 'bg-slate-100 text-slate-700'
                                   }`}>
                                     {p.isEmployee ? 'Employee' : 'Other'}
                                   </span>
@@ -1998,7 +1998,7 @@ export default function Dashboard({
                                 </td>
                                 <td className="p-3">
                                   <span className={`px-1.5 py-0.5 rounded text-[10px] font-bold ${
-                                    w.isEmployee ? 'bg-indigo-50 text-indigo-700' : 'bg-slate-100 text-slate-700'
+                                    w.isEmployee ? 'bg-red-50 text-dksh-red' : 'bg-slate-100 text-slate-700'
                                   }`}>
                                     {w.isEmployee ? 'Employee' : 'Other'}
                                   </span>
@@ -2178,9 +2178,9 @@ export default function Dashboard({
 
               {/* STEP 4: INVESTIGATION & ACTIONS */}
               <div className="space-y-4">
-                <div className="border-l-4 border-indigo-500 bg-indigo-50/50 p-4 rounded-r-lg">
+                <div className="border-l-4 border-indigo-500 bg-red-50/50 p-4 rounded-r-lg">
                   <h3 className="text-sm font-bold text-indigo-800 uppercase tracking-wide">STEP 4: INVESTIGATION, CORRECTIVE ACTIONS & SIGN-OFF</h3>
-                  <p className="text-xs text-indigo-700">Root cause 5-Why methodology analysis, corrective actions, and sign-off status.</p>
+                  <p className="text-xs text-dksh-red">Root cause 5-Why methodology analysis, corrective actions, and sign-off status.</p>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -2188,7 +2188,7 @@ export default function Dashboard({
                   {selectedDetailReport.category !== 'Hazard Observation' && (
                     <div className="bg-slate-50 border border-slate-200 rounded-2xl p-6 shadow-xs space-y-4 animate-fade-in">
                       <h4 className="text-xs font-bold text-slate-900 uppercase tracking-wider border-b pb-2 flex items-center gap-1.5">
-                        <ListTodo className="w-4 h-4 text-indigo-600" />
+                        <ListTodo className="w-4 h-4 text-dksh-red" />
                         4.1 Root Cause Investigation (5-Why Methodology)
                       </h4>
                       
@@ -2201,7 +2201,7 @@ export default function Dashboard({
                           { num: 5, title: 'Why 5 (Process or Systemic Gap - Root Cause)', val: selectedDetailReport.investigation?.whyGapExists }
                         ].map((why) => (
                           <div key={why.num} className="p-2.5 bg-white border border-slate-200/60 rounded-xl">
-                            <span className="font-extrabold text-[9px] text-indigo-600 block uppercase tracking-wider mb-0.5">{why.title}</span>
+                            <span className="font-extrabold text-[9px] text-dksh-red block uppercase tracking-wider mb-0.5">{why.title}</span>
                             <p className="text-gray-700 font-medium leading-relaxed">{why.val || 'Not analyzed.'}</p>
                           </div>
                         ))}

@@ -372,7 +372,7 @@ export default function InspectionForm({
       <div className="global-form-card overflow-hidden !p-0">
         
         {/* Header Info */}
-      <div className="bg-gradient-to-r from-slate-900 to-indigo-950 text-white p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+      <div className="bg-[#1A1A1A] border-b-2 border-dksh-red text-white p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
           <h2 className="text-xl font-bold tracking-tight">HSE Incident Record & Inspection Logging</h2>
           <p className="text-xs text-slate-400 mt-1">Multi-step compliant investigation workflow (Step 1 to Step 4)</p>
@@ -407,13 +407,13 @@ export default function InspectionForm({
           >
             <div className={`w-9 h-9 rounded-full flex items-center justify-center font-bold text-sm border-2 transition shrink-0 ${
               currentStep === 1
-                ? 'bg-indigo-600 border-indigo-600 text-white shadow-md'
+                ? 'bg-dksh-red border-dksh-red text-white shadow-md'
                 : 'bg-white border-gray-300 text-gray-500 hover:border-gray-400'
             }`}>
               1
             </div>
             <span className={`text-[11px] font-semibold text-center leading-tight max-w-[85px] md:max-w-none transition-all duration-200 ${
-              currentStep === 1 ? 'block text-indigo-700 font-bold' : 'hidden md:block text-gray-500'
+              currentStep === 1 ? 'block text-dksh-red font-bold' : 'hidden md:block text-gray-500'
             }`}>
               Reporting Step-1
             </span>
@@ -426,13 +426,13 @@ export default function InspectionForm({
           >
             <div className={`w-9 h-9 rounded-full flex items-center justify-center font-bold text-sm border-2 transition shrink-0 ${
               currentStep === 2
-                ? 'bg-indigo-600 border-indigo-600 text-white shadow-md'
+                ? 'bg-dksh-red border-dksh-red text-white shadow-md'
                 : 'bg-white border-gray-300 text-gray-500 hover:border-gray-400'
             }`}>
               2
             </div>
             <span className={`text-[11px] font-semibold text-center leading-tight max-w-[85px] md:max-w-none transition-all duration-200 ${
-              currentStep === 2 ? 'block text-indigo-700 font-bold' : 'hidden md:block text-gray-500'
+              currentStep === 2 ? 'block text-dksh-red font-bold' : 'hidden md:block text-gray-500'
             }`}>
               Step-2 (Roster)
             </span>
@@ -445,13 +445,13 @@ export default function InspectionForm({
           >
             <div className={`w-9 h-9 rounded-full flex items-center justify-center font-bold text-sm border-2 transition shrink-0 ${
               currentStep === 3
-                ? 'bg-indigo-600 border-indigo-600 text-white shadow-md'
+                ? 'bg-dksh-red border-dksh-red text-white shadow-md'
                 : 'bg-white border-gray-300 text-gray-500 hover:border-gray-400'
             }`}>
               3
             </div>
             <span className={`text-[11px] font-semibold text-center leading-tight max-w-[85px] md:max-w-none transition-all duration-200 ${
-              currentStep === 3 ? 'block text-indigo-700 font-bold' : 'hidden md:block text-gray-500'
+              currentStep === 3 ? 'block text-dksh-red font-bold' : 'hidden md:block text-gray-500'
             }`}>
               Step-3 (Safety Checks)
             </span>
@@ -465,13 +465,13 @@ export default function InspectionForm({
             >
               <div className={`w-9 h-9 rounded-full flex items-center justify-center font-bold text-sm border-2 transition relative shrink-0 ${
                 currentStep === 4
-                  ? 'bg-indigo-600 border-indigo-600 text-white shadow-md'
+                  ? 'bg-dksh-red border-dksh-red text-white shadow-md'
                   : 'bg-white border-gray-300 text-gray-500 hover:border-gray-400'
               }`}>
                 4
               </div>
               <span className={`text-[11px] font-semibold text-center leading-tight max-w-[85px] md:max-w-none transition-all duration-200 ${
-                currentStep === 4 ? 'block text-indigo-700 font-bold' : 'hidden md:block text-gray-500'
+                currentStep === 4 ? 'block text-dksh-red font-bold' : 'hidden md:block text-gray-500'
               }`}>
                 Step-4 (CAPA & Close)
               </span>
@@ -533,7 +533,7 @@ export default function InspectionForm({
                   type="time"
                   value={report.time}
                   onChange={(e) => handleFieldChange('time', e.target.value)}
-                  className="w-full text-sm font-medium border border-gray-300 rounded-lg p-2.5 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                  className="w-full text-sm font-medium border border-gray-300 rounded-lg p-2.5 focus:ring-2 focus:ring-dksh-red focus:outline-none"
                   required
                 />
               </div>
@@ -547,7 +547,7 @@ export default function InspectionForm({
                     onChange={(e) => {
                       setReport(prev => ({ ...prev, country: e.target.value, location: '' }));
                     }}
-                    className="w-full text-sm font-medium border border-gray-300 rounded-lg p-2.5 focus:ring-2 focus:ring-indigo-500 focus:outline-none bg-blue-50/50"
+                    className="w-full text-sm font-medium border border-gray-300 rounded-lg p-2.5 focus:ring-2 focus:ring-dksh-red focus:outline-none bg-blue-50/50"
                   >
                     {COUNTRIES.map(c => <option key={c} value={c}>{c}</option>)}
                   </select>
@@ -567,7 +567,7 @@ export default function InspectionForm({
                 <select
                   value={report.location}
                   onChange={(e) => handleFieldChange('location', e.target.value)}
-                  className="w-full text-sm font-medium border border-gray-300 rounded-lg p-2.5 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                  className="w-full text-sm font-medium border border-gray-300 rounded-lg p-2.5 focus:ring-2 focus:ring-dksh-red focus:outline-none"
                   required
                 >
                   <option value="">-- Choose DC List --</option>
@@ -585,7 +585,7 @@ export default function InspectionForm({
                 <select
                   value={report.category}
                   onChange={(e) => handleFieldChange('category', e.target.value as IncidentCategory)}
-                  className="w-full text-sm font-medium border border-gray-300 rounded-lg p-2.5 focus:ring-2 focus:ring-indigo-500 focus:outline-none bg-indigo-50/35 text-indigo-900 font-bold"
+                  className="w-full text-sm font-medium border border-gray-300 rounded-lg p-2.5 focus:ring-2 focus:ring-dksh-red focus:outline-none bg-red-50/35 text-slate-900 font-bold"
                 >
                   <option value="Injury">Injury</option>
                   <option value="Ill-health">Ill-health</option>
@@ -602,7 +602,7 @@ export default function InspectionForm({
                   value={report.emailToCc}
                   onChange={(e) => handleFieldChange('emailToCc', e.target.value)}
                   placeholder="safety.cc@enterprise.com"
-                  className="w-full text-sm font-medium border border-gray-300 rounded-lg p-2.5 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                  className="w-full text-sm font-medium border border-gray-300 rounded-lg p-2.5 focus:ring-2 focus:ring-dksh-red focus:outline-none"
                 />
               </div>
 
@@ -642,7 +642,7 @@ export default function InspectionForm({
                     value={tempInvolvedName}
                     onChange={(e) => setTempInvolvedName(e.target.value)}
                     placeholder="E.g. Tan Boon Seng"
-                    className="w-full text-xs border rounded p-2 focus:ring-2 focus:ring-indigo-500 mt-1"
+                    className="w-full text-xs border rounded p-2 focus:ring-2 focus:ring-dksh-red mt-1"
                   />
                 </div>
                 <div>
@@ -652,7 +652,7 @@ export default function InspectionForm({
                     value={tempInvolvedId}
                     onChange={(e) => setTempInvolvedId(e.target.value)}
                     placeholder="E.g. STF-8891"
-                    className="w-full text-xs border rounded p-2 focus:ring-2 focus:ring-indigo-500 mt-1"
+                    className="w-full text-xs border rounded p-2 focus:ring-2 focus:ring-dksh-red mt-1"
                   />
                 </div>
                 <div>
@@ -662,7 +662,7 @@ export default function InspectionForm({
                     value={tempInvolvedDept}
                     onChange={(e) => setTempInvolvedDept(e.target.value)}
                     placeholder="E.g. Warehouse A"
-                    className="w-full text-xs border rounded p-2 focus:ring-2 focus:ring-indigo-500 mt-1"
+                    className="w-full text-xs border rounded p-2 focus:ring-2 focus:ring-dksh-red mt-1"
                   />
                 </div>
                 <div>
@@ -672,7 +672,7 @@ export default function InspectionForm({
                     value={tempInvolvedBU}
                     onChange={(e) => setTempInvolvedBU(e.target.value)}
                     placeholder="E.g. Cold Chain Storage"
-                    className="w-full text-xs border rounded p-2 focus:ring-2 focus:ring-indigo-500 mt-1"
+                    className="w-full text-xs border rounded p-2 focus:ring-2 focus:ring-dksh-red mt-1"
                   />
                 </div>
                 <div>
@@ -683,7 +683,7 @@ export default function InspectionForm({
                         type="radio"
                         checked={tempInvolvedIsEmployee === true}
                         onChange={() => setTempInvolvedIsEmployee(true)}
-                        className="text-indigo-600 focus:ring-indigo-500"
+                        className="text-dksh-red focus:ring-dksh-red"
                       />
                       Employee (Internal)
                     </label>
@@ -692,7 +692,7 @@ export default function InspectionForm({
                         type="radio"
                         checked={tempInvolvedIsEmployee === false}
                         onChange={() => setTempInvolvedIsEmployee(false)}
-                        className="text-indigo-600 focus:ring-indigo-500"
+                        className="text-dksh-red focus:ring-dksh-red"
                       />
                       Other worker (Contractor)
                     </label>
@@ -706,7 +706,7 @@ export default function InspectionForm({
                         type="radio"
                         checked={tempInvolvedIsInjured === true}
                         onChange={() => setTempInvolvedIsInjured(true)}
-                        className="text-indigo-600 focus:ring-indigo-500"
+                        className="text-dksh-red focus:ring-dksh-red"
                       />
                       Injured Person
                     </label>
@@ -715,7 +715,7 @@ export default function InspectionForm({
                         type="radio"
                         checked={tempInvolvedIsInjured === false}
                         onChange={() => setTempInvolvedIsInjured(false)}
-                        className="text-indigo-600 focus:ring-indigo-500"
+                        className="text-dksh-red focus:ring-dksh-red"
                       />
                       Involved Person (Associated)
                     </label>
@@ -728,14 +728,14 @@ export default function InspectionForm({
                     value={tempInvolvedPlace}
                     onChange={(e) => setTempInvolvedPlace(e.target.value)}
                     placeholder="E.g. Aisle B floor level 2 adjacent to charger bay"
-                    className="w-full text-xs border rounded p-2 focus:ring-2 focus:ring-indigo-500 mt-1"
+                    className="w-full text-xs border rounded p-2 focus:ring-2 focus:ring-dksh-red mt-1"
                   />
                 </div>
                 <div className="flex items-end justify-end">
                   <button
                     type="button"
                     onClick={addInvolvedPerson}
-                    className="w-full bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold py-2 px-4 rounded-lg flex items-center justify-center gap-1.5 transition"
+                    className="w-full bg-dksh-active-red hover:bg-dksh-red text-white text-xs font-bold py-2 px-4 rounded-lg flex items-center justify-center gap-1.5 transition"
                   >
                     <Plus className="w-4 h-4" /> Add next person injured/Involved
                   </button>
@@ -815,7 +815,7 @@ export default function InspectionForm({
                     value={tempWitnessName}
                     onChange={(e) => setTempWitnessName(e.target.value)}
                     placeholder="E.g. Robert Chin"
-                    className="w-full text-xs border rounded p-2 focus:ring-2 focus:ring-indigo-500 mt-1"
+                    className="w-full text-xs border rounded p-2 focus:ring-2 focus:ring-dksh-red mt-1"
                   />
                 </div>
                 <div>
@@ -825,7 +825,7 @@ export default function InspectionForm({
                     value={tempWitnessId}
                     onChange={(e) => setTempWitnessId(e.target.value)}
                     placeholder="E.g. STF-4431"
-                    className="w-full text-xs border rounded p-2 focus:ring-2 focus:ring-indigo-500 mt-1"
+                    className="w-full text-xs border rounded p-2 focus:ring-2 focus:ring-dksh-red mt-1"
                   />
                 </div>
                 <div>
@@ -835,7 +835,7 @@ export default function InspectionForm({
                     value={tempWitnessDept}
                     onChange={(e) => setTempWitnessDept(e.target.value)}
                     placeholder="E.g. Transit Log"
-                    className="w-full text-xs border rounded p-2 focus:ring-2 focus:ring-indigo-500 mt-1"
+                    className="w-full text-xs border rounded p-2 focus:ring-2 focus:ring-dksh-red mt-1"
                   />
                 </div>
                 <div>
@@ -846,7 +846,7 @@ export default function InspectionForm({
                         type="radio"
                         checked={tempWitnessIsEmployee === true}
                         onChange={() => setTempWitnessIsEmployee(true)}
-                        className="text-indigo-600 focus:ring-indigo-500"
+                        className="text-dksh-red focus:ring-dksh-red"
                       />
                       Employee (Internal)
                     </label>
@@ -855,7 +855,7 @@ export default function InspectionForm({
                         type="radio"
                         checked={tempWitnessIsEmployee === false}
                         onChange={() => setTempWitnessIsEmployee(false)}
-                        className="text-indigo-600 focus:ring-indigo-500"
+                        className="text-dksh-red focus:ring-dksh-red"
                       />
                       Other worker
                     </label>
@@ -943,7 +943,7 @@ export default function InspectionForm({
                     value={report.occurrenceTitle}
                     onChange={(e) => handleFieldChange('occurrenceTitle', e.target.value)}
                     placeholder="Enter short descriptive title of incident"
-                    className="w-full text-sm font-medium border border-gray-300 rounded-lg p-2.5 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                    className="w-full text-sm font-medium border border-gray-300 rounded-lg p-2.5 focus:ring-2 focus:ring-dksh-red focus:outline-none"
                     required
                   />
                 </div>
@@ -955,7 +955,7 @@ export default function InspectionForm({
                     value={report.eventDescription}
                     onChange={(e) => handleFieldChange('eventDescription', e.target.value)}
                     placeholder="Detailed narrative of safety gaps, machine speed settings, cargo conditions prior to issue..."
-                    className="w-full text-xs font-medium border border-gray-300 rounded-lg p-2.5 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                    className="w-full text-xs font-medium border border-gray-300 rounded-lg p-2.5 focus:ring-2 focus:ring-dksh-red focus:outline-none"
                   />
                 </div>
               </div>
@@ -1006,7 +1006,7 @@ export default function InspectionForm({
                               checked={activeVal}
                               disabled={disabled}
                               onChange={(e) => handleClassificationChange(item.key as keyof ClassificationCriteria, e.target.checked)}
-                              className="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500 cursor-pointer"
+                              className="w-4 h-4 text-dksh-red border-gray-300 rounded focus:ring-dksh-red cursor-pointer"
                             />
                           </td>
                           <td className="px-3 py-2.5 text-gray-400 italic text-[10px]">Boolean check Only</td>
@@ -1028,7 +1028,7 @@ export default function InspectionForm({
                             const val = e.target.checked;
                             handleClassificationChange('resultsInDeath', { yes: val, count: val ? Math.max(1, report.classification.resultsInDeath.count) : 0 });
                           }}
-                          className="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500 cursor-pointer"
+                          className="w-4 h-4 text-dksh-red border-gray-300 rounded focus:ring-dksh-red cursor-pointer"
                         />
                       </td>
                       <td className="px-3 py-2.5">
@@ -1062,7 +1062,7 @@ export default function InspectionForm({
                             const val = e.target.checked;
                             handleClassificationChange('recoveryMoreThan6Months', { yes: val, count: val ? Math.max(1, report.classification.recoveryMoreThan6Months.count) : 0 });
                           }}
-                          className="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500 cursor-pointer"
+                          className="w-4 h-4 text-dksh-red border-gray-300 rounded focus:ring-dksh-red cursor-pointer"
                         />
                       </td>
                       <td className="px-3 py-2.5">
@@ -1102,7 +1102,7 @@ export default function InspectionForm({
                               lostTimeDays: val ? Math.max(1, report.classification.absenceMoreThanOneDay.lostTimeDays) : 0
                             });
                           }}
-                          className="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500 cursor-pointer"
+                          className="w-4 h-4 text-dksh-red border-gray-300 rounded focus:ring-dksh-red cursor-pointer"
                         />
                       </td>
                       <td className="px-3 py-2.5">
@@ -1162,7 +1162,7 @@ export default function InspectionForm({
                                 const val = e.target.checked;
                                 handleClassificationChange(item.key as keyof ClassificationCriteria, { yes: val, count: val ? Math.max(1, data.count) : 0 });
                               }}
-                              className="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500 cursor-pointer"
+                              className="w-4 h-4 text-dksh-red border-gray-300 rounded focus:ring-dksh-red cursor-pointer"
                             />
                           </td>
                           <td className="px-3 py-2.5">
@@ -1202,7 +1202,7 @@ export default function InspectionForm({
                               type="checkbox"
                               checked={activeVal}
                               onChange={(e) => handleClassificationChange(item.key as keyof ClassificationCriteria, e.target.checked)}
-                              className="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500 cursor-pointer"
+                              className="w-4 h-4 text-dksh-red border-gray-300 rounded focus:ring-dksh-red cursor-pointer"
                             />
                           </td>
                           <td className="px-3 py-2.5 text-[10px] font-semibold text-slate-500">Qualifies corresponding category</td>
@@ -1279,7 +1279,7 @@ export default function InspectionForm({
                         key={idx}
                         className={`flex items-start gap-2.5 px-3.5 py-3 rounded-lg border text-xs cursor-pointer transition font-medium ${
                           isSelected
-                            ? 'bg-indigo-50 border-indigo-200 text-indigo-900 font-bold shadow-xs'
+                            ? 'bg-red-50 border-red-200 text-slate-900 font-bold shadow-xs'
                             : 'hover:bg-gray-50 border-gray-100 text-gray-700'
                         }`}
                       >
@@ -1287,7 +1287,7 @@ export default function InspectionForm({
                           type="checkbox"
                           checked={isSelected}
                           onChange={() => handleInjuryTypeToggle(type)}
-                          className="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500 mt-0.5 cursor-pointer"
+                          className="w-4 h-4 text-dksh-red border-gray-300 rounded focus:ring-dksh-red mt-0.5 cursor-pointer"
                         />
                         <span>{type}</span>
                       </label>
@@ -1338,11 +1338,11 @@ export default function InspectionForm({
         {currentStep === 4 && userRole !== 'Reporter' && (
           <div className="space-y-8 animate-fade-in">
             
-            <div className="bg-indigo-950 text-white p-5 rounded-xl border border-indigo-800 shadow-lg flex items-center gap-3">
-              <ShieldAlert className="w-6 h-6 text-indigo-400 shrink-0" />
+            <div className="bg-[#1A1A1A] text-white p-5 rounded-xl border border-slate-800 shadow-lg flex items-center gap-3">
+              <ShieldAlert className="w-6 h-6 text-dksh-red shrink-0" />
               <div>
                 <h3 className="text-sm font-bold">Investigator & Approvals Panel (Step 4)</h3>
-                <p className="text-xs text-indigo-200">This form section must only be filled by Lvl 2 Country HSE Managers or Superusers to route back to reporter or close out directly.</p>
+                <p className="text-xs text-slate-300">This form section must only be filled by Lvl 2 Country HSE Managers or Superusers to route back to reporter or close out directly.</p>
               </div>
             </div>
 
@@ -1359,7 +1359,7 @@ export default function InspectionForm({
                     { field: 'whyGapExists', num: 5, label: '5. Why does this gap exist in the system (root cause)?' }
                   ].map((item) => (
                     <div key={item.num} className="bg-white p-4 rounded border border-gray-200 shadow-xs">
-                      <label className="block text-xs font-bold text-indigo-950 mb-1.5">{item.label}</label>
+                      <label className="block text-xs font-bold text-[#1A1A1A] mb-1.5">{item.label}</label>
                       <textarea
                         rows={2}
                         value={(report.investigation as any)[item.field]}
@@ -1374,7 +1374,7 @@ export default function InspectionForm({
                           }));
                         }}
                         placeholder="Free Text..."
-                        className="w-full text-xs font-medium border border-gray-300 rounded p-2 focus:ring-1 focus:ring-indigo-500 focus:outline-none"
+                        className="w-full text-xs font-medium border border-gray-300 rounded p-2 focus:ring-1 focus:ring-dksh-red focus:outline-none"
                       />
                     </div>
                   ))}
@@ -1396,7 +1396,7 @@ export default function InspectionForm({
                       setReport(prev => ({ ...prev, actions: { ...prev.actions, immediateCorrective: val } }));
                     }}
                     placeholder="Physical remediation steps deployed within 24 hours..."
-                    className="w-full text-xs font-medium border border-gray-300 rounded p-2 focus:ring-1 focus:ring-indigo-500 focus:outline-none"
+                    className="w-full text-xs font-medium border border-gray-300 rounded p-2 focus:ring-1 focus:ring-dksh-red focus:outline-none"
                   />
                 </div>
 
@@ -1410,7 +1410,7 @@ export default function InspectionForm({
                       setReport(prev => ({ ...prev, actions: { ...prev.actions, longTermPreventive: val } }));
                     }}
                     placeholder="Engineering controls, WMS system configuration alterations to prevent recursive failures..."
-                    className="w-full text-xs font-medium border border-gray-300 rounded p-2 focus:ring-1 focus:ring-indigo-500 focus:outline-none"
+                    className="w-full text-xs font-medium border border-gray-300 rounded p-2 focus:ring-1 focus:ring-dksh-red focus:outline-none"
                   />
                 </div>
 
@@ -1423,7 +1423,7 @@ export default function InspectionForm({
                       const val = e.target.value;
                       setReport(prev => ({ ...prev, actions: { ...prev.actions, completionDate: val } }));
                     }}
-                    className="w-full md:w-1/3 text-xs font-semibold border border-gray-300 rounded p-2 focus:ring-1 focus:ring-indigo-500"
+                    className="w-full md:w-1/3 text-xs font-semibold border border-gray-300 rounded p-2 focus:ring-1 focus:ring-dksh-red"
                   />
                 </div>
               </div>
@@ -1559,7 +1559,7 @@ export default function InspectionForm({
             <button
               type="button"
               onClick={() => setCurrentStep(prev => Math.min(userRole === 'Reporter' ? 3 : 4, prev + 1))}
-              className="w-full sm:w-auto bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold px-5 py-2 rounded-lg transition shadow-sm"
+              className="w-full sm:w-auto bg-dksh-active-red hover:bg-dksh-red text-white text-xs font-bold px-5 py-2 rounded-lg transition shadow-sm"
               id="next-step-btn"
             >
               Next Step
@@ -1572,8 +1572,8 @@ export default function InspectionForm({
                 disabled={!report.pdpaConsent}
                 className={`w-full sm:w-auto text-xs font-bold px-6 py-2 rounded-lg flex items-center justify-center gap-1.5 transition shadow ${
                   !report.pdpaConsent
-                    ? 'bg-indigo-300 text-indigo-50/80 cursor-not-allowed opacity-70'
-                    : 'bg-indigo-600 hover:bg-indigo-700 text-white'
+                    ? 'bg-red-200 text-indigo-50/80 cursor-not-allowed opacity-70'
+                    : 'bg-dksh-active-red hover:bg-dksh-red text-white'
                 }`}
                 id="submit-reporter-btn-step3"
               >

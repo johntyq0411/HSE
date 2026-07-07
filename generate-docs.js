@@ -423,6 +423,11 @@ function createDocx(title, subtitle, mdFile, outFile) {
   Packer.toBuffer(doc).then((buffer) => {
     fs.writeFileSync(outFile, buffer);
     console.log(`Successfully generated DOCX: ${outFile}`);
+    if (outFile.startsWith("public/")) {
+      const rootPath = outFile.substring("public/".length);
+      fs.writeFileSync(rootPath, buffer);
+      console.log(`Successfully copied to root: ${rootPath}`);
+    }
   });
 }
 
@@ -716,6 +721,15 @@ function createPdf(title, subtitle, mdFile, outFile) {
   // Save the generated PDF
   doc.save(outFile);
   console.log(`Successfully generated PDF: ${outFile}`);
+  if (outFile.startsWith("public/")) {
+    const rootPath = outFile.substring("public/".length);
+    try {
+      fs.copyFileSync(outFile, rootPath);
+      console.log(`Successfully copied to root: ${rootPath}`);
+    } catch (e) {
+      console.error("Error copying PDF to root:", e);
+    }
+  }
 }
 
 console.log("Starting Document Compilation Workflow...");

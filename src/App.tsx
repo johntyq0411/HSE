@@ -334,9 +334,44 @@ export default function App() {
             })}
           </div>
 
-          <div className="hidden md:flex items-center gap-1.5 text-[11px] font-mono text-dksh-gray uppercase font-bold">
-            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-            <span>Active: {dashboardCountry === 'Overall' ? 'All Region' : `${dashboardCountry}`}</span>
+          <div className="hidden md:flex items-center gap-4 text-[11px] font-mono text-dksh-gray uppercase font-bold">
+            <div className="flex items-center gap-1.5">
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+              <span>Active: {dashboardCountry === 'Overall' ? 'All Region' : `${dashboardCountry}`}</span>
+            </div>
+            
+            <div className="relative group">
+              <button className="flex items-center gap-1.5 bg-red-50 hover:bg-red-100 text-[#BE0028] px-3 py-1 rounded border border-red-200 cursor-pointer text-[11px] font-sans font-semibold tracking-normal normal-case transition-all">
+                <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
+                </svg>
+                <span>Export BRDs</span>
+              </button>
+              
+              <div className="absolute right-0 top-full mt-1 hidden group-hover:block bg-white border border-gray-200 rounded-lg shadow-xl py-2 w-64 z-50 text-slate-700 font-sans tracking-normal normal-case">
+                <div className="px-3 py-1 text-[9px] uppercase font-bold text-gray-400 font-mono tracking-wider">HSE Incident Portal BRD</div>
+                <a href="/HSE_SYSTEM_BRD.pdf" download="HSE_SYSTEM_BRD.pdf" className="flex items-center justify-between px-3 py-1.5 hover:bg-red-50 hover:text-red-700 text-xs font-medium text-slate-700 transition-colors">
+                  <span className="flex items-center gap-1.5">📁 HSE System Spec (PDF)</span>
+                  <span className="text-[9px] font-mono text-slate-400 bg-slate-100 px-1 py-0.2 rounded">PDF</span>
+                </a>
+                <a href="/HSE_SYSTEM_BRD.docx" download="HSE_SYSTEM_BRD.docx" className="flex items-center justify-between px-3 py-1.5 hover:bg-red-50 hover:text-red-700 text-xs font-medium text-slate-700 transition-colors">
+                  <span className="flex items-center gap-1.5">📝 HSE System Spec (Word)</span>
+                  <span className="text-[9px] font-mono text-blue-600 bg-blue-50 px-1 py-0.2 rounded">DOCX</span>
+                </a>
+                
+                <div className="border-t border-gray-100 my-1.5"></div>
+                
+                <div className="px-3 py-1 text-[9px] uppercase font-bold text-gray-400 font-mono tracking-wider">Automated Reporting Spec</div>
+                <a href="/REPORT_EXTRACTION_BRD.pdf" download="REPORT_EXTRACTION_BRD.pdf" className="flex items-center justify-between px-3 py-1.5 hover:bg-red-50 hover:text-red-700 text-xs font-medium text-slate-700 transition-colors">
+                  <span className="flex items-center gap-1.5">📁 PDF Report Spec (PDF)</span>
+                  <span className="text-[9px] font-mono text-slate-400 bg-slate-100 px-1 py-0.2 rounded">PDF</span>
+                </a>
+                <a href="/REPORT_EXTRACTION_BRD.docx" download="REPORT_EXTRACTION_BRD.docx" className="flex items-center justify-between px-3 py-1.5 hover:bg-red-50 hover:text-red-700 text-xs font-medium text-slate-700 transition-colors">
+                  <span className="flex items-center gap-1.5">📝 PDF Report Spec (Word)</span>
+                  <span className="text-[9px] font-mono text-blue-600 bg-blue-50 px-1 py-0.2 rounded">DOCX</span>
+                </a>
+              </div>
+            </div>
           </div>
 
         </div>

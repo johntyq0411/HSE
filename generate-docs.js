@@ -17,7 +17,8 @@ const {
   BorderStyle,
   Header,
   Footer,
-  PageNumber
+  PageNumber,
+  PageBreak
 } = docx;
 
 // BRAND CONSTANTS
@@ -114,7 +115,7 @@ function createDocx(title, subtitle, mdFile, outFile) {
   // Helper to add page break before starting content
   children.push(
     new Paragraph({
-      children: [new TextRun({ text: "", break: 1 })],
+      children: [new PageBreak()],
     })
   );
 
@@ -224,14 +225,21 @@ function createDocx(title, subtitle, mdFile, outFile) {
         token.items.forEach((item, idx) => {
           // Clean item text from markdown formatting
           const cleanText = item.text.replace(/\*\*([^*]+)\*\*/g, "$1");
+          const bulletSymbol = token.ordered ? `${idx + 1}.   ` : "•   ";
           children.push(
             new Paragraph({
-              bullet: token.ordered ? undefined : { level: 0 },
-              numbering: token.ordered ? { reference: "ordered-list", level: 0 } : undefined,
-              spacing: { after: 80 },
+              spacing: { after: 100 },
+              indent: { left: 720 }, // Indent 0.5 inches
               children: [
                 new TextRun({
-                  text: token.ordered ? `${idx + 1}.  ${cleanText}` : cleanText,
+                  text: bulletSymbol,
+                  bold: true,
+                  font: "Arial",
+                  size: 22,
+                  color: BRAND_RED,
+                }),
+                new TextRun({
+                  text: cleanText,
                   font: "Arial",
                   size: 22,
                   color: CHARCOAL,
@@ -328,11 +336,16 @@ function createDocx(title, subtitle, mdFile, outFile) {
 
         if (tableRows.length > 0) {
           children.push(
+            new Paragraph({ spacing: { before: 200 } }) // Spacing before table
+          );
+          children.push(
             new Table({
               width: { size: 100, type: WidthType.PERCENTAGE },
               rows: tableRows,
-              spacing: { before: 200, after: 200 },
             })
+          );
+          children.push(
+            new Paragraph({ spacing: { after: 200 } }) // Spacing after table
           );
         }
         break;
@@ -712,14 +725,14 @@ createDocx(
   "HSE Incident & CAPA Compliance Portal",
   "Business Requirements Document (BRD) - Platform Specification",
   "HSE_SYSTEM_BRD.md",
-  "HSE_SYSTEM_BRD.docx"
+  "public/HSE_SYSTEM_BRD.docx"
 );
 
 createPdf(
   "HSE Incident & CAPA Compliance Portal",
   "Business Requirements Document (BRD) - Platform Specification",
   "HSE_SYSTEM_BRD.md",
-  "HSE_SYSTEM_BRD.pdf"
+  "public/HSE_SYSTEM_BRD.pdf"
 );
 
 // Generate Report Extraction BRD
@@ -727,14 +740,14 @@ createDocx(
   "HSE Compliance Extraction & Reporting System",
   "Business Requirements Document (BRD) - Automated Extraction & PDF Reporting Module",
   "REPORT_EXTRACTION_BRD.md",
-  "REPORT_EXTRACTION_BRD.docx"
+  "public/REPORT_EXTRACTION_BRD.docx"
 );
 
 createPdf(
   "HSE Compliance Extraction & Reporting System",
   "Business Requirements Document (BRD) - Automated Extraction & PDF Reporting Module",
   "REPORT_EXTRACTION_BRD.md",
-  "REPORT_EXTRACTION_BRD.pdf"
+  "public/REPORT_EXTRACTION_BRD.pdf"
 );
 
 console.log("Compilation complete!");

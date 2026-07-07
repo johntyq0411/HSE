@@ -1,0 +1,7 @@
+# Explicitly treat Word documents and PDFs as binary to prevent Git from converting line endings (which corrupts the files)
+*.docx binary
+*.pdf binary
+*.zip binary
+*.png binary
+*.jpg binary
+*.jpeg binary

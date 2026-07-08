@@ -10840,7 +10840,7 @@ endobj
 endobj
 46 0 obj
 <<
-/Length 6447
+/Length 7361
 >>
 stream
 0.5669291338582678 w
@@ -11144,15 +11144,4129 @@ BT
 73.7007874015748143 219.4018110236220309 Td
 (   $$\\text{TRIR} = \\frac{N_{recordable} \\times 1,000,000}{H_{total}}$$) Tj
 ET
+0.82 0.84 0.86 RG
+0.8503937007874016 w
+85.0393700787401627 192.4726771653542414 m
+510.2362204724410049 192.4726771653542414 l
+S
+BT
+/F2 13 Tf
+14.9499999999999993 TL
+0.173 0.243 0.314 rg
+56.6929133858267775 152.7876377952754865 Td
+(9. ASP.NET Web Forms 4.8 Migration & Implementation Blueprint) Tj
+ET
+BT
+/F1 9.5 Tf
+10.9249999999999989 TL
+0.196 g
+56.6929133858267775 132.3781889763779418 Td
+(To support rebuilding this portal on DKSH's legacy enterprise stack, this section defines the exact architectural) Tj
+ET
+BT
+/F1 9.5 Tf
+10.9249999999999989 TL
+0.196 g
+56.6929133858267775 119.6222834645668627 Td
+(mappings, C# class structures, database queries, caching strategies, and user control configurations required to) Tj
+ET
+BT
+/F1 9.5 Tf
+10.9249999999999989 TL
+0.196 g
+56.6929133858267775 106.8663779527558972 Td
+(convert the React application into a classical ASP.NET Web Forms 4.8 \(.NET Framework\) website.) Tj
+ET
+endstream
+endobj
+47 0 obj
+<</Type /Page
+/Parent 1 0 R
+/Resources 2 0 R
+/MediaBox [0 0 595.2799999999999727 841.8899999999999864]
+/Contents 48 0 R
+>>
+endobj
+48 0 obj
+<<
+/Length 5386
+>>
+stream
+0.8503937007874016 w
+0.82 0.84 0.86 RG
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 807.8742519685039269 Td
+(HSE Incident & CAPA Compliance Portal  |  DKSH Internal Register) Tj
+ET
+0.86 G
+0.5669291338582678 w
+56.6929133858267775 802.2049606299211746 m
+538.5826771653544256 802.2049606299211746 l
+S
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 34.0159842519684616 Td
+(DKSH Regional HSE Compliance Platform  -  Strictly Confidential) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+504.5669291338583093 34.0159842519684616 Td
+(Page 23) Tj
+ET
+BT
+/F2 11 Tf
+12.6499999999999986 TL
+0.118 g
+56.6929133858267775 748.346692913385823 Td
+(9.1 Multi-Project Visual Studio Solution Architecture) Tj
+ET
+BT
+/F1 9.5 Tf
+10.9249999999999989 TL
+0.196 g
+56.6929133858267775 730.2049606299212883 Td
+(The migrated application must be organized as a classic N-Tier Visual Studio Solution \(`DKSH.HsePortal.sln`\)) Tj
+ET
+BT
+/F1 9.5 Tf
+10.9249999999999989 TL
+0.196 g
+56.6929133858267775 717.4490551181102092 Td
+(segmented into the following layered C# projects:) Tj
+ET
+0.97 0.98 0.99 rg
+0.86 0.88 0.9 RG
+0.5669291338582678 w
+51.0236220472441033 704.69314960629913 493.2283464566929752 -171.7795275590551398 re
+B
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 699.0238582677164914 Td
+(DKSH.HsePortal.sln) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 689.952992125984224 Td
+(%% %    1 .   B u s i n e s s O b j e c t s   \( C l a s s   L i b r a r y   -   P O C O   D o m a i n   M o d e l s \)) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 680.8821259842519567 Td
+(%      %% %    M o d e l s /   \( I n c i d e n t R e p o r t . c s ,   R o s t e r M e m b e r . c s ,   L a b o r H o u r s . c s ,   D i s t r i b u t i o n C e n t e r . c s \)) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 671.8112598425195756 Td
+(%% %    2 .   D a t a O b j e c t s   \( C l a s s   L i b r a r y   -   D a t a   A c c e s s   L a y e r   v i a   A D O . N E T   o r   E n t i t y   F r a m e w o r k   6 \)) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 662.7403937007873083 Td
+(%      %% %    R e p o s i t o r i e s /   \( I n c i d e n t R e p o s i t o r y . c s ,   L a b o r H o u r s R e p o s i t o r y . c s ,   S i t e R e p o s i t o r y . c s \)) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 653.6695275590550409 Td
+(%      %% %    D b C o n t e x t /   \( H s e D b C o n t e x t . c s \)) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 644.5986614173227736 Td
+(%% %    3 .   C a c h i n g L a y e r   \( C l a s s   L i b r a r y   -   M e m o r y   C a c h e   P r o v i d e r s \)) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 635.5277952755905062 Td
+(%      %% %    S e r v i c e s /   \( C a c h e S e r v i c e . c s   w r a p p i n g   S y s t e m . R u n t i m e . C a c h i n g \)) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 626.4569291338582389 Td
+(%% %    4 .   F a c a d e   \( C l a s s   L i b r a r y   -   O r c h e s t r a t i o n   &   B u s i n e s s   L o g i c   L a y e r \)) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 617.3860629921258578 Td
+(%      %% %    C o n t r o l l e r s /   \( H s e F a c a d e . c s ,   C o m p l i a n c e C o n t r o l l e r . c s \)) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 608.3151968503935905 Td
+(%% %    5 .   W e b U I   \( A S P . N E T   W e b   F o r m s   W e b   A p p l i c a t i o n   P r o j e c t \)) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 599.2443307086613231 Td
+(        %% %    D e f a u l t . a s p x   \( T h e   m a i n   H S E   P e r f o r m a n c e   D a s h b o a r d \)) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 590.1734645669290558 Td
+(        %% %    N e w T i c k e t . a s p x   \( S t e p - b y - S t e p   R e p o r t i n g   W i z a r d   w i t h   U p d a t e P a n e l s \)) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 581.1025984251966747 Td
+(        %% %    T i c k e t s L o g . a s p x   \( T h e   c e n t r a l   C A P A   s e a r c h   a n d   d r a w e r   r e g i s t r y \)) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 572.0317322834644074 Td
+(        %% %    S i t e C o n f i g . a s p x   \( M a s t e r s   A d m i n i s t r a t i o n \)) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 562.96086614173214 Td
+(        %% %    U s e r C o n t r o l s /   \( B o d y M a p C o n t r o l . a s c x \)) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 553.8899999999998727 Td
+(        %% %    S t a r t u p . c s   \( O W I N   O p e n I D   C o n n e c t   M i d d l e w a r e \)) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 544.8191338582676053 Td
+(        %% %    W e b . c o n f i g   \( A p p l i c a t i o n   c o n f i g u r a t i o n s   a n d   d a t a b a s e   c o n n e c t i o n s \)) Tj
+ET
+0.82 0.84 0.86 RG
+0.8503937007874016 w
+85.0393700787401627 518.7403937007871946 m
+510.2362204724410049 518.7403937007871946 l
+S
+BT
+/F2 11 Tf
+12.6499999999999986 TL
+0.118 g
+56.6929133858267775 484.724645669291192 Td
+(9.2 Layer 1: BusinessObjects \(Domain Model C# Classes\)) Tj
+ET
+BT
+/F1 9.5 Tf
+10.9249999999999989 TL
+0.196 g
+56.6929133858267775 466.5829133858266005 Td
+(These C# models directly translate the TypeScript schemas to preserve strict typing across the business domain:) Tj
+ET
+endstream
+endobj
+49 0 obj
+<</Type /Page
+/Parent 1 0 R
+/Resources 2 0 R
+/MediaBox [0 0 595.2799999999999727 841.8899999999999864]
+/Contents 50 0 R
+>>
+endobj
+50 0 obj
+<<
+/Length 13859
+>>
+stream
+0.8503937007874016 w
+0.82 0.84 0.86 RG
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 807.8742519685039269 Td
+(HSE Incident & CAPA Compliance Portal  |  DKSH Internal Register) Tj
+ET
+0.86 G
+0.5669291338582678 w
+56.6929133858267775 802.2049606299211746 m
+538.5826771653544256 802.2049606299211746 l
+S
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 34.0159842519684616 Td
+(DKSH Regional HSE Compliance Platform  -  Strictly Confidential) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+504.5669291338583093 34.0159842519684616 Td
+(Page 24) Tj
+ET
+0.97 0.98 0.99 rg
+0.86 0.88 0.9 RG
+0.5669291338582678 w
+51.0236220472441033 776.69314960629913 493.2283464566929752 -997.2283464566930888 re
+B
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 771.0238582677164914 Td
+(namespace DKSH.HsePortal.BusinessObjects) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 761.952992125984224 Td
+({) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 752.8821259842519567 Td
+(    using System;) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 743.8112598425196893 Td
+(    using System.Collections.Generic;) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 725.6695275590550409 Td
+(    public enum TicketStatus) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 716.5986614173227736 Td
+(    {) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 707.5277952755905062 Td
+(        Draft,) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 698.4569291338582389 Td
+(        Investigating,) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 689.3860629921259715 Td
+(        Closed) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 680.3151968503935905 Td
+(    }) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 662.1734645669290558 Td
+(    public enum IncidentCategory) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 653.1025984251967884 Td
+(    {) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 644.0317322834644074 Td
+(        Injury,) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 634.96086614173214 Td
+(        IllHealth,) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 625.8899999999998727 Td
+(        PropertyDamage,) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 616.8191338582676053 Td
+(        NearMiss,) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 607.748267716535338 Td
+(        HazardObservation) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 598.6774015748029569 Td
+(    }) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 580.5356692913384222 Td
+(    public class RosterMember) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 571.4648031496060412 Td
+(    {) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 562.3939370078737738 Td
+(        public Guid Id { get; set; } = Guid.NewGuid\(\);) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 553.3230708661415065 Td
+(        public string Name { get; set; }) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 544.2522047244092391 Td
+(        public string StaffId { get; set; }) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 535.1813385826769718 Td
+(        public string Department { get; set; }) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 526.1104724409447044 Td
+(        public string BusinessUnit { get; set; }) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 517.0396062992124371 Td
+(        public string EmployeeStatus { get; set; } // "Direct Employee" or "Contractor") Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 507.968740157480056 Td
+(        public string InjuryDesignation { get; set; } // "Injured", "Involved", "Witness") Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 498.8978740157477887 Td
+(        public string SpecificLocation { get; set; }) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 489.8270078740154645 Td
+(    }) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 471.6852755905509298 Td
+(    public class IncidentReport) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 462.6144094488186624 Td
+(    {) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 453.5435433070863951 Td
+(        public string Id { get; set; } // "TKT-YYYY-XXXX") Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 444.4726771653541277 Td
+(        public string Title { get; set; }) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 435.4018110236219172 Td
+(        public IncidentCategory Category { get; set; }) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 426.3309448818896499 Td
+(        public DateTime ReportingDate { get; set; }) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 417.2600787401573825 Td
+(        public TimeSpan ReportingTime { get; set; }) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 408.1892125984251152 Td
+(        public string DcId { get; set; }) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 399.1183464566929047 Td
+(        public string CcEmails { get; set; }) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 380.97661417322837 Td
+(        public List<RosterMember> InvolvedPersonnel { get; set; } = new List<RosterMember>\(\);) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 371.9057480314961026 Td
+(        public List<RosterMember> Witnesses { get; set; } = new List<RosterMember>\(\);) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 353.7640157480316248 Td
+(        // Step 3 Classifications) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 344.6931496062993574 Td
+(        public List<string> InjuredBodyParts { get; set; } = new List<string>\(\);) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 335.6222834645671469 Td
+(        public List<int> CriteriaChecklist { get; set; } = new List<int>\(\);) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 326.5514173228348227 Td
+(        public string SeverityClass { get; set; }) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 308.4096850393704017 Td
+(        // Specific form triggers) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 299.3388188976381343 Td
+(        public int? FatalitiesCount { get; set; }) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 290.267952755905867 Td
+(        public int? HighConsequenceCount { get; set; }) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 281.1970866141735996 Td
+(        public int? AbsenceCount { get; set; }) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 272.1262204724413323 Td
+(        public double? LostTimeDays { get; set; }) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 263.0553543307090649 Td
+(        public int? RestrictedWorkCount { get; set; }) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 253.9844881889767976 Td
+(        public int? LossOfConsciousnessCount { get; set; }) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 244.9136220472446439 Td
+(        public int? MedicalTreatmentCount { get; set; }) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 235.8427559055123766 Td
+(        public int? SignificantInjuryCount { get; set; }) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 226.7718897637801092 Td
+(        public int? FirstAidCount { get; set; }) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 208.6301574803155745 Td
+(        // Step 4 RCA & CAPA) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 199.5592913385833072 Td
+(        public string Why1DirectCause { get; set; }) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 190.4884251968510398 Td
+(        public string Why2Technical { get; set; }) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 181.4175590551188861 Td
+(        public string Why3HumanAction { get; set; }) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 172.3466929133866188 Td
+(        public string Why4Management { get; set; }) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 163.2758267716543514 Td
+(        public string Why5SystemicRoot { get; set; }) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 154.2049606299220841 Td
+(        public string ImmediateCorrectiveAction { get; set; }) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 145.1340944881898167 Td
+(        public string LongTermPreventiveAction { get; set; }) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 136.0632283464575494 Td
+(        public string ActionOwner { get; set; }) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 126.992362204725282 Td
+(        public DateTime? TargetDueDate { get; set; }) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 108.850629921260861 Td
+(        // Sign-off) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 99.7797637795285937 Td
+(        public TicketStatus Status { get; set; } = TicketStatus.Draft;) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 90.7088976377963263 Td
+(        public string SignoffVerifier { get; set; }) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 81.638031496064059 Td
+(        public DateTime? SignoffClosureDate { get; set; }) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 72.5671653543317916 Td
+(        public string ClosingComments { get; set; }) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 54.4254330708672569 Td
+(        // Governance) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 45.3545669291351032 Td
+(        public bool PdpaConsentGiven { get; set; }) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 36.2837007874028359 Td
+(        public string CreatedByEmail { get; set; }) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 27.2128346456705685 Td
+(        public string CreatedByCountry { get; set; }) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 18.1419685039383012 Td
+(        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 9.0711023622060338 Td
+(        public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 0.0002362204737665 Td
+(    }) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 -18.1414960629907682 Td
+(    public class LaborHoursRecord) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 -27.2123622047229219 Td
+(    {) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 -36.2832283464551892 Td
+(        public string Id { get; set; } // "Country-Year-Month") Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 -45.3540944881874566 Td
+(        public string Country { get; set; }) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 -54.4249606299197239 Td
+(        public int Year { get; set; }) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 -63.4958267716519913 Td
+(        public int Month { get; set; }) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 -72.5666929133842586 Td
+(        public double EmployeeHours { get; set; }) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 -81.637559055116526 Td
+(        public double ContractorHours { get; set; }) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 -90.7084251968486797 Td
+(        public double TotalHours => EmployeeHours + ContractorHours;) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 -99.779291338580947 Td
+(        public string UpdatedByEmail { get; set; }) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 -108.8501574803132144 Td
+(        public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 -117.9210236220454817 Td
+(    }) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 -136.0627559055100164 Td
+(    public class DistributionCenter) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 -145.1336220472422838 Td
+(    {) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 -154.2044881889745511 Td
+(        public string Id { get; set; }) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 -163.2753543307067048 Td
+(        public string Name { get; set; }) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 -172.3462204724389721 Td
+(        public string Country { get; set; }) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 -181.4170866141712395 Td
+(        public string PlantManager { get; set; }) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 -190.4879527559033932 Td
+(        public bool IsActive { get; set; }) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 -199.5588188976356605 Td
+(    }) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 -208.6296850393679279 Td
+(}) Tj
+ET
+endstream
+endobj
+51 0 obj
+<</Type /Page
+/Parent 1 0 R
+/Resources 2 0 R
+/MediaBox [0 0 595.2799999999999727 841.8899999999999864]
+/Contents 52 0 R
+>>
+endobj
+52 0 obj
+<<
+/Length 1393
+>>
+stream
+0.5669291338582678 w
+0.86 0.88 0.9 RG
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 807.8742519685039269 Td
+(HSE Incident & CAPA Compliance Portal  |  DKSH Internal Register) Tj
+ET
+0.86 G
+0.5669291338582678 w
+56.6929133858267775 802.2049606299211746 m
+538.5826771653544256 802.2049606299211746 l
+S
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 34.0159842519684616 Td
+(DKSH Regional HSE Compliance Platform  -  Strictly Confidential) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+504.5669291338583093 34.0159842519684616 Td
+(Page 25) Tj
+ET
+0.82 0.84 0.86 RG
+0.8503937007874016 w
+85.0393700787401627 765.3545669291338527 m
+510.2362204724410049 765.3545669291338527 l
+S
+BT
+/F2 11 Tf
+12.6499999999999986 TL
+0.118 g
+56.6929133858267775 731.3388188976377933 Td
+(9.3 Layer 2: DataObjects \(ADO.NET Repository Implementation\)) Tj
+ET
+BT
+/F1 9.5 Tf
+10.9249999999999989 TL
+0.196 g
+56.6929133858267775 713.1970866141732586 Td
+(To secure raw performance under high enterprise loads on .NET Framework 4.8, the Data Access Layer \(DAL\)) Tj
+ET
+BT
+/F1 9.5 Tf
+10.9249999999999989 TL
+0.196 g
+56.6929133858267775 700.4411811023621794 Td
+(compiles commands using clean SQL queries executed via standard ADO.NET `SqlConnection` with parameter) Tj
+ET
+BT
+/F1 9.5 Tf
+10.9249999999999989 TL
+0.196 g
+56.6929133858267775 687.6852755905511003 Td
+(safeguards to prevent injection.) Tj
+ET
+endstream
+endobj
+53 0 obj
+<</Type /Page
+/Parent 1 0 R
+/Resources 2 0 R
+/MediaBox [0 0 595.2799999999999727 841.8899999999999864]
+/Contents 54 0 R
+>>
+endobj
+54 0 obj
+<<
+/Length 12651
+>>
+stream
+0.8503937007874016 w
+0.82 0.84 0.86 RG
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 807.8742519685039269 Td
+(HSE Incident & CAPA Compliance Portal  |  DKSH Internal Register) Tj
+ET
+0.86 G
+0.5669291338582678 w
+56.6929133858267775 802.2049606299211746 m
+538.5826771653544256 802.2049606299211746 l
+S
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 34.0159842519684616 Td
+(DKSH Regional HSE Compliance Platform  -  Strictly Confidential) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+504.5669291338583093 34.0159842519684616 Td
+(Page 26) Tj
+ET
+0.97 0.98 0.99 rg
+0.86 0.88 0.9 RG
+0.5669291338582678 w
+51.0236220472441033 776.69314960629913 493.2283464566929752 -833.9527559055118218 re
+B
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 771.0238582677164914 Td
+(namespace DKSH.HsePortal.DataObjects) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 761.952992125984224 Td
+({) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 752.8821259842519567 Td
+(    using System;) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 743.8112598425196893 Td
+(    using System.Data;) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 734.7403937007873083 Td
+(    using System.Data.SqlClient;) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 725.6695275590550409 Td
+(    using System.Collections.Generic;) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 716.5986614173227736 Td
+(    using DKSH.HsePortal.BusinessObjects;) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 698.4569291338582389 Td
+(    public class LaborHoursRepository) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 689.3860629921259715 Td
+(    {) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 680.3151968503935905 Td
+(        private readonly string _connectionString;) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 662.1734645669290558 Td
+(        public LaborHoursRepository\(string connectionString\)) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 653.1025984251967884 Td
+(        {) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 644.0317322834644074 Td
+(            _connectionString = connectionString;) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 634.96086614173214 Td
+(        }) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 616.8191338582676053 Td
+(        public LaborHoursRecord GetRecord\(string country, int year, int month\)) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 607.748267716535338 Td
+(        {) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 598.6774015748029569 Td
+(            using \(var conn = new SqlConnection\(_connectionString\)\)) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 589.6065354330706896 Td
+(            {) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 580.5356692913384222 Td
+(                const string query = @") Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 571.4648031496060412 Td
+(                    SELECT Id, Country, Year, Month, EmployeeHours, ContractorHours, UpdatedByEmail, UpdatedAt) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 562.3939370078737738 Td
+(                    FROM HseLaborHours ) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 553.3230708661415065 Td
+(                    WHERE Country = @Country AND Year = @Year AND Month = @Month";) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 535.1813385826769718 Td
+(                using \(var cmd = new SqlCommand\(query, conn\)\)) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 526.1104724409447044 Td
+(                {) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 517.0396062992124371 Td
+(                    cmd.Parameters.Add\("@Country", SqlDbType.NVarChar\).Value = country;) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 507.968740157480056 Td
+(                    cmd.Parameters.Add\("@Year", SqlDbType.Int\).Value = year;) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 498.8978740157477887 Td
+(                    cmd.Parameters.Add\("@Month", SqlDbType.Int\).Value = month;) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 480.7561417322831971 Td
+(                    conn.Open\(\);) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 471.6852755905509298 Td
+(                    using \(var reader = cmd.ExecuteReader\(\)\)) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 462.6144094488186624 Td
+(                    {) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 453.5435433070863951 Td
+(                        if \(reader.Read\(\)\)) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 444.4726771653541277 Td
+(                        {) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 435.4018110236219172 Td
+(                            return new LaborHoursRecord) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 426.3309448818896499 Td
+(                            {) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 417.2600787401573825 Td
+(                                Id = reader["Id"].ToString\(\),) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 408.1892125984251152 Td
+(                                Country = reader["Country"].ToString\(\),) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 399.1183464566929047 Td
+(                                Year = Convert.ToInt32\(reader["Year"]\),) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 390.0474803149606373 Td
+(                                Month = Convert.ToInt32\(reader["Month"]\),) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 380.97661417322837 Td
+(                                EmployeeHours = Convert.ToDouble\(reader["EmployeeHours"]\),) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 371.9057480314961026 Td
+(                                ContractorHours = Convert.ToDouble\(reader["ContractorHours"]\),) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 362.8348818897638921 Td
+(                                UpdatedByEmail = reader["UpdatedByEmail"].ToString\(\),) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 353.7640157480316248 Td
+(                                UpdatedAt = Convert.ToDateTime\(reader["UpdatedAt"]\)) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 344.6931496062993574 Td
+(                            };) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 335.6222834645671469 Td
+(                        }) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 326.5514173228348227 Td
+(                    }) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 317.480551181102669 Td
+(                }) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 308.4096850393704017 Td
+(            }) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 299.3388188976381343 Td
+(            return null;) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 290.267952755905867 Td
+(        }) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 272.1262204724413323 Td
+(        public void SaveRecord\(LaborHoursRecord record\)) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 263.0553543307090649 Td
+(        {) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 253.9844881889767976 Td
+(            using \(var conn = new SqlConnection\(_connectionString\)\)) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 244.9136220472446439 Td
+(            {) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 235.8427559055123766 Td
+(                const string query = @") Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 226.7718897637801092 Td
+(                    MERGE HseLaborHours AS target) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 217.7010236220478419 Td
+(                    USING \(SELECT @Id AS Id\) AS source) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 208.6301574803155745 Td
+(                    ON \(target.Id = source.Id\)) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 199.5592913385833072 Td
+(                    WHEN MATCHED THEN) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 190.4884251968510398 Td
+(                        UPDATE SET ) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 181.4175590551188861 Td
+(                            EmployeeHours = @EmployeeHours,) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 172.3466929133866188 Td
+(                            ContractorHours = @ContractorHours,) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 163.2758267716543514 Td
+(                            UpdatedByEmail = @UpdatedByEmail,) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 154.2049606299220841 Td
+(                            UpdatedAt = @UpdatedAt) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 145.1340944881898167 Td
+(                    WHEN NOT MATCHED THEN) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 136.0632283464575494 Td
+(                        INSERT \(Id, Country, Year, Month, EmployeeHours, ContractorHours, UpdatedByEmail, UpdatedAt\)) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 126.992362204725282 Td
+(                        VALUES \(@Id, @Country, @Year, @Month, @EmployeeHours, @ContractorHours, @UpdatedByEmail, @UpdatedAt\);";) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 108.850629921260861 Td
+(                using \(var cmd = new SqlCommand\(query, conn\)\)) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 99.7797637795285937 Td
+(                {) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 90.7088976377963263 Td
+(                    cmd.Parameters.AddWithValue\("@Id", $"{record.Country.ToLower\(\)}-{record.Year}-{record.Month}"\);) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 81.638031496064059 Td
+(                    cmd.Parameters.AddWithValue\("@Country", record.Country\);) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 72.5671653543317916 Td
+(                    cmd.Parameters.AddWithValue\("@Year", record.Year\);) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 63.4962992125995243 Td
+(                    cmd.Parameters.AddWithValue\("@Month", record.Month\);) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 54.4254330708672569 Td
+(                    cmd.Parameters.AddWithValue\("@EmployeeHours", record.EmployeeHours\);) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 45.3545669291351032 Td
+(                    cmd.Parameters.AddWithValue\("@ContractorHours", record.ContractorHours\);) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 36.2837007874028359 Td
+(                    cmd.Parameters.AddWithValue\("@UpdatedByEmail", record.UpdatedByEmail\);) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 27.2128346456705685 Td
+(                    cmd.Parameters.AddWithValue\("@UpdatedAt", DateTime.UtcNow\);) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 9.0711023622060338 Td
+(                    conn.Open\(\);) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 0.0002362204737665 Td
+(                    cmd.ExecuteNonQuery\(\);) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 -9.0706299212585009 Td
+(                }) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 -18.1414960629907682 Td
+(            }) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 -27.2123622047229219 Td
+(        }) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 -36.2832283464551892 Td
+(    }) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 -45.3540944881874566 Td
+(}) Tj
+ET
+endstream
+endobj
+55 0 obj
+<</Type /Page
+/Parent 1 0 R
+/Resources 2 0 R
+/MediaBox [0 0 595.2799999999999727 841.8899999999999864]
+/Contents 56 0 R
+>>
+endobj
+56 0 obj
+<<
+/Length 5425
+>>
+stream
+0.5669291338582678 w
+0.86 0.88 0.9 RG
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 807.8742519685039269 Td
+(HSE Incident & CAPA Compliance Portal  |  DKSH Internal Register) Tj
+ET
+0.86 G
+0.5669291338582678 w
+56.6929133858267775 802.2049606299211746 m
+538.5826771653544256 802.2049606299211746 l
+S
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 34.0159842519684616 Td
+(DKSH Regional HSE Compliance Platform  -  Strictly Confidential) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+504.5669291338583093 34.0159842519684616 Td
+(Page 27) Tj
+ET
+0.82 0.84 0.86 RG
+0.8503937007874016 w
+85.0393700787401627 765.3545669291338527 m
+510.2362204724410049 765.3545669291338527 l
+S
+BT
+/F2 11 Tf
+12.6499999999999986 TL
+0.118 g
+56.6929133858267775 731.3388188976377933 Td
+(9.4 Layer 3: CachingLayer \(`System.Runtime.Caching` Wrapper\)) Tj
+ET
+BT
+/F1 9.5 Tf
+10.9249999999999989 TL
+0.196 g
+56.6929133858267775 713.1970866141732586 Td
+(To prevent redundant DB rounds for relatively static data \(e.g., Distribution Center lists, historical Monthly Labor) Tj
+ET
+BT
+/F1 9.5 Tf
+10.9249999999999989 TL
+0.196 g
+56.6929133858267775 700.4411811023621794 Td
+(Hours\), an in-memory cache is implemented:) Tj
+ET
+0.97 0.98 0.99 rg
+0.86 0.88 0.9 RG
+0.5669291338582678 w
+51.0236220472441033 687.6852755905511003 493.2283464566929752 -316.9133858267717301 re
+B
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 682.0159842519684616 Td
+(namespace DKSH.HsePortal.CachingLayer) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 672.9451181102361943 Td
+({) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 663.8742519685039269 Td
+(    using System;) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 654.8033858267716596 Td
+(    using System.Runtime.Caching;) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 645.7325196850392786 Td
+(    using System.Collections.Generic;) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 636.6616535433070112 Td
+(    using DKSH.HsePortal.BusinessObjects;) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 618.5199212598424765 Td
+(    public class CacheService) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 609.4490551181102092 Td
+(    {) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 600.3781889763778281 Td
+(        private static readonly ObjectCache Cache = MemoryCache.Default;) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 591.3073228346455608 Td
+(        private const string DcCacheKey = "DKSH_HSE_DC_LIST";) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 573.1655905511809124 Td
+(        public static List<DistributionCenter> GetDistributionCenters\(Func<List<DistributionCenter>> fetchSource\)) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 564.094724409448645 Td
+(        {) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 555.0238582677163777 Td
+(            if \(Cache.Get\(DcCacheKey\) is List<DistributionCenter> cachedList\)) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 545.9529921259841103 Td
+(            {) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 536.882125984251843 Td
+(                return cachedList;) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 527.8112598425195756 Td
+(            }) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 509.6695275590549272 Td
+(            var freshList = fetchSource\(\);) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 500.5986614173226599 Td
+(            var policy = new CacheItemPolicy) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 491.5277952755903357 Td
+(            {) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 482.4569291338580683 Td
+(                AbsoluteExpiration = DateTimeOffset.Now.AddMinutes\(30\) // Expire every 30 minutes) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 473.3860629921257441 Td
+(            };) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 464.3151968503935336 Td
+(            Cache.Set\(DcCacheKey, freshList, policy\);) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 455.2443307086612663 Td
+(            return freshList;) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 446.1734645669289989 Td
+(        }) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 428.0317322834645211 Td
+(        public static void ClearDcCache\(\)) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 418.9608661417322537 Td
+(        {) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 409.8899999999999864 Td
+(            Cache.Remove\(DcCacheKey\);) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 400.8191338582677758 Td
+(        }) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 391.7482677165355085 Td
+(    }) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 382.6774015748032411 Td
+(}) Tj
+ET
+0.82 0.84 0.86 RG
+0.8503937007874016 w
+85.0393700787401627 356.5986614173229441 m
+510.2362204724410049 356.5986614173229441 l
+S
+BT
+/F2 11 Tf
+12.6499999999999986 TL
+0.118 g
+56.6929133858267775 322.5829133858269415 Td
+(9.5 Layer 4: Facade \(Transaction Orchestration Logic\)) Tj
+ET
+BT
+/F1 9.5 Tf
+10.9249999999999989 TL
+0.196 g
+56.6929133858267775 304.4411811023622931 Td
+(The Facade pattern acts as a thread-safe unified interface that coordinates data logic, validates safety calculations,) Tj
+ET
+BT
+/F1 9.5 Tf
+10.9249999999999989 TL
+0.196 g
+56.6929133858267775 291.6852755905513277 Td
+(and manages caching constraints:) Tj
+ET
+endstream
+endobj
+57 0 obj
+<</Type /Page
+/Parent 1 0 R
+/Resources 2 0 R
+/MediaBox [0 0 595.2799999999999727 841.8899999999999864]
+/Contents 58 0 R
+>>
+endobj
+58 0 obj
+<<
+/Length 6848
+>>
+stream
+0.8503937007874016 w
+0.82 0.84 0.86 RG
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 807.8742519685039269 Td
+(HSE Incident & CAPA Compliance Portal  |  DKSH Internal Register) Tj
+ET
+0.86 G
+0.5669291338582678 w
+56.6929133858267775 802.2049606299211746 m
+538.5826771653544256 802.2049606299211746 l
+S
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 34.0159842519684616 Td
+(DKSH Regional HSE Compliance Platform  -  Strictly Confidential) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+504.5669291338583093 34.0159842519684616 Td
+(Page 28) Tj
+ET
+0.97 0.98 0.99 rg
+0.86 0.88 0.9 RG
+0.5669291338582678 w
+51.0236220472441033 776.69314960629913 493.2283464566929752 -452.9763779527559677 re
+B
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 771.0238582677164914 Td
+(namespace DKSH.HsePortal.Facade) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 761.952992125984224 Td
+({) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 752.8821259842519567 Td
+(    using System;) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 743.8112598425196893 Td
+(    using System.Collections.Generic;) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 734.7403937007873083 Td
+(    using DKSH.HsePortal.BusinessObjects;) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 725.6695275590550409 Td
+(    using DKSH.HsePortal.DataObjects;) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 716.5986614173227736 Td
+(    using DKSH.HsePortal.CachingLayer;) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 698.4569291338582389 Td
+(    public class HseFacade) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 689.3860629921259715 Td
+(    {) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 680.3151968503935905 Td
+(        private readonly LaborHoursRepository _hoursRepo;) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 671.2443307086613231 Td
+(        private readonly string _connectionString;) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 653.1025984251967884 Td
+(        public HseFacade\(string connectionString\)) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 644.0317322834644074 Td
+(        {) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 634.96086614173214 Td
+(            _connectionString = connectionString;) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 625.8899999999998727 Td
+(            _hoursRepo = new LaborHoursRepository\(connectionString\);) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 616.8191338582676053 Td
+(        }) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 598.6774015748029569 Td
+(        public List<DistributionCenter> GetActiveSites\(Func<List<DistributionCenter>> dbFetch\)) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 589.6065354330706896 Td
+(        {) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 580.5356692913384222 Td
+(            return CacheService.GetDistributionCenters\(dbFetch\);) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 571.4648031496060412 Td
+(        }) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 553.3230708661415065 Td
+(        public double CalculateLtifr\(int ltiCount, string country, int year, int month\)) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 544.2522047244092391 Td
+(        {) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 535.1813385826769718 Td
+(            var laborHours = _hoursRepo.GetRecord\(country, year, month\);) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 526.1104724409447044 Td
+(            if \(laborHours == null || laborHours.TotalHours <= 0\)) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 517.0396062992124371 Td
+(            {) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 507.968740157480056 Td
+(                return 0.00;) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 498.8978740157477887 Td
+(            }) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 480.7561417322831971 Td
+(            double ltifr = \(ltiCount * 1000000.0\) / laborHours.TotalHours;) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 471.6852755905509298 Td
+(            return Math.Round\(ltifr, 2\);) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 462.6144094488186624 Td
+(        }) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 444.4726771653541277 Td
+(        public double CalculateTrir\(int recordableCount, string country, int year, int month\)) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 435.4018110236219172 Td
+(        {) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 426.3309448818896499 Td
+(            var laborHours = _hoursRepo.GetRecord\(country, year, month\);) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 417.2600787401573825 Td
+(            if \(laborHours == null || laborHours.TotalHours <= 0\)) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 408.1892125984251152 Td
+(            {) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 399.1183464566929047 Td
+(                return 0.00;) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 390.0474803149606373 Td
+(            }) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 371.9057480314961026 Td
+(            double trir = \(recordableCount * 1000000.0\) / laborHours.TotalHours;) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 362.8348818897638921 Td
+(            return Math.Round\(trir, 2\);) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 353.7640157480316248 Td
+(        }) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 344.6931496062993574 Td
+(    }) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 335.6222834645671469 Td
+(}) Tj
+ET
+0.82 0.84 0.86 RG
+0.8503937007874016 w
+85.0393700787401627 309.5435433070868498 m
+510.2362204724410049 309.5435433070868498 l
+S
+BT
+/F2 11 Tf
+12.6499999999999986 TL
+0.118 g
+56.6929133858267775 275.5277952755907336 Td
+(9.6 Layer 5: WebUI & ASPX Markup Implementation) Tj
+ET
+BT
+/F2 11 Tf
+12.6499999999999986 TL
+0.118 g
+56.6929133858267775 234.7088976377954168 Td
+(9.6.1 Web.config Configuration) Tj
+ET
+BT
+/F1 9.5 Tf
+10.9249999999999989 TL
+0.196 g
+56.6929133858267775 216.5671653543308821 Td
+(Maps system connections, registers safe custom assemblies, and locks down execution:) Tj
+ET
+endstream
+endobj
+59 0 obj
+<</Type /Page
+/Parent 1 0 R
+/Resources 2 0 R
+/MediaBox [0 0 595.2799999999999727 841.8899999999999864]
+/Contents 60 0 R
+>>
+endobj
+60 0 obj
+<<
+/Length 3398
+>>
+stream
+0.8503937007874016 w
+0.82 0.84 0.86 RG
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 807.8742519685039269 Td
+(HSE Incident & CAPA Compliance Portal  |  DKSH Internal Register) Tj
+ET
+0.86 G
+0.5669291338582678 w
+56.6929133858267775 802.2049606299211746 m
+538.5826771653544256 802.2049606299211746 l
+S
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 34.0159842519684616 Td
+(DKSH Regional HSE Compliance Platform  -  Strictly Confidential) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+504.5669291338583093 34.0159842519684616 Td
+(Page 29) Tj
+ET
+0.97 0.98 0.99 rg
+0.86 0.88 0.9 RG
+0.5669291338582678 w
+51.0236220472441033 776.69314960629913 493.2283464566929752 -162.7086614173228725 re
+B
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 771.0238582677164914 Td
+(<?xml version="1.0" encoding="utf-8"?>) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 761.952992125984224 Td
+(<configuration>) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 752.8821259842519567 Td
+(  <connectionStrings>) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 743.8112598425196893 Td
+(    <add name="HseDbConnectionString" ) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 734.7403937007873083 Td
+(         connectionString="Server=tcp:sql-dksh-hse.database.windows.net,1433;Initial Catalog=HseDb;Persist Security Info=False;User ID=hse_admin;Password=YourSecurePassword123;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;" ) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 725.6695275590550409 Td
+(         providerName="System.Data.SqlClient" />) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 716.5986614173227736 Td
+(  </connectionStrings>) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 707.5277952755905062 Td
+(  <system.web>) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 698.4569291338582389 Td
+(    <compilation debug="false" targetFramework="4.8" />) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 689.3860629921259715 Td
+(    <httpRuntime targetFramework="4.8" />) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 680.3151968503935905 Td
+(    <pages>) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 671.2443307086613231 Td
+(      <namespaces>) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 662.1734645669290558 Td
+(        <add namespace="System.Web.Optimization" />) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 653.1025984251967884 Td
+(      </namespaces>) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 644.0317322834644074 Td
+(    </pages>) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 634.96086614173214 Td
+(  </system.web>) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 625.8899999999998727 Td
+(</configuration>) Tj
+ET
+BT
+/F2 11 Tf
+12.6499999999999986 TL
+0.118 g
+56.6929133858267775 582.8033858267715459 Td
+(9.6.2 ASPX Step-by-Step Reporting Wizard with AJAX `UpdatePanel`) Tj
+ET
+BT
+/F1 9.5 Tf
+10.9249999999999989 TL
+0.196 g
+56.6929133858267775 564.6616535433070112 Td
+(To replicate the frictionless React Wizard without full-page browser updates, use ASP.NET AJAX Controls:) Tj
+ET
+endstream
+endobj
+61 0 obj
+<</Type /Page
+/Parent 1 0 R
+/Resources 2 0 R
+/MediaBox [0 0 595.2799999999999727 841.8899999999999864]
+/Contents 62 0 R
+>>
+endobj
+62 0 obj
+<<
+/Length 11969
+>>
+stream
+0.5669291338582678 w
+0.86 0.88 0.9 RG
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 807.8742519685039269 Td
+(HSE Incident & CAPA Compliance Portal  |  DKSH Internal Register) Tj
+ET
+0.86 G
+0.5669291338582678 w
+56.6929133858267775 802.2049606299211746 m
+538.5826771653544256 802.2049606299211746 l
+S
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 34.0159842519684616 Td
+(DKSH Regional HSE Compliance Platform  -  Strictly Confidential) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+504.5669291338583093 34.0159842519684616 Td
+(Page 30) Tj
+ET
+0.97 0.98 0.99 rg
+0.86 0.88 0.9 RG
+0.5669291338582678 w
+51.0236220472441033 776.69314960629913 493.2283464566929752 -634.3937007874017127 re
+B
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 771.0238582677164914 Td
+(<%@ Page Title="HSE Report Wizard" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="NewTicket.aspx.cs" Inherits="DKSH.HsePortal.WebUI.NewTicket" %>) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 752.8821259842519567 Td
+(<asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 743.8112598425196893 Td
+(    <div class="max-w-4xl mx-auto p-4">) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 734.7403937007873083 Td
+(        <!-- ScriptManager acts as AJAX hub -->) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 725.6695275590550409 Td
+(        <asp:ScriptManager ID="HseScriptManager" runat="server" />) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 707.5277952755905062 Td
+(        <asp:UpdatePanel ID="WizardUpdatePanel" runat="server" UpdateMode="Conditional">) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 698.4569291338582389 Td
+(            <ContentTemplate>) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 689.3860629921259715 Td
+(                ) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 680.3151968503935905 Td
+(                <!-- STEP INDICATOR BAR -->) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 671.2443307086613231 Td
+(                <div class="flex items-center justify-between mb-6 bg-white p-4 rounded shadow-sm border border-gray-100">) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 662.1734645669290558 Td
+(                    <span class='font-bold text-xs <%= ActiveStep == 1 ? "text-red-700" : "text-gray-400" %>'>1. General Info</span>) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 653.1025984251967884 Td
+(                    <span class="text-gray-300">/</span>) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 644.0317322834644074 Td
+(                    <span class='font-bold text-xs <%= ActiveStep == 2 ? "text-red-700" : "text-gray-400" %>'>2. Involved Roster</span>) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 634.96086614173214 Td
+(                    <span class="text-gray-300">/</span>) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 625.8899999999998727 Td
+(                    <span class='font-bold text-xs <%= ActiveStep == 3 ? "text-red-700" : "text-gray-400" %>'>3. Classification</span>) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 616.8191338582676053 Td
+(                    <span class="text-gray-300">/</span>) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 607.748267716535338 Td
+(                    <span class='font-bold text-xs <%= ActiveStep == 4 ? "text-red-700" : "text-gray-400" %>'>4. Root Cause \(RCA\)</span>) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 598.6774015748029569 Td
+(                </div>) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 580.5356692913384222 Td
+(                <!-- STEP CONTENT CONTAINERS -->) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 571.4648031496060412 Td
+(                <asp:MultiView ID="WizardMultiView" runat="server" ActiveViewIndex="0">) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 562.3939370078737738 Td
+(                    ) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 553.3230708661415065 Td
+(                    <!-- STEP 1: GENERAL INFO -->) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 544.2522047244092391 Td
+(                    <asp:View ID="Step1View" runat="server">) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 535.1813385826769718 Td
+(                        <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 526.1104724409447044 Td
+(                            <h2 class="text-lg font-bold text-slate-800 mb-4">Step 1: General Incident Specifications</h2>) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 517.0396062992124371 Td
+(                            ) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 507.968740157480056 Td
+(                            <div class="mb-4">) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 498.8978740157477887 Td
+(                                <label class="block text-xs font-semibold text-gray-600 mb-1">Incident Title *</label>) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 489.8270078740154645 Td
+(                                <asp:TextBox ID="txtTitle" runat="server" CssClass="w-full p-2 border border-gray-300 rounded focus:border-red-600 outline-none h-10" />) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 480.7561417322831971 Td
+(                                <asp:RequiredFieldValidator ID="rfvTitle" runat="server" ControlToValidate="txtTitle" ErrorMessage="Title is mandatory" ForeColor="Red" Display="Dynamic" ValidationGroup="Step1Group" />) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 471.6852755905509298 Td
+(                            </div>) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 453.5435433070863951 Td
+(                            <div class="mb-4">) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 444.4726771653541277 Td
+(                                <label class="block text-xs font-semibold text-gray-600 mb-1">Distribution Center Location *</label>) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 435.4018110236219172 Td
+(                                <asp:DropDownList ID="ddlDc" runat="server" CssClass="w-full p-2 border border-gray-300 rounded h-10 bg-white" />) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 426.3309448818896499 Td
+(                            </div>) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 417.2600787401573825 Td
+(                        </div>) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 408.1892125984251152 Td
+(                    </asp:View>) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 390.0474803149606373 Td
+(                    <!-- STEP 2: INVOLVED ROSTER -->) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 380.97661417322837 Td
+(                    <asp:View ID="Step2View" runat="server">) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 371.9057480314961026 Td
+(                        <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 362.8348818897638921 Td
+(                            <h2 class="text-lg font-bold text-slate-800 mb-4">Step 2: Personnel Rosters</h2>) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 353.7640157480316248 Td
+(                            <!-- Roster insertion GridView -->) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 344.6931496062993574 Td
+(                            <asp:GridView ID="gvInvolved" runat="server" AutoGenerateColumns="False" CssClass="w-full text-left text-xs border border-gray-200 rounded">) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 335.6222834645671469 Td
+(                                <Columns>) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 326.5514173228348227 Td
+(                                    <asp:BoundField DataField="Name" HeaderText="Staff Name" HeaderStyle-CssClass="bg-gray-50 p-2" ItemStyle-CssClass="p-2 border-t" />) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 317.480551181102669 Td
+(                                    <asp:BoundField DataField="StaffId" HeaderText="Staff ID" HeaderStyle-CssClass="bg-gray-50 p-2" ItemStyle-CssClass="p-2 border-t" />) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 308.4096850393704017 Td
+(                                    <asp:BoundField DataField="EmployeeStatus" HeaderText="Category" HeaderStyle-CssClass="bg-gray-50 p-2" ItemStyle-CssClass="p-2 border-t" />) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 299.3388188976381343 Td
+(                                </Columns>) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 290.267952755905867 Td
+(                            </asp:GridView>) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 281.1970866141735996 Td
+(                        </div>) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 272.1262204724413323 Td
+(                    </asp:View>) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 253.9844881889767976 Td
+(                </asp:MultiView>) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 235.8427559055123766 Td
+(                <!-- NAVIGATION ACTIONS PANEL -->) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 226.7718897637801092 Td
+(                <div class="flex justify-between items-center mt-6">) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 217.7010236220478419 Td
+(                                         < a s p : B u t t o n   I D = " b t n B a c k "   r u n a t = " s e r v e r "   T e x t = "!�   P r e v i o u s   S t e p "   C s s C l a s s = " p x - 4   p y - 2   b g - g r a y - 1 0 0   t e x t - g r a y - 6 0 0   r o u n d e d   t e x t - x s   f o n t - b o l d   h o v e r : b g - g r a y - 2 0 0 "   O n C l i c k = " B t n B a c k _ C l i c k "   V i s i b l e = " f a l s e "   / >) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 208.6301574803155745 Td
+(                                         < a s p : B u t t o n   I D = " b t n N e x t "   r u n a t = " s e r v e r "   T e x t = " N e x t   S t e p  !� "   C s s C l a s s = " p x - 4   p y - 2   b g - r e d - 6 0 0   t e x t - w h i t e   r o u n d e d   t e x t - x s   f o n t - b o l d   h o v e r : b g - r e d - 7 0 0 "   O n C l i c k = " B t n N e x t _ C l i c k "   V a l i d a t i o n G r o u p = " S t e p 1 G r o u p "   / >) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 199.5592913385833072 Td
+(                </div>) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 181.4175590551188861 Td
+(            </ContentTemplate>) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 172.3466929133866188 Td
+(        </asp:UpdatePanel>) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 163.2758267716543514 Td
+(    </div>) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 154.2049606299220841 Td
+(</asp:Content>) Tj
+ET
+BT
+/F2 11 Tf
+12.6499999999999986 TL
+0.118 g
+56.6929133858267775 111.1183464566937573 Td
+(9.6.3 Code-Behind Logical Operations \(`NewTicket.aspx.cs`\)) Tj
+ET
+endstream
+endobj
+63 0 obj
+<</Type /Page
+/Parent 1 0 R
+/Resources 2 0 R
+/MediaBox [0 0 595.2799999999999727 841.8899999999999864]
+/Contents 64 0 R
+>>
+endobj
+64 0 obj
+<<
+/Length 8040
+>>
+stream
+0.5669291338582678 w
+0.86 0.88 0.9 RG
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 807.8742519685039269 Td
+(HSE Incident & CAPA Compliance Portal  |  DKSH Internal Register) Tj
+ET
+0.86 G
+0.5669291338582678 w
+56.6929133858267775 802.2049606299211746 m
+538.5826771653544256 802.2049606299211746 l
+S
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 34.0159842519684616 Td
+(DKSH Regional HSE Compliance Platform  -  Strictly Confidential) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+504.5669291338583093 34.0159842519684616 Td
+(Page 31) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 771.0238582677164914 Td
+(Coordinates multi-view state changes asynchronously during client interactions:) Tj
+ET
+0.97 0.98 0.99 rg
+0.86 0.88 0.9 RG
+0.5669291338582678 w
+51.0236220472441033 758.2679527559055259 493.2283464566929752 -607.1811023622047969 re
+B
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 752.5986614173227736 Td
+(namespace DKSH.HsePortal.WebUI) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 743.5277952755905062 Td
+({) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 734.4569291338582389 Td
+(    using System;) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 725.3860629921259715 Td
+(    using System.Web.UI;) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 716.3151968503937042 Td
+(    using DKSH.HsePortal.BusinessObjects;) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 698.1734645669290558 Td
+(    public partial class NewTicket : Page) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 689.1025984251967884 Td
+(    {) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 680.0317322834644074 Td
+(        public int ActiveStep) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 670.96086614173214 Td
+(        {) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 661.8899999999998727 Td
+(            get => \(int\)\(ViewState["ActiveStep"] ?? 1\);) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 652.8191338582676053 Td
+(            set => ViewState["ActiveStep"] = value;) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 643.748267716535338 Td
+(        }) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 625.6065354330706896 Td
+(        protected void Page_Load\(object sender, EventArgs e\)) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 616.5356692913384222 Td
+(        {) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 607.4648031496061549 Td
+(            if \(!IsPostBack\)) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 598.3939370078737738 Td
+(            {) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 589.3230708661415065 Td
+(                ActiveStep = 1;) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 580.2522047244092391 Td
+(                WizardMultiView.ActiveViewIndex = 0;) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 571.1813385826769718 Td
+(                BindDistributionCenters\(\);) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 562.1104724409447044 Td
+(            }) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 553.0396062992124371 Td
+(        }) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 534.8978740157477887 Td
+(        private void BindDistributionCenters\(\)) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 525.8270078740155213 Td
+(        {) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 516.7561417322831403 Td
+(            // Integration with Business Facade layer) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 507.6852755905509298 Td
+(            ddlDc.Items.Clear\(\);) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 498.6144094488186056 Td
+(            ddlDc.Items.Add\(new System.Web.UI.WebControls.ListItem\("Bangna Logistics Hub", "DC-TH-001"\)\);) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 489.5435433070863382 Td
+(            ddlDc.Items.Add\(new System.Web.UI.WebControls.ListItem\("Singapore Logistics Center", "DC-SG-001"\)\);) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 480.4726771653540141 Td
+(        }) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 462.3309448818895362 Td
+(        protected void BtnNext_Click\(object sender, EventArgs e\)) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 453.2600787401572688 Td
+(        {) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 444.1892125984250015 Td
+(            if \(ActiveStep == 1\)) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 435.118346456692791 Td
+(            {) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 426.0474803149605236 Td
+(                // Validate Page logic) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 416.9766141732282563 Td
+(                ActiveStep = 2;) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 407.9057480314960458 Td
+(                WizardMultiView.ActiveViewIndex = 1;) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 398.8348818897637784 Td
+(                btnBack.Visible = true;) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 389.7640157480315111 Td
+(            }) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 380.6931496062992437 Td
+(            else if \(ActiveStep == 2\)) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 371.6222834645670332 Td
+(            {) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 362.5514173228347659 Td
+(                ActiveStep = 3;) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 353.4805511811024985 Td
+(                WizardMultiView.ActiveViewIndex = 2;) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 344.4096850393702312 Td
+(            }) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 335.3388188976380206 Td
+(            WizardUpdatePanel.Update\(\);) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 326.2679527559057533 Td
+(        }) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 308.1262204724412186 Td
+(        protected void BtnBack_Click\(object sender, EventArgs e\)) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 299.0553543307089512 Td
+(        {) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 289.9844881889767976 Td
+(            if \(ActiveStep == 2\)) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 280.9136220472445302 Td
+(            {) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 271.8427559055122629 Td
+(                ActiveStep = 1;) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 262.7718897637799955 Td
+(                WizardMultiView.ActiveViewIndex = 0;) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 253.7010236220477282 Td
+(                btnBack.Visible = false;) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 244.6301574803154608 Td
+(            }) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 235.5592913385831935 Td
+(            else if \(ActiveStep == 3\)) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 226.4884251968509261 Td
+(            {) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 217.4175590551187724 Td
+(                ActiveStep = 2;) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 208.3466929133865051 Td
+(                WizardMultiView.ActiveViewIndex = 1;) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 199.2758267716542377 Td
+(            }) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 190.2049606299219704 Td
+(            WizardUpdatePanel.Update\(\);) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 181.134094488189703 Td
+(        }) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 172.0632283464574357 Td
+(    }) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 162.9923622047251683 Td
+(}) Tj
+ET
+0.82 0.84 0.86 RG
+0.8503937007874016 w
+85.0393700787401627 136.9136220472449281 m
+510.2362204724410049 136.9136220472449281 l
+S
+BT
+/F2 11 Tf
+12.6499999999999986 TL
+0.118 g
+56.6929133858267775 102.8978740157488119 Td
+(9.7 Layer 6: Enterprise Identity Integrations \(OWIN OpenID Connect Startup\)) Tj
+ET
+endstream
+endobj
+65 0 obj
+<</Type /Page
+/Parent 1 0 R
+/Resources 2 0 R
+/MediaBox [0 0 595.2799999999999727 841.8899999999999864]
+/Contents 66 0 R
+>>
+endobj
+66 0 obj
+<<
+/Length 8384
+>>
+stream
+0.8503937007874016 w
+0.82 0.84 0.86 RG
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 807.8742519685039269 Td
+(HSE Incident & CAPA Compliance Portal  |  DKSH Internal Register) Tj
+ET
+0.86 G
+0.5669291338582678 w
+56.6929133858267775 802.2049606299211746 m
+538.5826771653544256 802.2049606299211746 l
+S
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 34.0159842519684616 Td
+(DKSH Regional HSE Compliance Platform  -  Strictly Confidential) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+504.5669291338583093 34.0159842519684616 Td
+(Page 32) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 771.0238582677164914 Td
+(Enterprise SSO authenticates operations via OpenID Connect. The claims-mapping middleware intercepts context) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 758.2679527559055259 Td
+(attributes to resolve role authorizations:) Tj
+ET
+0.97 0.98 0.99 rg
+0.86 0.88 0.9 RG
+0.5669291338582678 w
+51.0236220472441033 745.5120472440944468 493.2283464566929752 -552.7559055118110791 re
+B
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 739.8427559055118081 Td
+(using Microsoft.Owin;) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 730.7718897637795408 Td
+(using Owin;) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 712.6301574803148924 Td
+([assembly: OwinStartup\(typeof\(DKSH.HsePortal.WebUI.Startup\)\)]) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 694.4884251968503577 Td
+(namespace DKSH.HsePortal.WebUI) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 685.4175590551180903 Td
+({) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 676.3466929133857093 Td
+(    using System;) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 667.2758267716534419 Td
+(    using System.Security.Claims;) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 658.2049606299211746 Td
+(    using Microsoft.Owin.Security;) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 649.1340944881887935 Td
+(    using Microsoft.Owin.Security.Cookies;) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 640.0632283464565262 Td
+(    using Microsoft.Owin.Security.OpenIdConnect;) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 621.9214960629919915 Td
+(    public class Startup) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 612.8506299212597241 Td
+(    {) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 603.7797637795274568 Td
+(        public void Configuration\(IAppBuilder app\)) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 594.7088976377950758 Td
+(        {) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 585.6380314960628084 Td
+(            app.SetDefaultSignInAsAuthenticationType\(CookieAuthenticationDefaults.AuthenticationType\);) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 567.49629921259816 Td
+(            app.UseCookieAuthentication\(new CookieAuthenticationOptions\(\)\);) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 549.3545669291336253 Td
+(            app.UseOpenIdConnectAuthentication\(new OpenIdConnectAuthenticationOptions) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 540.283700787401358 Td
+(            {) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 531.2128346456690906 Td
+(                ClientId = "your-dksh-azure-ad-client-id",) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 522.1419685039368233 Td
+(                Authority = "https://login.microsoftonline.com/your-tenant-id/v2.0",) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 513.0711023622045559 Td
+(                RedirectUri = "https://hse.dksh.com/signin-oidc",) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 504.0002362204721749 Td
+(                PostLogoutRedirectUri = "https://hse.dksh.com/logout",) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 494.9293700787399075 Td
+(                Scope = "openid profile email",) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 485.8585039370075833 Td
+(                ) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 476.7876377952753728 Td
+(                Notifications = new OpenIdConnectAuthenticationNotifications) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 467.7167716535431055 Td
+(                {) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 458.6459055118108381 Td
+(                    SecurityTokenValidated = async n =>) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 449.5750393700785708 Td
+(                    {) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 440.5041732283463602 Td
+(                        var identity = n.AuthenticationTicket.Identity;) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 431.4333070866140929 Td
+(                        ) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 422.3624409448818255 Td
+(                        // Extract Active Directory claims to assign standard system roles) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 413.2915748031495582 Td
+(                        string userEmail = identity.FindFirst\(ClaimTypes.Email\)?.Value ?? "";) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 404.2207086614173477 Td
+(                        ) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 395.1498425196850803 Td
+(                        // Map claims dynamically to DKSH role structures) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 386.078976377952813 Td
+(                        if \(userEmail.EndsWith\("@dksh.com"\)\)) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 377.0081102362205456 Td
+(                        {) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 367.9372440944883351 Td
+(                            if \(userEmail.Contains\(".admin"\)\)) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 358.8663779527560678 Td
+(                            {) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 349.7955118110238004 Td
+(                                identity.AddClaim\(new Claim\(ClaimTypes.Role, "Superuser"\)\);) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 340.7246456692915899 Td
+(                            }) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 331.6537795275593226 Td
+(                            else if \(userEmail.Contains\(".mgr"\)\)) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 322.5829133858270552 Td
+(                            {) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 313.5120472440947879 Td
+(                                identity.AddClaim\(new Claim\(ClaimTypes.Role, "Country HSE Manager"\)\);) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 304.4411811023625205 Td
+(                            }) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 295.3703149606302532 Td
+(                            else) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 286.2994488188980995 Td
+(                            {) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 277.2285826771658321 Td
+(                                identity.AddClaim\(new Claim\(ClaimTypes.Role, "Reporter"\)\);) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 268.1577165354335648 Td
+(                            }) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 259.0868503937012974 Td
+(                        }) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 250.0159842519690301 Td
+(                    }) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 240.9451181102367627 Td
+(                }) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 231.8742519685044954 Td
+(            }\);) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 222.803385826772228 Td
+(        }) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 213.7325196850400744 Td
+(    }) Tj
+ET
+BT
+/F5 7.5 Tf
+8.625 TL
+0. g
+56.6929133858267775 204.661653543307807 Td
+(}) Tj
+ET
+0.82 0.84 0.86 RG
+0.8503937007874016 w
+85.0393700787401627 178.5829133858274815 m
+510.2362204724410049 178.5829133858274815 l
+S
+BT
+/F2 11 Tf
+12.6499999999999986 TL
+0.118 g
+56.6929133858267775 144.5671653543314505 Td
+(9.8 Checklist for Production Launch in IIS Express & Windows IIS Server) Tj
+ET
+BT
+/F1 9.5 Tf
+10.9249999999999989 TL
+0.196 g
+56.6929133858267775 126.4254330708668022 Td
+(To ensure zero downtime and strict adherence to DKSH corporate hosting guidelines during rebuild execution:) Tj
+ET
+endstream
+endobj
+67 0 obj
+<</Type /Page
+/Parent 1 0 R
+/Resources 2 0 R
+/MediaBox [0 0 595.2799999999999727 841.8899999999999864]
+/Contents 68 0 R
+>>
+endobj
+68 0 obj
+<<
+/Length 2724
+>>
+stream
+0.8503937007874016 w
+0.82 0.84 0.86 RG
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 807.8742519685039269 Td
+(HSE Incident & CAPA Compliance Portal  |  DKSH Internal Register) Tj
+ET
+0.86 G
+0.5669291338582678 w
+56.6929133858267775 802.2049606299211746 m
+538.5826771653544256 802.2049606299211746 l
+S
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 34.0159842519684616 Td
+(DKSH Regional HSE Compliance Platform  -  Strictly Confidential) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+504.5669291338583093 34.0159842519684616 Td
+(Page 33) Tj
+ET
+BT
+/F2 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 771.0238582677164914 Td
+(1. ) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+73.7007874015748143 771.0238582677164914 Td
+(Host Configuration: Register the site as a local IIS website on Port 443 \(HTTPS is mandatory for OpenID) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+73.7007874015748143 758.2679527559055259 Td
+(cookies\). Enable ASP.NET 4.8 inside Windows Features under `Internet Information Services -> World Wide) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+73.7007874015748143 745.5120472440944468 Td
+(Web Services -> Application Development Features`.) Tj
+ET
+BT
+/F2 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 729.9214960629921052 Td
+(2. ) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+73.7007874015748143 729.9214960629921052 Td
+(App Pool Specifications: Provision a dedicated IIS Application Pool \(`DkshHsePool`\) running in Integrated Mode using the .NET) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+73.7007874015748143 717.1655905511811397 Td
+(CLR Version v4.0 runtime. Set `Idle Time-out \(minutes\)` to `0` for continuous calculator caching readiness.) Tj
+ET
+BT
+/F2 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 701.5750393700786844 Td
+(3. ) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+73.7007874015748143 701.5750393700786844 Td
+(Db Connection Encryption: Configure the database Connection String in `Web.config` with `Encrypt=True` and) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+73.7007874015748143 688.819133858267719 Td
+(`TrustServerCertificate=False` to prevent intermediate packet eavesdropping inside internal DKSH networks.) Tj
+ET
+BT
+/F2 8 Tf
+9.1999999999999993 TL
+0.471 g
+56.6929133858267775 673.2285826771653774 Td
+(4. ) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+73.7007874015748143 673.2285826771653774 Td
+(PDPA Integrity Compliance: Implement database-level column masking on the `RosterMember.StaffId` and `RosterMember.Name`) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.471 g
+73.7007874015748143 660.4726771653542983 Td
+(fields for draft records, aligning with Step 3's consent validation parameters.) Tj
+ET
 endstream
 endobj
 1 0 obj
 <</Type /Pages
-/Kids [3 0 R 5 0 R 7 0 R 9 0 R 11 0 R 13 0 R 15 0 R 17 0 R 19 0 R 21 0 R 23 0 R 25 0 R 27 0 R 29 0 R 31 0 R 33 0 R 35 0 R 37 0 R 39 0 R 41 0 R 43 0 R 45 0 R ]
-/Count 22
+/Kids [3 0 R 5 0 R 7 0 R 9 0 R 11 0 R 13 0 R 15 0 R 17 0 R 19 0 R 21 0 R 23 0 R 25 0 R 27 0 R 29 0 R 31 0 R 33 0 R 35 0 R 37 0 R 39 0 R 41 0 R 43 0 R 45 0 R 47 0 R 49 0 R 51 0 R 53 0 R 55 0 R 57 0 R 59 0 R 61 0 R 63 0 R 65 0 R 67 0 R ]
+/Count 33
 >>
 endobj
-47 0 obj
+69 0 obj
 <<
 /Type /Font
 /BaseFont /Helvetica
@@ -11162,7 +15276,7 @@ endobj
 /LastChar 255
 >>
 endobj
-48 0 obj
+70 0 obj
 <<
 /Type /Font
 /BaseFont /Helvetica-Bold
@@ -11172,7 +15286,7 @@ endobj
 /LastChar 255
 >>
 endobj
-49 0 obj
+71 0 obj
 <<
 /Type /Font
 /BaseFont /Helvetica-Oblique
@@ -11182,7 +15296,7 @@ endobj
 /LastChar 255
 >>
 endobj
-50 0 obj
+72 0 obj
 <<
 /Type /Font
 /BaseFont /Helvetica-BoldOblique
@@ -11192,7 +15306,7 @@ endobj
 /LastChar 255
 >>
 endobj
-51 0 obj
+73 0 obj
 <<
 /Type /Font
 /BaseFont /Courier
@@ -11202,7 +15316,7 @@ endobj
 /LastChar 255
 >>
 endobj
-52 0 obj
+74 0 obj
 <<
 /Type /Font
 /BaseFont /Courier-Bold
@@ -11212,7 +15326,7 @@ endobj
 /LastChar 255
 >>
 endobj
-53 0 obj
+75 0 obj
 <<
 /Type /Font
 /BaseFont /Courier-Oblique
@@ -11222,7 +15336,7 @@ endobj
 /LastChar 255
 >>
 endobj
-54 0 obj
+76 0 obj
 <<
 /Type /Font
 /BaseFont /Courier-BoldOblique
@@ -11232,7 +15346,7 @@ endobj
 /LastChar 255
 >>
 endobj
-55 0 obj
+77 0 obj
 <<
 /Type /Font
 /BaseFont /Times-Roman
@@ -11242,7 +15356,7 @@ endobj
 /LastChar 255
 >>
 endobj
-56 0 obj
+78 0 obj
 <<
 /Type /Font
 /BaseFont /Times-Bold
@@ -11252,7 +15366,7 @@ endobj
 /LastChar 255
 >>
 endobj
-57 0 obj
+79 0 obj
 <<
 /Type /Font
 /BaseFont /Times-Italic
@@ -11262,7 +15376,7 @@ endobj
 /LastChar 255
 >>
 endobj
-58 0 obj
+80 0 obj
 <<
 /Type /Font
 /BaseFont /Times-BoldItalic
@@ -11272,7 +15386,7 @@ endobj
 /LastChar 255
 >>
 endobj
-59 0 obj
+81 0 obj
 <<
 /Type /Font
 /BaseFont /ZapfDingbats
@@ -11281,7 +15395,7 @@ endobj
 /LastChar 255
 >>
 endobj
-60 0 obj
+82 0 obj
 <<
 /Type /Font
 /BaseFont /Symbol
@@ -11294,32 +15408,32 @@ endobj
 <<
 /ProcSet [/PDF /Text /ImageB /ImageC /ImageI]
 /Font <<
-/F1 47 0 R
-/F2 48 0 R
-/F3 49 0 R
-/F4 50 0 R
-/F5 51 0 R
-/F6 52 0 R
-/F7 53 0 R
-/F8 54 0 R
-/F9 55 0 R
-/F10 56 0 R
-/F11 57 0 R
-/F12 58 0 R
-/F13 59 0 R
-/F14 60 0 R
+/F1 69 0 R
+/F2 70 0 R
+/F3 71 0 R
+/F4 72 0 R
+/F5 73 0 R
+/F6 74 0 R
+/F7 75 0 R
+/F8 76 0 R
+/F9 77 0 R
+/F10 78 0 R
+/F11 79 0 R
+/F12 80 0 R
+/F13 81 0 R
+/F14 82 0 R
 >>
 /XObject <<
 >>
 >>
 endobj
-61 0 obj
+83 0 obj
 <<
 /Producer (jsPDF 4.2.1)
-/CreationDate (D:20260708030824-00'00')
+/CreationDate (D:20260708031146-00'00')
 >>
 endobj
-62 0 obj
+84 0 obj
 <<
 /Type /Catalog
 /Pages 1 0 R
@@ -11328,10 +15442,10 @@ endobj
 >>
 endobj
 xref
-0 63
+0 85
 0000000000 65535 f 
-0000217776 00000 n 
-0000219743 00000 n 
+0000300882 00000 n 
+0000302926 00000 n 
 0000000015 00000 n 
 0000000152 00000 n 
 0000002483 00000 n 
@@ -11376,29 +15490,51 @@ xref
 0000203535 00000 n 
 0000211137 00000 n 
 0000211276 00000 n 
-0000217978 00000 n 
-0000218104 00000 n 
-0000218235 00000 n 
-0000218369 00000 n 
-0000218507 00000 n 
-0000218631 00000 n 
-0000218760 00000 n 
-0000218892 00000 n 
-0000219028 00000 n 
-0000219156 00000 n 
-0000219283 00000 n 
-0000219412 00000 n 
-0000219545 00000 n 
-0000219647 00000 n 
-0000219996 00000 n 
-0000220082 00000 n 
+0000218690 00000 n 
+0000218829 00000 n 
+0000224268 00000 n 
+0000224407 00000 n 
+0000238320 00000 n 
+0000238459 00000 n 
+0000239905 00000 n 
+0000240044 00000 n 
+0000252749 00000 n 
+0000252888 00000 n 
+0000258366 00000 n 
+0000258505 00000 n 
+0000265406 00000 n 
+0000265545 00000 n 
+0000268996 00000 n 
+0000269135 00000 n 
+0000281158 00000 n 
+0000281297 00000 n 
+0000289390 00000 n 
+0000289529 00000 n 
+0000297966 00000 n 
+0000298105 00000 n 
+0000301161 00000 n 
+0000301287 00000 n 
+0000301418 00000 n 
+0000301552 00000 n 
+0000301690 00000 n 
+0000301814 00000 n 
+0000301943 00000 n 
+0000302075 00000 n 
+0000302211 00000 n 
+0000302339 00000 n 
+0000302466 00000 n 
+0000302595 00000 n 
+0000302728 00000 n 
+0000302830 00000 n 
+0000303179 00000 n 
+0000303265 00000 n 
 trailer
 <<
-/Size 63
-/Root 62 0 R
-/Info 61 0 R
-/ID [ <A5AA64CA674612BB0DF0452ADCA8DE24> <A5AA64CA674612BB0DF0452ADCA8DE24> ]
+/Size 85
+/Root 84 0 R
+/Info 83 0 R
+/ID [ <A2F62B6DB94358FA692DA67383131996> <A2F62B6DB94358FA692DA67383131996> ]
 >>
 startxref
-220186
+303369
 %%EOF

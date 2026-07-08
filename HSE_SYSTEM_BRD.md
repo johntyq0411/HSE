@@ -734,3 +734,607 @@ To ensure numerical consistency across all code bases, calculations must adhere 
   3. Safe-division handler: If $H_{total} = 0$, return `0.00`.
   4. Formulate:
      $$\text{TRIR} = \frac{N_{recordable} \times 1,000,000}{H_{total}}$$
+
+---
+
+## 9. ASP.NET Web Forms 4.8 Migration & Implementation Blueprint
+
+To support rebuilding this portal on DKSH's legacy enterprise stack, this section defines the exact architectural mappings, C# class structures, database queries, caching strategies, and user control configurations required to convert the React application into a classical **ASP.NET Web Forms 4.8 (.NET Framework)** website.
+
+### 9.1 Multi-Project Visual Studio Solution Architecture
+
+The migrated application must be organized as a classic N-Tier Visual Studio Solution (`DKSH.HsePortal.sln`) segmented into the following layered C# projects:
+
+```
+DKSH.HsePortal.sln
+├── 1. BusinessObjects (Class Library - POCO Domain Models)
+│   └── Models/ (IncidentReport.cs, RosterMember.cs, LaborHours.cs, DistributionCenter.cs)
+├── 2. DataObjects (Class Library - Data Access Layer via ADO.NET or Entity Framework 6)
+│   ├── Repositories/ (IncidentRepository.cs, LaborHoursRepository.cs, SiteRepository.cs)
+│   └── DbContext/ (HseDbContext.cs)
+├── 3. CachingLayer (Class Library - Memory Cache Providers)
+│   └── Services/ (CacheService.cs wrapping System.Runtime.Caching)
+├── 4. Facade (Class Library - Orchestration & Business Logic Layer)
+│   └── Controllers/ (HseFacade.cs, ComplianceController.cs)
+└── 5. WebUI (ASP.NET Web Forms Web Application Project)
+    ├── Default.aspx (The main HSE Performance Dashboard)
+    ├── NewTicket.aspx (Step-by-Step Reporting Wizard with UpdatePanels)
+    ├── TicketsLog.aspx (The central CAPA search and drawer registry)
+    ├── SiteConfig.aspx (Masters Administration)
+    ├── UserControls/ (BodyMapControl.ascx)
+    ├── Startup.cs (OWIN OpenID Connect Middleware)
+    └── Web.config (Application configurations and database connections)
+```
+
+---
+
+### 9.2 Layer 1: BusinessObjects (Domain Model C# Classes)
+
+These C# models directly translate the TypeScript schemas to preserve strict typing across the business domain:
+
+```csharp
+namespace DKSH.HsePortal.BusinessObjects
+{
+    using System;
+    using System.Collections.Generic;
+
+    public enum TicketStatus
+    {
+        Draft,
+        Investigating,
+        Closed
+    }
+
+    public enum IncidentCategory
+    {
+        Injury,
+        IllHealth,
+        PropertyDamage,
+        NearMiss,
+        HazardObservation
+    }
+
+    public class RosterMember
+    {
+        public Guid Id { get; set; } = Guid.NewGuid();
+        public string Name { get; set; }
+        public string StaffId { get; set; }
+        public string Department { get; set; }
+        public string BusinessUnit { get; set; }
+        public string EmployeeStatus { get; set; } // "Direct Employee" or "Contractor"
+        public string InjuryDesignation { get; set; } // "Injured", "Involved", "Witness"
+        public string SpecificLocation { get; set; }
+    }
+
+    public class IncidentReport
+    {
+        public string Id { get; set; } // "TKT-YYYY-XXXX"
+        public string Title { get; set; }
+        public IncidentCategory Category { get; set; }
+        public DateTime ReportingDate { get; set; }
+        public TimeSpan ReportingTime { get; set; }
+        public string DcId { get; set; }
+        public string CcEmails { get; set; }
+
+        public List<RosterMember> InvolvedPersonnel { get; set; } = new List<RosterMember>();
+        public List<RosterMember> Witnesses { get; set; } = new List<RosterMember>();
+
+        // Step 3 Classifications
+        public List<string> InjuredBodyParts { get; set; } = new List<string>();
+        public List<int> CriteriaChecklist { get; set; } = new List<int>();
+        public string SeverityClass { get; set; }
+
+        // Specific form triggers
+        public int? FatalitiesCount { get; set; }
+        public int? HighConsequenceCount { get; set; }
+        public int? AbsenceCount { get; set; }
+        public double? LostTimeDays { get; set; }
+        public int? RestrictedWorkCount { get; set; }
+        public int? LossOfConsciousnessCount { get; set; }
+        public int? MedicalTreatmentCount { get; set; }
+        public int? SignificantInjuryCount { get; set; }
+        public int? FirstAidCount { get; set; }
+
+        // Step 4 RCA & CAPA
+        public string Why1DirectCause { get; set; }
+        public string Why2Technical { get; set; }
+        public string Why3HumanAction { get; set; }
+        public string Why4Management { get; set; }
+        public string Why5SystemicRoot { get; set; }
+        public string ImmediateCorrectiveAction { get; set; }
+        public string LongTermPreventiveAction { get; set; }
+        public string ActionOwner { get; set; }
+        public DateTime? TargetDueDate { get; set; }
+
+        // Sign-off
+        public TicketStatus Status { get; set; } = TicketStatus.Draft;
+        public string SignoffVerifier { get; set; }
+        public DateTime? SignoffClosureDate { get; set; }
+        public string ClosingComments { get; set; }
+
+        // Governance
+        public bool PdpaConsentGiven { get; set; }
+        public string CreatedByEmail { get; set; }
+        public string CreatedByCountry { get; set; }
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
+    }
+
+    public class LaborHoursRecord
+    {
+        public string Id { get; set; } // "Country-Year-Month"
+        public string Country { get; set; }
+        public int Year { get; set; }
+        public int Month { get; set; }
+        public double EmployeeHours { get; set; }
+        public double ContractorHours { get; set; }
+        public double TotalHours => EmployeeHours + ContractorHours;
+        public string UpdatedByEmail { get; set; }
+        public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
+    }
+
+    public class DistributionCenter
+    {
+        public string Id { get; set; }
+        public string Name { get; set; }
+        public string Country { get; set; }
+        public string PlantManager { get; set; }
+        public bool IsActive { get; set; }
+    }
+}
+```
+
+---
+
+### 9.3 Layer 2: DataObjects (ADO.NET Repository Implementation)
+
+To secure raw performance under high enterprise loads on .NET Framework 4.8, the Data Access Layer (DAL) compiles commands using clean SQL queries executed via standard ADO.NET `SqlConnection` with parameter safeguards to prevent injection.
+
+```csharp
+namespace DKSH.HsePortal.DataObjects
+{
+    using System;
+    using System.Data;
+    using System.Data.SqlClient;
+    using System.Collections.Generic;
+    using DKSH.HsePortal.BusinessObjects;
+
+    public class LaborHoursRepository
+    {
+        private readonly string _connectionString;
+
+        public LaborHoursRepository(string connectionString)
+        {
+            _connectionString = connectionString;
+        }
+
+        public LaborHoursRecord GetRecord(string country, int year, int month)
+        {
+            using (var conn = new SqlConnection(_connectionString))
+            {
+                const string query = @"
+                    SELECT Id, Country, Year, Month, EmployeeHours, ContractorHours, UpdatedByEmail, UpdatedAt
+                    FROM HseLaborHours 
+                    WHERE Country = @Country AND Year = @Year AND Month = @Month";
+
+                using (var cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.Add("@Country", SqlDbType.NVarChar).Value = country;
+                    cmd.Parameters.Add("@Year", SqlDbType.Int).Value = year;
+                    cmd.Parameters.Add("@Month", SqlDbType.Int).Value = month;
+
+                    conn.Open();
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            return new LaborHoursRecord
+                            {
+                                Id = reader["Id"].ToString(),
+                                Country = reader["Country"].ToString(),
+                                Year = Convert.ToInt32(reader["Year"]),
+                                Month = Convert.ToInt32(reader["Month"]),
+                                EmployeeHours = Convert.ToDouble(reader["EmployeeHours"]),
+                                ContractorHours = Convert.ToDouble(reader["ContractorHours"]),
+                                UpdatedByEmail = reader["UpdatedByEmail"].ToString(),
+                                UpdatedAt = Convert.ToDateTime(reader["UpdatedAt"])
+                            };
+                        }
+                    }
+                }
+            }
+            return null;
+        }
+
+        public void SaveRecord(LaborHoursRecord record)
+        {
+            using (var conn = new SqlConnection(_connectionString))
+            {
+                const string query = @"
+                    MERGE HseLaborHours AS target
+                    USING (SELECT @Id AS Id) AS source
+                    ON (target.Id = source.Id)
+                    WHEN MATCHED THEN
+                        UPDATE SET 
+                            EmployeeHours = @EmployeeHours,
+                            ContractorHours = @ContractorHours,
+                            UpdatedByEmail = @UpdatedByEmail,
+                            UpdatedAt = @UpdatedAt
+                    WHEN NOT MATCHED THEN
+                        INSERT (Id, Country, Year, Month, EmployeeHours, ContractorHours, UpdatedByEmail, UpdatedAt)
+                        VALUES (@Id, @Country, @Year, @Month, @EmployeeHours, @ContractorHours, @UpdatedByEmail, @UpdatedAt);";
+
+                using (var cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@Id", $"{record.Country.ToLower()}-{record.Year}-{record.Month}");
+                    cmd.Parameters.AddWithValue("@Country", record.Country);
+                    cmd.Parameters.AddWithValue("@Year", record.Year);
+                    cmd.Parameters.AddWithValue("@Month", record.Month);
+                    cmd.Parameters.AddWithValue("@EmployeeHours", record.EmployeeHours);
+                    cmd.Parameters.AddWithValue("@ContractorHours", record.ContractorHours);
+                    cmd.Parameters.AddWithValue("@UpdatedByEmail", record.UpdatedByEmail);
+                    cmd.Parameters.AddWithValue("@UpdatedAt", DateTime.UtcNow);
+
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+    }
+}
+```
+
+---
+
+### 9.4 Layer 3: CachingLayer (`System.Runtime.Caching` Wrapper)
+
+To prevent redundant DB rounds for relatively static data (e.g., Distribution Center lists, historical Monthly Labor Hours), an in-memory cache is implemented:
+
+```csharp
+namespace DKSH.HsePortal.CachingLayer
+{
+    using System;
+    using System.Runtime.Caching;
+    using System.Collections.Generic;
+    using DKSH.HsePortal.BusinessObjects;
+
+    public class CacheService
+    {
+        private static readonly ObjectCache Cache = MemoryCache.Default;
+        private const string DcCacheKey = "DKSH_HSE_DC_LIST";
+
+        public static List<DistributionCenter> GetDistributionCenters(Func<List<DistributionCenter>> fetchSource)
+        {
+            if (Cache.Get(DcCacheKey) is List<DistributionCenter> cachedList)
+            {
+                return cachedList;
+            }
+
+            var freshList = fetchSource();
+            var policy = new CacheItemPolicy
+            {
+                AbsoluteExpiration = DateTimeOffset.Now.AddMinutes(30) // Expire every 30 minutes
+            };
+            Cache.Set(DcCacheKey, freshList, policy);
+            return freshList;
+        }
+
+        public static void ClearDcCache()
+        {
+            Cache.Remove(DcCacheKey);
+        }
+    }
+}
+```
+
+---
+
+### 9.5 Layer 4: Facade (Transaction Orchestration Logic)
+
+The Facade pattern acts as a thread-safe unified interface that coordinates data logic, validates safety calculations, and manages caching constraints:
+
+```csharp
+namespace DKSH.HsePortal.Facade
+{
+    using System;
+    using System.Collections.Generic;
+    using DKSH.HsePortal.BusinessObjects;
+    using DKSH.HsePortal.DataObjects;
+    using DKSH.HsePortal.CachingLayer;
+
+    public class HseFacade
+    {
+        private readonly LaborHoursRepository _hoursRepo;
+        private readonly string _connectionString;
+
+        public HseFacade(string connectionString)
+        {
+            _connectionString = connectionString;
+            _hoursRepo = new LaborHoursRepository(connectionString);
+        }
+
+        public List<DistributionCenter> GetActiveSites(Func<List<DistributionCenter>> dbFetch)
+        {
+            return CacheService.GetDistributionCenters(dbFetch);
+        }
+
+        public double CalculateLtifr(int ltiCount, string country, int year, int month)
+        {
+            var laborHours = _hoursRepo.GetRecord(country, year, month);
+            if (laborHours == null || laborHours.TotalHours <= 0)
+            {
+                return 0.00;
+            }
+
+            double ltifr = (ltiCount * 1000000.0) / laborHours.TotalHours;
+            return Math.Round(ltifr, 2);
+        }
+
+        public double CalculateTrir(int recordableCount, string country, int year, int month)
+        {
+            var laborHours = _hoursRepo.GetRecord(country, year, month);
+            if (laborHours == null || laborHours.TotalHours <= 0)
+            {
+                return 0.00;
+            }
+
+            double trir = (recordableCount * 1000000.0) / laborHours.TotalHours;
+            return Math.Round(trir, 2);
+        }
+    }
+}
+```
+
+---
+
+### 9.6 Layer 5: WebUI & ASPX Markup Implementation
+
+#### 9.6.1 Web.config Configuration
+Maps system connections, registers safe custom assemblies, and locks down execution:
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+  <connectionStrings>
+    <add name="HseDbConnectionString" 
+         connectionString="Server=tcp:sql-dksh-hse.database.windows.net,1433;Initial Catalog=HseDb;Persist Security Info=False;User ID=hse_admin;Password=YourSecurePassword123;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;" 
+         providerName="System.Data.SqlClient" />
+  </connectionStrings>
+  <system.web>
+    <compilation debug="false" targetFramework="4.8" />
+    <httpRuntime targetFramework="4.8" />
+    <pages>
+      <namespaces>
+        <add namespace="System.Web.Optimization" />
+      </namespaces>
+    </pages>
+  </system.web>
+</configuration>
+```
+
+#### 9.6.2 ASPX Step-by-Step Reporting Wizard with AJAX `UpdatePanel`
+To replicate the frictionless React Wizard without full-page browser updates, use ASP.NET AJAX Controls:
+
+```html
+<%@ Page Title="HSE Report Wizard" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="NewTicket.aspx.cs" Inherits="DKSH.HsePortal.WebUI.NewTicket" %>
+
+<asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
+    <div class="max-w-4xl mx-auto p-4">
+        <!-- ScriptManager acts as AJAX hub -->
+        <asp:ScriptManager ID="HseScriptManager" runat="server" />
+
+        <asp:UpdatePanel ID="WizardUpdatePanel" runat="server" UpdateMode="Conditional">
+            <ContentTemplate>
+                
+                <!-- STEP INDICATOR BAR -->
+                <div class="flex items-center justify-between mb-6 bg-white p-4 rounded shadow-sm border border-gray-100">
+                    <span class='font-bold text-xs <%= ActiveStep == 1 ? "text-red-700" : "text-gray-400" %>'>1. General Info</span>
+                    <span class="text-gray-300">/</span>
+                    <span class='font-bold text-xs <%= ActiveStep == 2 ? "text-red-700" : "text-gray-400" %>'>2. Involved Roster</span>
+                    <span class="text-gray-300">/</span>
+                    <span class='font-bold text-xs <%= ActiveStep == 3 ? "text-red-700" : "text-gray-400" %>'>3. Classification</span>
+                    <span class="text-gray-300">/</span>
+                    <span class='font-bold text-xs <%= ActiveStep == 4 ? "text-red-700" : "text-gray-400" %>'>4. Root Cause (RCA)</span>
+                </div>
+
+                <!-- STEP CONTENT CONTAINERS -->
+                <asp:MultiView ID="WizardMultiView" runat="server" ActiveViewIndex="0">
+                    
+                    <!-- STEP 1: GENERAL INFO -->
+                    <asp:View ID="Step1View" runat="server">
+                        <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+                            <h2 class="text-lg font-bold text-slate-800 mb-4">Step 1: General Incident Specifications</h2>
+                            
+                            <div class="mb-4">
+                                <label class="block text-xs font-semibold text-gray-600 mb-1">Incident Title *</label>
+                                <asp:TextBox ID="txtTitle" runat="server" CssClass="w-full p-2 border border-gray-300 rounded focus:border-red-600 outline-none h-10" />
+                                <asp:RequiredFieldValidator ID="rfvTitle" runat="server" ControlToValidate="txtTitle" ErrorMessage="Title is mandatory" ForeColor="Red" Display="Dynamic" ValidationGroup="Step1Group" />
+                            </div>
+
+                            <div class="mb-4">
+                                <label class="block text-xs font-semibold text-gray-600 mb-1">Distribution Center Location *</label>
+                                <asp:DropDownList ID="ddlDc" runat="server" CssClass="w-full p-2 border border-gray-300 rounded h-10 bg-white" />
+                            </div>
+                        </div>
+                    </asp:View>
+
+                    <!-- STEP 2: INVOLVED ROSTER -->
+                    <asp:View ID="Step2View" runat="server">
+                        <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+                            <h2 class="text-lg font-bold text-slate-800 mb-4">Step 2: Personnel Rosters</h2>
+                            <!-- Roster insertion GridView -->
+                            <asp:GridView ID="gvInvolved" runat="server" AutoGenerateColumns="False" CssClass="w-full text-left text-xs border border-gray-200 rounded">
+                                <Columns>
+                                    <asp:BoundField DataField="Name" HeaderText="Staff Name" HeaderStyle-CssClass="bg-gray-50 p-2" ItemStyle-CssClass="p-2 border-t" />
+                                    <asp:BoundField DataField="StaffId" HeaderText="Staff ID" HeaderStyle-CssClass="bg-gray-50 p-2" ItemStyle-CssClass="p-2 border-t" />
+                                    <asp:BoundField DataField="EmployeeStatus" HeaderText="Category" HeaderStyle-CssClass="bg-gray-50 p-2" ItemStyle-CssClass="p-2 border-t" />
+                                </Columns>
+                            </asp:GridView>
+                        </div>
+                    </asp:View>
+
+                </asp:MultiView>
+
+                <!-- NAVIGATION ACTIONS PANEL -->
+                <div class="flex justify-between items-center mt-6">
+                    <asp:Button ID="btnBack" runat="server" Text="← Previous Step" CssClass="px-4 py-2 bg-gray-100 text-gray-600 rounded text-xs font-bold hover:bg-gray-200" OnClick="BtnBack_Click" Visible="false" />
+                    <asp:Button ID="btnNext" runat="server" Text="Next Step →" CssClass="px-4 py-2 bg-red-600 text-white rounded text-xs font-bold hover:bg-red-700" OnClick="BtnNext_Click" ValidationGroup="Step1Group" />
+                </div>
+
+            </ContentTemplate>
+        </asp:UpdatePanel>
+    </div>
+</asp:Content>
+```
+
+#### 9.6.3 Code-Behind Logical Operations (`NewTicket.aspx.cs`)
+Coordinates multi-view state changes asynchronously during client interactions:
+
+```csharp
+namespace DKSH.HsePortal.WebUI
+{
+    using System;
+    using System.Web.UI;
+    using DKSH.HsePortal.BusinessObjects;
+
+    public partial class NewTicket : Page
+    {
+        public int ActiveStep
+        {
+            get => (int)(ViewState["ActiveStep"] ?? 1);
+            set => ViewState["ActiveStep"] = value;
+        }
+
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            if (!IsPostBack)
+            {
+                ActiveStep = 1;
+                WizardMultiView.ActiveViewIndex = 0;
+                BindDistributionCenters();
+            }
+        }
+
+        private void BindDistributionCenters()
+        {
+            // Integration with Business Facade layer
+            ddlDc.Items.Clear();
+            ddlDc.Items.Add(new System.Web.UI.WebControls.ListItem("Bangna Logistics Hub", "DC-TH-001"));
+            ddlDc.Items.Add(new System.Web.UI.WebControls.ListItem("Singapore Logistics Center", "DC-SG-001"));
+        }
+
+        protected void BtnNext_Click(object sender, EventArgs e)
+        {
+            if (ActiveStep == 1)
+            {
+                // Validate Page logic
+                ActiveStep = 2;
+                WizardMultiView.ActiveViewIndex = 1;
+                btnBack.Visible = true;
+            }
+            else if (ActiveStep == 2)
+            {
+                ActiveStep = 3;
+                WizardMultiView.ActiveViewIndex = 2;
+            }
+            WizardUpdatePanel.Update();
+        }
+
+        protected void BtnBack_Click(object sender, EventArgs e)
+        {
+            if (ActiveStep == 2)
+            {
+                ActiveStep = 1;
+                WizardMultiView.ActiveViewIndex = 0;
+                btnBack.Visible = false;
+            }
+            else if (ActiveStep == 3)
+            {
+                ActiveStep = 2;
+                WizardMultiView.ActiveViewIndex = 1;
+            }
+            WizardUpdatePanel.Update();
+        }
+    }
+}
+```
+
+---
+
+### 9.7 Layer 6: Enterprise Identity Integrations (OWIN OpenID Connect Startup)
+
+Enterprise SSO authenticates operations via OpenID Connect. The claims-mapping middleware intercepts context attributes to resolve role authorizations:
+
+```csharp
+using Microsoft.Owin;
+using Owin;
+
+[assembly: OwinStartup(typeof(DKSH.HsePortal.WebUI.Startup))]
+
+namespace DKSH.HsePortal.WebUI
+{
+    using System;
+    using System.Security.Claims;
+    using Microsoft.Owin.Security;
+    using Microsoft.Owin.Security.Cookies;
+    using Microsoft.Owin.Security.OpenIdConnect;
+
+    public class Startup
+    {
+        public void Configuration(IAppBuilder app)
+        {
+            app.SetDefaultSignInAsAuthenticationType(CookieAuthenticationDefaults.AuthenticationType);
+
+            app.UseCookieAuthentication(new CookieAuthenticationOptions());
+
+            app.UseOpenIdConnectAuthentication(new OpenIdConnectAuthenticationOptions
+            {
+                ClientId = "your-dksh-azure-ad-client-id",
+                Authority = "https://login.microsoftonline.com/your-tenant-id/v2.0",
+                RedirectUri = "https://hse.dksh.com/signin-oidc",
+                PostLogoutRedirectUri = "https://hse.dksh.com/logout",
+                Scope = "openid profile email",
+                
+                Notifications = new OpenIdConnectAuthenticationNotifications
+                {
+                    SecurityTokenValidated = async n =>
+                    {
+                        var identity = n.AuthenticationTicket.Identity;
+                        
+                        // Extract Active Directory claims to assign standard system roles
+                        string userEmail = identity.FindFirst(ClaimTypes.Email)?.Value ?? "";
+                        
+                        // Map claims dynamically to DKSH role structures
+                        if (userEmail.EndsWith("@dksh.com"))
+                        {
+                            if (userEmail.Contains(".admin"))
+                            {
+                                identity.AddClaim(new Claim(ClaimTypes.Role, "Superuser"));
+                            }
+                            else if (userEmail.Contains(".mgr"))
+                            {
+                                identity.AddClaim(new Claim(ClaimTypes.Role, "Country HSE Manager"));
+                            }
+                            else
+                            {
+                                identity.AddClaim(new Claim(ClaimTypes.Role, "Reporter"));
+                            }
+                        }
+                    }
+                }
+            });
+        }
+    }
+}
+```
+
+---
+
+### 9.8 Checklist for Production Launch in IIS Express & Windows IIS Server
+
+To ensure zero downtime and strict adherence to DKSH corporate hosting guidelines during rebuild execution:
+
+1. **Host Configuration**: Register the site as a local IIS website on **Port 443** (HTTPS is mandatory for OpenID cookies). Enable **ASP.NET 4.8** inside Windows Features under `Internet Information Services -> World Wide Web Services -> Application Development Features`.
+2. **App Pool Specifications**: Provision a dedicated IIS Application Pool (`DkshHsePool`) running in **Integrated Mode** using the **.NET CLR Version v4.0** runtime. Set `Idle Time-out (minutes)` to `0` for continuous calculator caching readiness.
+3. **Db Connection Encryption**: Configure the database Connection String in `Web.config` with `Encrypt=True` and `TrustServerCertificate=False` to prevent intermediate packet eavesdropping inside internal DKSH networks.
+4. **PDPA Integrity Compliance**: Implement database-level column masking on the `RosterMember.StaffId` and `RosterMember.Name` fields for draft records, aligning with Step 3's consent validation parameters.

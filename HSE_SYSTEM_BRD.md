@@ -29,44 +29,7 @@ The **DKSH HSE Incident & CAPA Compliance Portal** is designed to digitize, stan
 
 ---
 
-## 2. Core Architecture & System Landscape
-
-The application is structured as an interactive, fully responsive full-stack single-page application built on **React 18+**, **Vite**, **TypeScript**, and **Tailwind CSS**. Data persistence is handled via a structured **Local Storage Hydration Engine** with fallback presets to simulate persistent databases in isolated sandboxed environments.
-
-### 2.1 Context Flow & Component Map
-
-```
-                     +---------------------------------------+
-                     |              src/App.tsx              |
-                     |  - Central State: Reports, DCs, Hours |
-                     |  - Active User Role & Market Context  |
-                     +-------------------+-------------------+
-                                         |
-         +-------------------------------+-------------------------------+
-         |                               |                               |
-         v                               v                               v
-+------------------+           +------------------+            +------------------+
-|  Dashboard.tsx   |           |  InspectionForm  |            |   TicketsLog.tsx |
-|  - Regional View |           |  - Step 1: Info  |            |  - Search &      |
-|  - Country View  |           |  - Step 2: Rosters|           |    Filter Panel  |
-|  - Labor Hours   |           |  - Step 3: Body   |            |  - Detail Drawer |
-|    Grid          |           |    Map & Classify|            |  - Action Panel  |
-|  - Date Selector |           |  - Step 4: CAPA & |            +------------------+
-+------------------+           |    5-Whys         |
-                               +--------+---------+
-                                        |
-                                        v
-                               +------------------+
-                               |  HumanFigure.tsx |
-                               |  - SVGAffected   |
-                               |    Interactive   |
-                               |    Anatomy       |
-                               +------------------+
-```
-
----
-
-## 3. Role-Based Access Control (RBAC) Matrix
+## 2. Role-Based Access Control (RBAC) Matrix
 
 To secure corporate data, four distinct system roles are supported. Each role dictates read, write, edit, and configuration capabilities across modules.
 
@@ -83,20 +46,20 @@ To secure corporate data, four distinct system roles are supported. Each role di
 
 ---
 
-## 4. Module Specifications & Functional Workflows
+## 3. Module Specifications & Functional Workflows
 
-### 4.1 Module 1: The HSE Performance Dashboard
+### 3.1 Module 1: The HSE Performance Dashboard
 
 The dashboard supports two display modes based on the active state:
 1. **Regional Dashboard** (Consolidated view across all markets for Superusers)
 2. **Country Dashboard** (Localized operational statistics with input forms)
 
-#### 4.2.1 Advanced Date Range Picker
+#### 3.1.1 Advanced Date Range Picker
 - Highly interactive calendar popover featuring a two-panel structure:
   - **Left Panel (Presets)**: Includes `Last 30 Days`, `Current Month`, `YTD`, `Last Year`, etc.
   - **Right Panel**: Responsive interactive grid to manually pick a continuous range of start and end dates. Handles responsive reflowing on mobile devices (`w-[92vw]`).
 
-#### 4.2.2 Key Mathematical Performance Indicators (KPIs)
+#### 3.1.2 Key Mathematical Performance Indicators (KPIs)
 - **Safe Work Days**: Represented as a dynamic indicator displaying consecutive days without any Lost Time Injury (LTI) occurrences.
 - **Corporate Standard Frequency Rate**: The portal normalizes incident frequency rates per **1,000,000 hours worked**:
   $$\text{Standard Rate} = \frac{\text{Total Incident Cases of a Specific Type} \times 1,000,000}{\text{Total Labor Hours Worked}}$$
@@ -116,7 +79,7 @@ The dashboard supports two display modes based on the active state:
   7. **Near Misses Case Count (NM)**: Absolute count of near-miss occurrences (No.16).
   8. **Hazard Observation Case Count (HZ)**: Absolute count of hazard observations (No.17).
 
-#### 4.2.3 Interactive Labor Hours Configurator (Excel-Style Grid)
+#### 3.1.3 Interactive Labor Hours Configurator (Excel-Style Grid)
 - **Grid Layout**: Monthly matrix dividing labor categories into **Employee Hours** and **Other/Contractor Hours**.
 - **Calculations**: Sum totals are generated in real-time.
 - **Lock & Save Security**: Input fields are strictly disabled for the `Reporter` role. `Level2` and `Superuser` roles can input numbers and click "Save & Unlock" to write directly to database state (simulated via LocalStorage).
@@ -135,7 +98,7 @@ The dashboard supports two display modes based on the active state:
 
 ---
 
-### 4.2 Module 2: Step-by-Step Reporting Wizard (InspectionForm)
+### 3.2 Module 2: Step-by-Step Reporting Wizard (InspectionForm)
 
 Designed as a structured multi-step wizard to guide users from initial notification to official closure.
 
@@ -248,7 +211,7 @@ Designed as a structured multi-step wizard to guide users from initial notificat
 
 ---
 
-### 4.3 Unified User Journey & Incident Life Cycle Flow
+### 3.3 Unified User Journey & Incident Life Cycle Flow
 
 Below is the structured, end-to-end user journey mapping out how an incident ticket progresses from the initial physical event to official investigation, Corrective Action (CAPA) implementation, and final administrative closure.
 
@@ -308,7 +271,7 @@ Below is the structured, end-to-end user journey mapping out how an incident tic
 
 ---
 
-### 4.4 Module 3: My HSE Tickets Log & Search Engine
+### 3.4 Module 3: My HSE Tickets Log & Search Engine
 - **Objective**: Operational database explorer for managing open tickets, reviewing drafts, and updating records.
 - **Key Features**:
   - **Text Search**: Real-time fuzzy filtering across titles, locations, owners, and descriptions.
@@ -327,7 +290,7 @@ Below is the structured, end-to-end user journey mapping out how an incident tic
 
 ---
 
-### 4.5 Module 4: Masters Configuration (DC Config)
+### 3.5 Module 4: Masters Configuration (DC Config)
 - **Objective**: Manage organizational units (Distribution Centers) dynamically.
 - **Controls**:
   - **Site Registration**: Add Distribution Centers by specifying Name, Operating Country, and Assigned Manager. (Restricted to Regional HSE Manager / Superuser only).
@@ -344,13 +307,13 @@ Below is the structured, end-to-end user journey mapping out how an incident tic
 
 ---
 
-## 5. Non-Functional Specifications & Design Standards
+## 4. Non-Functional Specifications & Design Standards
 
-### 5.1 Corporate Brand Identity & Design Token System
+### 4.1 Corporate Brand Identity & Design Token System
 
 To align with the official **DKSH Corporate Styling Guidelines**, the application strictly employs a unified design token system for colors, typography, and visual branding:
 
-#### 5.1.1 Certified Color Palette
+#### 4.1.1 Certified Color Palette
 | Token Category | Token Name | Hex Code | Applied System Context |
 | :--- | :--- | :---: | :--- |
 | **Primary Brand** | DKSH Crimson Red | `#BE0028` | Corporate headers, branding logos, primary titles, and high-level status anchors. |
@@ -361,13 +324,13 @@ To align with the official **DKSH Corporate Styling Guidelines**, the applicatio
 | **Section Background** | Clean Slate Gray | `#F8FAFC` | Inner tables, nested headers, and alternating row backgrounds. |
 | **Digital Accents** | Interactive Blues | `#90E0EF`, `#00B4D8`, `#0077B6` | Interactive hover highlights, informational micro-copy, and active links. |
 
-#### 5.1.2 Typography & Aspect Ratios
+#### 4.1.2 Typography & Aspect Ratios
 - **Typography Stack**: High-accessibility sans-serif pairing using `"Noto Sans", "Arial", sans-serif` to ensure global language support, pristine rendering, and strong contrast.
 - **Brand Logo Aspect Ratio**: The DKSH brand logo is locked to an exact height of `32px` with a fluid auto-width and strict `object-fit: contain`. This completely prevents horizontal or vertical distortion while maintaining branding clear-space guidelines.
 
 ---
 
-### 5.2 Responsive Layout Standards & Adaptive Viewport Architecture
+### 4.2 Responsive Layout Standards & Adaptive Viewport Architecture
 
 All elements are built with a strict **Mobile-First Responsive Workflow** ensuring absolute visual coherence from mobile screens (<768px) to wide-screen desktop displays (>=1024px).
 
@@ -397,7 +360,7 @@ All elements are built with a strict **Mobile-First Responsive Workflow** ensuri
 +-----------------------------------------------------------------------------+
 ```
 
-#### 5.2.1 Mobile Viewport Specifications (< 768px)
+#### 4.2.1 Mobile Viewport Specifications (< 768px)
 - **Edge-to-Edge Root Canvas**: Root container, body, and app-shell fully collapse horizontal margins and padding (`padding-inline: 0; margin-inline: 0`) to capture every available pixel of screen space.
 - **Unbounded Stage Background**: The grey background container (`#F4F4F4`) stretches fully edge-to-edge with `width: 100%` and zero border-radius.
 - **Minimized Spacing Spacers**: Inside the grey stage, outer margins and card spacers are restricted to a strict range of `8px` to `12px` (using a unified `.global-form-container` wrapper) to preserve horizontal space.
@@ -406,10 +369,10 @@ All elements are built with a strict **Mobile-First Responsive Workflow** ensuri
 - **"One-Thumb" Mobile Navigation**: A fixed bottom navigation bar is loaded to allow easy single-hand thumb transitions between the Regional Dashboard, Country Dashboard, Incident Log, Report Wizard, and Masters screens.
 - **Symmetric 2x2 Grid Statistics**: Dashboard metrics counters (Total, Investigating, Closed, and Draft counts) reflow into a balanced `2x2` CSS grid to prevent text clipping and fit neatly within a single screen.
 
-#### 5.2.2 Tablet Viewport Specifications (768px - 1023px)
+#### 4.2.2 Tablet Viewport Specifications (768px - 1023px)
 - **Centered Form Layout**: Form cards are constrained to a balanced maximum width of `600px` (`margin: 0 auto`) to avoid horizontal stretch and keep inputs comfortably grouped.
 
-#### 5.2.3 Desktop Viewport Specifications (>= 1024px)
+#### 4.2.3 Desktop Viewport Specifications (>= 1024px)
 - **Maximum Width & Side-by-Side Split**: Outer containers are bounded at `max-width: 1440px` with a sidebar structure. The main HSE Incident Record card expands fluidly (`flex: 1`) to fill the left column, while the "Active Drafts Catalog" anchors to a clean right-hand sidebar (`width: 320px`).
 - **Multi-Column Auto-Grid**: Cramped form fields inside cards (such as Person Injured details) automatically reflow into highly legible grid structures (`grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px;`).
 - **High-Density Ribbon (Labor Hours Entry)**: The labor hours section transforms into an ultra-compact single-row "ribbon" (`flex-direction: row; align-items: flex-end; gap: 24px;` with compact `12px 20px` padding). Direct numeric input container widths are compressed to a maximum of `130px` to `140px` to optimize screen density.
@@ -418,14 +381,14 @@ All elements are built with a strict **Mobile-First Responsive Workflow** ensuri
 
 ---
 
-### 5.3 Common Usability, Accessibility & Interaction Rules
+### 4.3 Common Usability, Accessibility & Interaction Rules
 - **Accessible Touch Targets**: All interactive buttons, text inputs, dropdown selectors, and checklists maintain a minimum height of **48px** on touch devices to comply with standard mobile usability guidelines.
 - **Collapsible Filter Accordions**: Desktop and tablet filter bars are grouped into a high-contrast collapsible accordion panel, freeing up to `250px` of vertical screen height for direct dashboard data view.
 - **Tables and Dense Data Displays**: All dense tabular data grids (such as Involved Rosters and Witness tables) are wrapped inside horizontal scroll wrappers (`overflow-x-auto`) with elegant trailing shadows to indicate scrollability on small screens.
 
 ---
 
-## 6. Audit Logging & Security Compliance
+## 5. Audit Logging & Security Compliance
 
 - **Central Audit Record**: Each state modification (saving working hours, changing site configurations, submitting incident reports) triggers an internal record write containing the active coordinator's identifier and timestamp.
 - **Data Protection Compliance**: Restricts local coordinators (`Reporter` role) from viewing other markets' safety data or accessing direct database tables.
@@ -433,7 +396,7 @@ All elements are built with a strict **Mobile-First Responsive Workflow** ensuri
 
 ---
 
-## 7. Operational Workflow Acceptance Matrix
+## 6. Operational Workflow Acceptance Matrix
 
 To verify that the application complies with all business rules, it must pass the following scenarios:
 
@@ -451,7 +414,7 @@ To verify that the application complies with all business rules, it must pass th
 
 ---
 
-## 8. Key User Journeys
+## 7. Key User Journeys
 
 To illustrate the real-world operational flows within the DKSH HSE CAPA System, the following user journeys define the exact paths of our primary target personas:
 

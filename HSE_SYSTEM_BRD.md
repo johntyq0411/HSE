@@ -441,3 +441,176 @@ To illustrate the real-world operational flows within the DKSH HSE CAPA System, 
   1. **Consolidated Overview**: Navigates to the "Regional Dashboard", reviewing high-level safety trend charts and country-level comparison tables across all operational countries.
   2. **Master Site List Updates**: Navigates to the restricted "Masters (DC Config)" tab. As a regional superuser, they possess authorization to append newly commissioned distribution centers and toggle the operational status of existing sites.
   3. **Compliance Sign-off**: Audits all open tickets with active CAPA items, conducts final verification, and closes out the resolved investigations to archive them securely.
+
+---
+
+## 8. Technical Architecture & Core Data Schemas
+
+To enable seamless, deterministic software rebuilding by automated SDLC AI engines or engineering squads, this section specifies the precise technical architecture, data model structures, state management lifecycle, and algorithmic calculation requirements.
+
+### 8.1 Core Entities and TypeScript Interfaces
+
+The system's complete business state is structured according to the following strongly typed definitions:
+
+#### 8.1.1 Incident Report / Ticket (`IncidentReport`)
+Tracks the end-to-end lifecycle of a logged safety occurrence.
+
+```typescript
+export enum TicketStatus {
+  DRAFT = "Draft",
+  INVESTIGATING = "Investigating",
+  CLOSED = "Closed"
+}
+
+export enum IncidentCategory {
+  INJURY = "Injury",
+  ILL_HEALTH = "Ill-health",
+  PROPERTY_DAMAGE = "Property damaged",
+  NEAR_MISS = "Near miss",
+  HAZARD_OBSERVATION = "Hazard Observation"
+}
+
+export interface RosterMember {
+  id: string; // Unique UUID
+  name: string;
+  staffId: string;
+  department: string;
+  businessUnit: string;
+  employeeStatus: "Direct Employee" | "Contractor";
+  injuryDesignation?: "Injured" | "Involved";
+  specificLocation?: string;
+}
+
+export interface IncidentReport {
+  id: string; // Unique tracking ID (e.g., "TKT-2026-001")
+  title: string;
+  category: IncidentCategory;
+  reportingDate: string; // ISO String (YYYY-MM-DD)
+  reportingTime: string; // HH:MM
+  dcId: string; // References DistributionCenter.id
+  ccEmails: string; // Semicolon-separated email string
+  
+  // Rosters from Step 2
+  involvedPersonnel: RosterMember[];
+  witnesses: RosterMember[];
+  
+  // Safety Classification from Step 3
+  injuredBodyParts: string[]; // List of toggled anatomical nodes (e.g. ["Knee", "Hand"])
+  criteriaChecklist: number[]; // Indices of selected items from 17-point criteria (1-17)
+  severityClass: "LTI" | "MTC" | "FAC" | "Near Miss" | "Hazard" | "Other";
+  
+  // Form fields for specific checklist triggers
+  fatalitiesCount?: number; // Linked to Item 7
+  highConsequenceCount?: number; // Linked to Item 8
+  absenceCount?: number; // Linked to Item 9
+  lostTimeDays?: number; // Linked to Item 9.1
+  restrictedWorkCount?: number; // Linked to Item 10
+  lossOfConsciousnessCount?: number; // Linked to Item 11
+  medicalTreatmentCount?: number; // Linked to Item 12
+  significantInjuryCount?: number; // Linked to Item 13
+  firstAidCount?: number; // Linked to Item 14
+  
+  // Investigation from Step 4 (RCA & CAPA)
+  why1DirectCause?: string;
+  why2Technical?: string;
+  why3HumanAction?: string;
+  why4Management?: string;
+  why5SystemicRoot?: string;
+  immediateCorrectiveAction?: string;
+  longTermPreventiveAction?: string;
+  actionOwner?: string;
+  targetDueDate?: string; // ISO String (YYYY-MM-DD)
+  
+  // Sign-off Close Metadata
+  status: TicketStatus;
+  signoffVerifier?: string;
+  signoffClosureDate?: string; // ISO String (YYYY-MM-DD)
+  closingComments?: string;
+  
+  // Governance
+  pdpaConsentGiven: boolean;
+  createdByEmail: string;
+  createdByCountry: string; // Capitalized full name of country (e.g., "Thailand")
+  createdAt: string; // ISO Timestamp
+  updatedAt: string; // ISO Timestamp
+}
+```
+
+#### 8.1.2 Monthly Labor Hours Record (`LaborHoursRecord`)
+Stores the operating labor exposure hours used to calculate standard frequency indexes.
+
+```typescript
+export interface LaborHoursRecord {
+  id: string; // Unique compound key: "country-year-month" (e.g., "thailand-2026-07")
+  country: string; // Full capitalized country name
+  year: number; // e.g. 2026
+  month: number; // 1 to 12
+  employeeHours: number; // Decimal support
+  contractorHours: number; // Decimal support
+  totalHours: number; // Derived: employeeHours + contractorHours
+  updatedByEmail: string;
+  updatedAt: string; // ISO Timestamp
+}
+```
+
+#### 8.1.3 Distribution Center / Site Master (`DistributionCenter`)
+Defines organizational facilities available for safety logging.
+
+```typescript
+export interface DistributionCenter {
+  id: string; // Unique alphanumeric key (e.g., "DC-TH-001")
+  name: string; // e.g., "Bangna Logistics Hub"
+  country: string; // Full capitalized country name (e.g., "Thailand")
+  plantManager: string; // Assigned supervisor
+  isActive: boolean; // Toggle status
+}
+```
+
+### 8.2 State Hydration & Storage Engine
+
+The application manages data locally via a **Local Storage Hydration Engine** that simulates a cloud-hosted relational DB.
+
+#### 8.2.1 LocalStorage Keys Namespace
+To prevent collision with other applications, the system binds strictly to the following keys:
+- `dksh_hse_reports`: JSON array of `IncidentReport[]`.
+- `dksh_hse_hours`: JSON array of `LaborHoursRecord[]`.
+- `dksh_hse_dcs`: JSON array of `DistributionCenter[]`.
+- `dksh_active_session`: JSON object of the current mock user profile (contains `role`, `email`, `defaultCountry`).
+
+#### 8.2.2 Cold-Start Boot & Seeding Logic
+On initial application launch, if local storage keys are undefined or empty, the system executes a boot-strap routine to seed default data:
+1. **Distribution Centers**: Pre-populates 5-10 core hubs across Singapore, Malaysia, Thailand, Vietnam, and Indonesia.
+2. **Labor Hours**: Pre-populates historical monthly exposure hours for the last 12 months for each active country.
+3. **Sample Tickets**: Injects at least 3 high-quality historical tickets:
+   - 1 `Closed` ticket showing completed RCA (5-Whys), assigned CAPA, and executive sign-off comments.
+   - 1 `Investigating` ticket showing a submitted incident awaiting manager investigation.
+   - 1 `Draft` ticket showing a partially filled form saved at Step 2.
+
+### 8.3 Mathematical Calculations & Computation Algorithms
+
+To ensure numerical consistency across all code bases, calculations must adhere to these precise program guidelines:
+
+#### 8.3.1 Safe Work Days Tracker
+- **Calculation Rule**: Measures consecutive days between the current system date and the `reportingDate` of the *most recent* incident with a severity class of `LTI` (Lost Time Injury) within the active country context.
+- **Edge Cases**:
+  - If no LTI incidents exist in the database for the active country, the system defaults to displaying **"365 Days"** (as a standard compliance baseline) or another preset threshold.
+  - Calculated as:
+    $$\text{Safe Days} = \text{floor}\left( \frac{\text{Current Date Time} - \text{Most Recent LTI Date Time}}{24 \times 60 \times 60 \times 1000} \right)$$
+
+#### 8.3.2 Lost Time Injury Frequency Rate (LTIFR)
+- **Calculation Rule**: Represents the frequency of Lost Time Injuries (severity class `LTI`) per 1,000,000 exposure hours within the selected date range.
+- **Algorithm**:
+  1. Retrieve all incident reports for the selected country where `reportingDate` falls inside the selected start/end date range and `severityClass === "LTI"`. Count the total as $N_{LTI}$.
+  2. Retrieve all labor hours records for the selected country falling within the months included in the selected date range. Sum `totalHours` as $H_{total}$.
+  3. Safe-division handler: If $H_{total} = 0$, return `0.00` to prevent division-by-zero errors.
+  4. Formulate:
+     $$\text{LTIFR} = \frac{N_{LTI} \times 1,000,000}{H_{total}}$$
+
+#### 8.3.3 Total Recordable Injury Rate (TRIR)
+- **Calculation Rule**: Measures total recordable injuries (LTI + Medical Treatment Cases + Restricted Work Cases) per 1,000,000 exposure hours.
+- **Algorithm**:
+  1. Filter incident reports where `reportingDate` is within bounds and `severityClass` is one of `["LTI", "MTC"]`. Count the total as $N_{recordable}$.
+  2. Compute total working hours $H_{total}$ across those months.
+  3. Safe-division handler: If $H_{total} = 0$, return `0.00`.
+  4. Formulate:
+     $$\text{TRIR} = \frac{N_{recordable} \times 1,000,000}{H_{total}}$$

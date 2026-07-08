@@ -420,6 +420,49 @@ To illustrate the real-world operational flows within the DKSH HSE CAPA System, 
 
 ### Journey 1: The First-Line Frontline Reporter (Level 1 Role)
 * **Context**: A warehouse supervisor witness at a distribution center discovers a hazard or witnesses a minor injury.
+
+```
+                    [ START: FRONT-LINE INCIDENT / HAZARD ]
+                                      │
+                                      ▼
+                   ┌──────────────────────────────────────┐
+                   │       STEP 1: INITIAL LOGGING        │
+                   │  - Navigates to "New Ticket" tab     │
+                   │  - Inputs category, date, time & DC  │
+                   └──────────────────┬───────────────────┘
+                                      │
+                                      ▼
+                   ┌──────────────────────────────────────┐
+                   │    STEP 2: ENROLL STAFF & WITNESS    │
+                   │  - Adds names, IDs, departments      │
+                   └──────────────────┬───────────────────┘
+                                      │
+                         Supervisor needs missing ID?
+                                ├─── [YES] ───► [Save Draft (Local Storage cache)]
+                                │                         │
+                                │                         ▼
+                                │               [Search Tickets Log]
+                                │                         │
+                                │                         ▼
+                                │               [Click "Edit" on Draft]
+                                │                         │
+                                └───◄─────────────────────┘
+                                      │
+                                      ▼
+                   ┌──────────────────────────────────────┐
+                   │  STEP 3: CLASSIFY & PDPA CONSENT     │
+                   │  - Toggles affected anatomy parts    │
+                   │  - Rates severity on 17-point list   │
+                   │  - Signs mandatory PDPA checkbox     │
+                   └──────────────────┬───────────────────┘
+                                      │
+                                      ▼
+                      [ SUBMIT TICKET FOR INVESTIGATION ]
+                        - Ticket saved as "Investigating"
+                        - System triggers cc-notifications
+                        - Restricted from Step 4 access
+```
+
 * **Flow Steps**:
   1. **Accessing the Form**: The reporter opens the application on their mobile tablet, navigating immediately to the "New Ticket" tab.
   2. **Context Logging (Step 1)**: Selects the date, time, and incident category (e.g., Near Miss), then inputs the active Distribution Center.
@@ -429,6 +472,52 @@ To illustrate the real-world operational flows within the DKSH HSE CAPA System, 
 
 ### Journey 2: The Country HSE Manager (Level 2 Role)
 * **Context**: An HSE Manager responsible for operations in a single country (e.g., Thailand) logs in to manage local KPIs and investigate tickets.
+
+```
+                       [ START: COUNTRY MANAGER LOGIN ]
+                                      │
+                                      ▼
+                   ┌──────────────────────────────────────┐
+                   │       COUNTRY DASHBOARD AUDIT        │
+                   │  - Pre-filtered to active market     │
+                   │  - Reviews Safe Days & dynamic KPIs  │
+                   └──────────────────┬───────────────────┘
+                                      │
+                                      ▼
+                   ┌──────────────────────────────────────┐
+                   │      MONTHLY LABOR HOURS ENTRY       │
+                   │  - Inputs employee & contractor hrs  │
+                   │  - Updates LTIFR & TRIR values       │
+                   └──────────────────┬───────────────────┘
+                                      │
+                                      ▼
+                   ┌──────────────────────────────────────┐
+                   │        SELECT ACTIVE TICKET          │
+                   │  - Explores local "Tickets Log"      │
+                   │  - Locates "Investigating" records   │
+                   └──────────────────┬───────────────────┘
+                                      │
+                                      ▼
+                   ┌──────────────────────────────────────┐
+                   │      STEP 4: RCA 5-WHYS ANALYSIS     │
+                   │  - Diagnoses technical, human, and   │
+                   │    systemic root failure causes      │
+                   └──────────────────┬───────────────────┘
+                                      │
+                                      ▼
+                   ┌──────────────────────────────────────┐
+                   │     CAPA IMPLEMENTATION & CLOSURE    │
+                   │  - Defines containment actions       │
+                   │  - Assigns owners & target deadlines │
+                   │  - Commits verifier name & comments  │
+                   └──────────────────┬───────────────────┘
+                                      │
+                                      ▼
+                        [ TICKET TRANSITIONS TO "CLOSED" ]
+                        - Dynamic dashboard metrics sync
+                        - Records archived in master log
+```
+
 * **Flow Steps**:
   1. **Local Performance Audit**: Navigates to the "Country Dashboard" to audit local statistics. The multi-market system automatically pre-filters the view specifically to Thailand.
   2. **Operational Logging**: Clicks the restricted "Insert Labor Hours" action block, enters the active operational month, and logs the latest work hours to keep safety rate computations (LTIFR / TRIFR) mathematically precise.
@@ -437,6 +526,37 @@ To illustrate the real-world operational flows within the DKSH HSE CAPA System, 
 
 ### Journey 3: The Regional HSE Manager / Superuser (Level 3 Role)
 * **Context**: A regional director oversees safety standards across all of Asia-Pacific and needs global configuration rights.
+
+```
+                       [ START: REGIONAL SUPERUSER LOGIN ]
+                                      │
+                                      ▼
+                   ┌──────────────────────────────────────┐
+                   │       REGIONAL DASHBOARD AUDIT       │
+                   │  - Global view over all APAC markets │
+                   │  - Toggles between national contexts │
+                   └──────────────────┬───────────────────┘
+                                      │
+                                      ▼
+                   ┌──────────────────────────────────────┐
+                   │    MASTERS (DC CONFIGURATION) TAB    │
+                   │  - Appends new distribution centers  │
+                   │  - Configures names, country & mgrs  │
+                   │  - Toggles active/inactive state     │
+                   └──────────────────┬───────────────────┘
+                                      │
+                                      ▼
+                   ┌──────────────────────────────────────┐
+                   │       COMPLIANCE SIGN-OFF AUDIT      │
+                   │  - Reviews regional CAPA outcomes    │
+                   │  - Verifies status across markets    │
+                   │  - Direct data access & modifications│
+                   └──────────────────┬───────────────────┘
+                                      │
+                                      ▼
+                        [ END-TO-END SYSTEM STANDARDS ]
+```
+
 * **Flow Steps**:
   1. **Consolidated Overview**: Navigates to the "Regional Dashboard", reviewing high-level safety trend charts and country-level comparison tables across all operational countries.
   2. **Master Site List Updates**: Navigates to the restricted "Masters (DC Config)" tab. As a regional superuser, they possess authorization to append newly commissioned distribution centers and toggle the operational status of existing sites.

@@ -718,9 +718,16 @@ function createPdf(title, subtitle, mdFile, outFile) {
     }
   });
 
-  // Save the generated PDF
-  doc.save(outFile);
-  console.log(`Successfully generated PDF: ${outFile}`);
+  // Save the generated PDF using a binary Buffer to prevent encoding corruption in Node.js
+  try {
+    const pdfBuffer = Buffer.from(doc.output("arraybuffer"));
+    fs.writeFileSync(outFile, pdfBuffer);
+    console.log(`Successfully generated PDF: ${outFile}`);
+  } catch (err) {
+    console.error(`Error saving PDF via Buffer, falling back to doc.save:`, err);
+    doc.save(outFile);
+    console.log(`Successfully generated PDF (fallback): ${outFile}`);
+  }
   if (outFile.startsWith("public/")) {
     const rootPath = outFile.substring("public/".length);
     try {
@@ -747,6 +754,21 @@ createPdf(
   "Business Requirements Document (BRD) - Platform Specification",
   "HSE_SYSTEM_BRD.md",
   "public/HSE_SYSTEM_BRD.pdf"
+);
+
+// Generate HSE User Sign-Off BRD
+createDocx(
+  "HSE Incident & CAPA Compliance Portal",
+  "Business Requirements Document (BRD) - Business User Sign-Off Specification",
+  "USER_SIGN_OFF_BRD.md",
+  "public/USER_SIGN_OFF_BRD.docx"
+);
+
+createPdf(
+  "HSE Incident & CAPA Compliance Portal",
+  "Business Requirements Document (BRD) - Business User Sign-Off Specification",
+  "USER_SIGN_OFF_BRD.md",
+  "public/USER_SIGN_OFF_BRD.pdf"
 );
 
 // Generate Report Extraction BRD

@@ -361,6 +361,18 @@ export default function App() {
                 
                 <div className="border-t border-gray-100 my-1.5"></div>
                 
+                <div className="px-3 py-1 text-[9px] uppercase font-bold text-gray-400 font-mono tracking-wider">Business User Sign-Off</div>
+                <a href="/USER_SIGN_OFF_BRD.pdf" download="USER_SIGN_OFF_BRD.pdf" className="flex items-center justify-between px-3 py-1.5 hover:bg-red-50 hover:text-red-700 text-xs font-medium text-slate-700 transition-colors">
+                  <span className="flex items-center gap-1.5">📁 Business Sign-Off (PDF)</span>
+                  <span className="text-[9px] font-mono text-slate-400 bg-slate-100 px-1 py-0.2 rounded">PDF</span>
+                </a>
+                <a href="/USER_SIGN_OFF_BRD.docx" download="USER_SIGN_OFF_BRD.docx" className="flex items-center justify-between px-3 py-1.5 hover:bg-red-50 hover:text-red-700 text-xs font-medium text-slate-700 transition-colors">
+                  <span className="flex items-center gap-1.5">📝 Business Sign-Off (Word)</span>
+                  <span className="text-[9px] font-mono text-blue-600 bg-blue-50 px-1 py-0.2 rounded">DOCX</span>
+                </a>
+                
+                <div className="border-t border-gray-100 my-1.5"></div>
+                
                 <div className="px-3 py-1 text-[9px] uppercase font-bold text-gray-400 font-mono tracking-wider">Automated Reporting Spec</div>
                 <a href="/REPORT_EXTRACTION_BRD.pdf" download="REPORT_EXTRACTION_BRD.pdf" className="flex items-center justify-between px-3 py-1.5 hover:bg-red-50 hover:text-red-700 text-xs font-medium text-slate-700 transition-colors">
                   <span className="flex items-center gap-1.5">📁 PDF Report Spec (PDF)</span>
